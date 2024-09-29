@@ -25,6 +25,7 @@ This project implements a **genetic algorithm** to optimize a **Deutsch-Jozsa qu
 
 ## Project Structure
 
+```
 quantum_optimization/
 ├── src/
 │   ├── __init__.py                # Initialization for the package
@@ -45,15 +46,6 @@ quantum_optimization/
 │       └── test.yml               # GitHub Actions workflow for continuous testing
 ├── requirements.txt               # Python dependencies
 └── README.md                      # Project overview (this file)
-
-
-## Installation
-
-To get started with this project, follow these steps:
-
-### Clone the repository
-
-```bash
-git clone https://github.com/your-username/quantum_optimization.git
-cd quantum_optimization
 ```
+
+
