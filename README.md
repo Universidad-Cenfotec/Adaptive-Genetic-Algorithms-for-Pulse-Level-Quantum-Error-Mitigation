@@ -25,7 +25,26 @@ This project implements a **genetic algorithm** to optimize a **Deutsch-Jozsa qu
 
 ## Project Structure
 
-quantum_optimization/ ├── src/ │ ├── init.py # Initialization for the package │ ├── evaluator.py # Evaluation of genetic algorithm individuals │ ├── genetic_optimizer.py # Genetic algorithm implementation │ ├── noise_model.py # Noise models used in simulation │ ├── quantum_circuit.py # Quantum circuit implementation (Deutsch-Jozsa) │ ├── quantum_utils.py # Utility functions for quantum operations │ └── visualizer.py # Visualization of results and pulse sequences ├── tests/ │ ├── test_evaluator.py # Unit tests for Evaluator class │ ├── test_genetic_optimizer.py # Unit tests for GeneticOptimizer class │ ├── test_noise_model.py # Unit tests for NoiseModel class │ ├── test_quantum_circuit.py # Unit tests for QuantumCircuit class │ └── test_visualizer.py # Unit tests for Visualizer class ├── .github/ │ └── workflows/ │ └── test.yml # GitHub Actions workflow for continuous testing ├── requirements.txt # Python dependencies └── README.md # Project overview (this file)
+quantum_optimization/
+├── src/
+│   ├── __init__.py                # Initialization for the package
+│   ├── evaluator.py               # Evaluation of genetic algorithm individuals
+│   ├── genetic_optimizer.py       # Genetic algorithm implementation
+│   ├── noise_model.py             # Noise models used in simulation
+│   ├── quantum_circuit.py         # Quantum circuit implementation (Deutsch-Jozsa)
+│   ├── quantum_utils.py           # Utility functions for quantum operations
+│   └── visualizer.py              # Visualization of results and pulse sequences
+├── tests/
+│   ├── test_evaluator.py          # Unit tests for Evaluator class
+│   ├── test_genetic_optimizer.py  # Unit tests for GeneticOptimizer class
+│   ├── test_noise_model.py        # Unit tests for NoiseModel class
+│   ├── test_quantum_circuit.py    # Unit tests for QuantumCircuit class
+│   └── test_visualizer.py         # Unit tests for Visualizer class
+├── .github/
+│   └── workflows/
+│       └── test.yml               # GitHub Actions workflow for continuous testing
+├── requirements.txt               # Python dependencies
+└── README.md                      # Project overview (this file)
 
 
 ## Installation
