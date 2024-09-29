@@ -16,10 +16,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    # Cambiar a Python 3.10 (más compatible)
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.12
+        python-version: 3.10
 
     - name: Install dependencies
       run: |
@@ -30,7 +31,6 @@ jobs:
       run: |
         python -m unittest discover -s tests
 
-    # Actualiza la acción `upload-artifact` a la versión v3
     - name: Archive test results
       if: failure()
       uses: actions/upload-artifact@v3
