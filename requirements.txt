@@ -1,0 +1,9 @@
+numpy==1.26.4
+matplotlib
+pandas==2.1.4
+seaborn==0.13.1
+qutip==5.0.4
+qutip-qip==0.3.2
+qutip-qtrl==0.1.3
+deap==1.4
+unittest
