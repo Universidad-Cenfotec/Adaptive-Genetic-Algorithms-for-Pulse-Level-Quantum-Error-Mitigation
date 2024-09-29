@@ -48,4 +48,49 @@ quantum_optimization/
 └── README.md                      # Project overview (this file)
 ```
 
+## Installation
+
+To get started with this project, follow these steps:
+
+Clone the repository
+bash
+Copy code
+git clone https://github.com/your-username/quantum_optimization.git
+cd quantum_optimization
+Create and activate a virtual environment
+You can use venv or any other virtual environment manager:
+
+```
+python3 -m venv venv
+source venv/bin/activate    # On Windows: venv\Scripts\activate
+```
+Install dependencies
+Install the required Python packages listed in the requirements.txt file:
+
+```
+pip install -r requirements.txt
+```
+
+## Usage
+
+```
+python3 main.py
+```
+
+## Contributing
+
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
+
+1. Fork the project.
+2. Create a branch for your feature (git checkout -b feature/AmazingFeature).
+3. Commit your changes (git commit -m 'Add some AmazingFeature').
+4. Push to the branch (git push origin feature/AmazingFeature).
+5. Open a Pull Request.
+
+
+## Contact
+
+William Aguilar - [@Github](https://github.com/william2215) - wil-20-01@live.com
+
+Project Link: [https://github.com/thewill-i-am/Quantum-Optimization-test/](https://github.com/thewill-i-am/Quantum-Optimization-test/)
 
