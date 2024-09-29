@@ -1,5 +1,3 @@
-# src/evaluator.py
-
 from qutip import fidelity
 from qutip_qip.device import OptPulseProcessor, SpinChainModel
 

@@ -1,5 +1,3 @@
-# tests/test_quantum_circuit.py
-
 import unittest
 from src.quantum_circuit import QuantumCircuit
 from qutip import basis
