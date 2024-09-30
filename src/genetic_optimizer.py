@@ -68,19 +68,30 @@ class GeneticOptimizer:
 
     def _mut_dict(self, ind):
         """
-        Mutation function for individuals.
+        Mutation function for individuals using a dispatcher.
         """
+        def mutate_snot(ind):
+            ind["SNOT"]["num_tslots"] = np.random.randint(1, 10)
+            ind["SNOT"]["evo_time"] = np.random.uniform(0.1, 3)
+        
+        def mutate_x(ind):
+            ind["X"]["num_tslots"] = np.random.randint(1, 5)
+            ind["X"]["evo_time"] = np.random.uniform(0.1, 1)
+
+        def mutate_cnot(ind):
+            ind["CNOT"]["num_tslots"] = np.random.randint(1, 20)
+            ind["CNOT"]["evo_time"] = np.random.uniform(0.1, 10)
+
+        dispatcher = {
+            "SNOT": mutate_snot,
+            "X": mutate_x,
+            "CNOT": mutate_cnot
+        }
+
         key = random.choice(list(ind.keys()))
-        if key == "SNOT":
-            ind[key]["num_tslots"] = np.random.randint(1, 10)
-            ind[key]["evo_time"] = np.random.uniform(0.1, 3)
-        elif key == "X":
-            ind[key]["num_tslots"] = np.random.randint(1, 5)
-            ind[key]["evo_time"] = np.random.uniform(0.1, 1)
-        elif key == "CNOT":
-            ind[key]["num_tslots"] = np.random.randint(1, 20)
-            ind[key]["evo_time"] = np.random.uniform(0.1, 10)
+        dispatcher[key](ind) 
         return ind,
+
 
     def run(self):
         """
