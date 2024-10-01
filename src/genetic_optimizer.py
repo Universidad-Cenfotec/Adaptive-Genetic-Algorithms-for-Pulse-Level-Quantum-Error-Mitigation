@@ -95,7 +95,7 @@ class GeneticOptimizer:
 
     def run(self):
         """
-        Runs the genetic algorithm optimization.
+        Runs the genetic algorithm optimization. 
         """
         pop = self.toolbox.population(n=self.population_size)
         # Define statistics
