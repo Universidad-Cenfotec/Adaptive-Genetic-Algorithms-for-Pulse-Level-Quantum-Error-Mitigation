@@ -56,13 +56,13 @@ class Visualizer:
         for gate in parameters:
             plt.figure(figsize=(12, 6))
             plt.subplot(1, 2, 1)
-            plt.boxplot([[ind[gate]['num_tslots'] for ind in pop]], labels=[gate])
+            plt.boxplot([[ind[gate]['num_tslots'] for ind in pop]], tick_labels=[gate])
             plt.title(f'Evolution of num_tslots for {gate}')
             plt.ylabel('num_tslots')
             plt.grid(True)
 
             plt.subplot(1, 2, 2)
-            plt.boxplot([[ind[gate]['evo_time'] for ind in pop]], labels=[gate])
+            plt.boxplot([[ind[gate]['evo_time'] for ind in pop]], tick_labels=[gate])
             plt.title(f'Evolution of evo_time for {gate}')
             plt.ylabel('evo_time')
             plt.grid(True)
