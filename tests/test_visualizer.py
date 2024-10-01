@@ -1,10 +1,10 @@
-# tests/test_visualizer.py
 import unittest
 from unittest.mock import patch, MagicMock
 from src.visualizer import Visualizer
 from deap.tools import Logbook
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 class TestVisualizer(unittest.TestCase):
 
@@ -135,7 +135,7 @@ class TestVisualizer(unittest.TestCase):
         mock_show.assert_called_once()
 
     @patch('src.visualizer.plt.show')
-    @patch('src.visualizer.seaborn.heatmap')
+    @patch('src.visualizer.sns.heatmap')
     @patch('src.visualizer.plt.scatter')
     @patch('src.visualizer.plt.figure')
     @patch('src.visualizer.pd.DataFrame')
@@ -186,7 +186,7 @@ class TestVisualizer(unittest.TestCase):
         mock_show.assert_called_once()
 
     @patch('src.visualizer.plt.show')
-    @patch('src.visualizer.seaborn.histplot')
+    @patch('src.visualizer.sns.histplot')
     @patch('src.visualizer.plt.subplot')
     @patch('src.visualizer.plt.figure')
     def test_plot_histogram_parameters(self, mock_figure, mock_subplot, mock_histplot, mock_show):
