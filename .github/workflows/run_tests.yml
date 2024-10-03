@@ -41,8 +41,7 @@ jobs:
 
       - name: Lint with Ruff
         run: |
-          ruff check .
-        continue-on-error: true
+          ruff check .  # If Ruff fails, the action will now fail too
 
       - name: Run Unit Tests with Coverage
         run: |
