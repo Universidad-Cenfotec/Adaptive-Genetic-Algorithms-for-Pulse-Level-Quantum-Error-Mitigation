@@ -1,6 +1,9 @@
 import unittest
-from src.quantum_circuit import QuantumCircuit
+
 from qutip import basis
+
+from src.quantum_circuit import QuantumCircuit
+
 
 class TestQuantumCircuit(unittest.TestCase):
 

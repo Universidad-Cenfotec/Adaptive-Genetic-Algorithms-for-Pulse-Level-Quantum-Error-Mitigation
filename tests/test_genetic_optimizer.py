@@ -1,9 +1,12 @@
 import unittest
-from src.genetic_optimizer import GeneticOptimizer
-from src.evaluator import Evaluator
-from src.quantum_circuit import QuantumCircuit
-from src.noise_model import NoiseModel
+
 from qutip import Options
+
+from src.evaluator import Evaluator
+from src.genetic_optimizer import GeneticOptimizer
+from src.noise_model import NoiseModel
+from src.quantum_circuit import QuantumCircuit
+
 
 class TestGeneticOptimizer(unittest.TestCase):
 

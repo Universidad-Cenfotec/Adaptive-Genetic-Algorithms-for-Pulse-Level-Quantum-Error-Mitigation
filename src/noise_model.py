@@ -1,18 +1,22 @@
 # src/noise_model.py
 import numpy as np
-from qutip import destroy, basis, sigmax, sigmaz
+from qutip import basis, destroy, sigmax, sigmaz
+
 from .quantum_utils import QuantumUtils
+
+NON_NEGATIVE_QUBIT_ERROR = "The number of qubits must be non-negative."
 
 class NoiseModel:
     """
     Encapsulates the creation of noise channels.
     """
-    def __init__(self, num_qubits, T1=30.0, T2=15.0, bit_flip_prob=0.05, phase_flip_prob=0.05):
+
+    def __init__(self, num_qubits, t1=30.0, t2=15.0, bit_flip_prob=0.05, phase_flip_prob=0.05):
         if num_qubits < 0:
-            raise ValueError("The number of qubits must be non-negative.")
+            raise ValueError(NON_NEGATIVE_QUBIT_ERROR)
         self.num_qubits = num_qubits
-        self.T1 = T1
-        self.T2 = T2
+        self.t1 = t1
+        self.t2 = t2
         self.bit_flip_prob = bit_flip_prob
         self.phase_flip_prob = phase_flip_prob
         self.c_ops = self._create_noise_channels()
@@ -26,10 +30,10 @@ class NoiseModel:
         for qubit in range(self.num_qubits):
             # Relaxation operator
             relax_op = QuantumUtils.expand_operator(destroy(2), qubit, self.num_qubits)
-            c_ops.append(np.sqrt(1.0 / self.T1) * relax_op)
+            c_ops.append(np.sqrt(1.0 / self.t1) * relax_op)
             # Dephasing operator
             dephase_op = QuantumUtils.expand_operator(basis(2, 1) * basis(2, 1).dag(), qubit, self.num_qubits)
-            c_ops.append(np.sqrt(1.0 / (2 * self.T2)) * dephase_op)
+            c_ops.append(np.sqrt(1.0 / (2 * self.t2)) * dephase_op)
         # Bit Flip
         for qubit in range(self.num_qubits):
             bit_flip_op = QuantumUtils.expand_operator(sigmax(), qubit, self.num_qubits)

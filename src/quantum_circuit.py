@@ -1,10 +1,12 @@
 from qutip import basis
 from qutip_qip.circuit import QubitCircuit
 
+
 class QuantumCircuit:
     """
     Encapsulates the creation and configuration of the quantum circuit.
     """
+
     def __init__(self, num_qubits):
         self.num_qubits = num_qubits
         self.circuit = self._create_circuit()
@@ -40,4 +42,3 @@ class QuantumCircuit:
         Returns the target state |000> (assuming a constant function)
         """
         return basis([2] * self.num_qubits, [0] * self.num_qubits)
-    

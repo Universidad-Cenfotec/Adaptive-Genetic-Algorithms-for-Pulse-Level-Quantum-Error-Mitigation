@@ -1,4 +1,4 @@
-name: Run Unit Tests
+name: Run Unit Tests and Lint
 
 on:
   push:
@@ -37,24 +37,24 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install flake8 coverage  # Asegúrate de que flake8 y coverage estén instalados
+          pip install coverage ruff  # Instala Ruff y coverage
 
-      - name: Lint with flake8
+      - name: Lint with Ruff
         run: |
-          flake8 src/ tests/
-        continue-on-error: true  # Opcional: Permite que el flujo de trabajo continúe incluso si flake8 falla
+          ruff check .
+        continue-on-error: true
 
       - name: Run Unit Tests with Coverage
         run: |
-          coverage run -m unittest discover -s tests  # Ejecuta unittest discover
-          coverage report  # Muestra el reporte de cobertura en la consola
-          coverage html  # Genera el reporte HTML
+          coverage run -m unittest discover -s tests
+          coverage report
+          coverage html
 
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
-          path: htmlcov/  # Sube el reporte HTML generado por coverage
+          path: htmlcov/
 
       - name: Archive test results on failure
         if: failure()

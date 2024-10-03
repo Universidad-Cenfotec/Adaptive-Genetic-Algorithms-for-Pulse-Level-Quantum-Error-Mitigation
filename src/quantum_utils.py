@@ -1,5 +1,6 @@
 from qutip import qeye, tensor
 
+
 class QuantumUtils:
     @staticmethod
     def expand_operator(op, qubit, num_qubits):

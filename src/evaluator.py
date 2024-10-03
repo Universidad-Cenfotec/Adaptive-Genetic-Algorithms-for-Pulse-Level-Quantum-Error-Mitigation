@@ -1,10 +1,12 @@
 from qutip import fidelity
 from qutip_qip.device import OptPulseProcessor, SpinChainModel
 
+
 class Evaluator:
     """
     Provides the evaluation function for the genetic algorithm.
     """
+
     def __init__(self, quantum_circuit, noise_model, solver_options):
         self.initial_state = quantum_circuit.initial_state
         self.target_state = quantum_circuit.target_state
@@ -19,10 +21,10 @@ class Evaluator:
         """
         processor = OptPulseProcessor(
             num_qubits=self.num_qubits,
-            model=SpinChainModel(self.num_qubits, setup="linear")
+            model=SpinChainModel(self.num_qubits, setup="linear"),
         )
         processor.load_circuit(
-            self.circuit, setting_args=individual, merge_gates=False
+            self.circuit, setting_args=individual, merge_gates=False,
         )
         # Run the evolution with noise
         result = processor.run_state(self.initial_state, options=self.solver_options, c_ops=self.c_ops)

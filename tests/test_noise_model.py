@@ -1,21 +1,23 @@
 # tests/test_noise_model.py
-import unittest
-from unittest.mock import patch
 import sys
-import os
+import unittest
+from pathlib import Path
+from unittest.mock import patch
+
 import numpy as np
 from qutip import Qobj
 
-# Add the root folder of the project to PYTHONPATH
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(current_dir)
-sys.path.insert(0, parent_dir)
-
 from src.noise_model import NoiseModel
+
+# Add the root folder of the project to PYTHONPATH
+current_dir = Path(__file__).resolve().parent
+parent_dir = current_dir.parent
+sys.path.insert(0, str(parent_dir))
+
 
 class TestNoiseModel(unittest.TestCase):
 
-    @patch('src.noise_model.QuantumUtils.expand_operator')
+    @patch("src.noise_model.QuantumUtils.expand_operator")
     def test_c_ops_length_single_qubit(self, mock_expand_operator):
         """
         Verifies that initializing NoiseModel with 1 qubit generates 8 collapse operators.
@@ -39,21 +41,21 @@ class TestNoiseModel(unittest.TestCase):
                          f"Expected {expected_calls} collapse operators, but got {len(noise_model.c_ops)}.")
 
         # Verify that each operator is a correctly scaled Qobj
-        T1 = noise_model.T1
-        T2 = noise_model.T2
+        t1 = noise_model.t1
+        t2 = noise_model.t2
         bit_flip_prob = noise_model.bit_flip_prob
         phase_flip_prob = noise_model.phase_flip_prob
 
         # Define the expected scaling factors for each type of operator
         expected_factors = [
-            np.sqrt(1.0 / T1),                                # Relaxation
-            np.sqrt(1.0 / (2 * T2)),                          # Dephasing
+            np.sqrt(1.0 / t1),                                # Relaxation
+            np.sqrt(1.0 / (2 * t2)),                          # Dephasing
             np.sqrt(bit_flip_prob),                           # Bit Flip
             np.sqrt(phase_flip_prob),                         # Phase Flip
             np.sqrt(bit_flip_prob * phase_flip_prob),         # Bit-Phase Flip
             np.sqrt(bit_flip_prob / 3),                       # Depolarizing Bit Flip
             np.sqrt(bit_flip_prob / 3),                       # Depolarizing Phase Flip
-            np.sqrt(bit_flip_prob / 3)                        # Depolarizing Bit-Phase Flip
+            np.sqrt(bit_flip_prob / 3),                        # Depolarizing Bit-Phase Flip
         ]
 
         for i, op in enumerate(noise_model.c_ops):
@@ -61,7 +63,7 @@ class TestNoiseModel(unittest.TestCase):
             np.testing.assert_allclose(op.full(), expected_op.full(),
                                        err_msg=f"Collapse operator at index {i} is not correctly scaled.")
 
-    @patch('src.noise_model.QuantumUtils.expand_operator')
+    @patch("src.noise_model.QuantumUtils.expand_operator")
     def test_c_ops_length_multiple_qubits(self, mock_expand_operator):
         """
         Verifies that initializing NoiseModel with multiple qubits generates the correct number of collapse operators.
@@ -109,14 +111,14 @@ class TestNoiseModel(unittest.TestCase):
         self.assertIn("must be non-negative", str(context.exception),
                       "Initializing NoiseModel with negative qubits should raise ValueError.")
 
-    @patch('src.noise_model.QuantumUtils.expand_operator')
+    @patch("src.noise_model.QuantumUtils.expand_operator")
     def test_custom_parameters(self, mock_expand_operator):
         """
         Verifies that initializing NoiseModel with custom parameters correctly scales the collapse operators.
         """
         num_qubits = 1
-        custom_T1 = 60.0
-        custom_T2 = 30.0
+        custom_t1 = 60.0
+        custom_t2 = 30.0
         custom_bit_flip_prob = 0.1
         custom_phase_flip_prob = 0.2
 
@@ -125,8 +127,8 @@ class TestNoiseModel(unittest.TestCase):
 
         # Initialize NoiseModel with custom parameters
         noise_model = NoiseModel(num_qubits=num_qubits,
-                                 T1=custom_T1,
-                                 T2=custom_T2,
+                                 t1=custom_t1,
+                                 t2=custom_t2,
                                  bit_flip_prob=custom_bit_flip_prob,
                                  phase_flip_prob=custom_phase_flip_prob)
 
@@ -137,14 +139,14 @@ class TestNoiseModel(unittest.TestCase):
 
         # Define the expected scaling factors for each type of operator
         expected_factors = [
-            np.sqrt(1.0 / custom_T1),                                     # Relaxation
-            np.sqrt(1.0 / (2 * custom_T2)),                               # Dephasing
+            np.sqrt(1.0 / custom_t1),                                     # Relaxation
+            np.sqrt(1.0 / (2 * custom_t2)),                               # Dephasing
             np.sqrt(custom_bit_flip_prob),                                # Bit Flip
             np.sqrt(custom_phase_flip_prob),                              # Phase Flip
             np.sqrt(custom_bit_flip_prob * custom_phase_flip_prob),      # Bit-Phase Flip
             np.sqrt(custom_bit_flip_prob / 3),                            # Depolarizing Bit Flip
             np.sqrt(custom_bit_flip_prob / 3),                            # Depolarizing Phase Flip
-            np.sqrt(custom_bit_flip_prob / 3)                             # Depolarizing Bit-Phase Flip
+            np.sqrt(custom_bit_flip_prob / 3),                             # Depolarizing Bit-Phase Flip
         ]
 
         for i, op in enumerate(noise_model.c_ops):
@@ -152,7 +154,7 @@ class TestNoiseModel(unittest.TestCase):
             np.testing.assert_allclose(op.full(), expected_op.full(),
                                        err_msg=f"Collapse operator at index {i} is not correctly scaled with custom parameters.")
 
-    @patch('src.noise_model.QuantumUtils.expand_operator')
+    @patch("src.noise_model.QuantumUtils.expand_operator")
     def test_large_number_of_qubits(self, mock_expand_operator):
         """
         Verifies that NoiseModel can handle a large number of qubits without issues.
@@ -176,20 +178,20 @@ class TestNoiseModel(unittest.TestCase):
 
         # Optionally, verify scaling for a few operators
         # For brevity, we'll check the first and last operators
-        T1 = noise_model.T1
-        T2 = noise_model.T2
+        t1 = noise_model.t1
+        t2 = noise_model.t2
         bit_flip_prob = noise_model.bit_flip_prob
         phase_flip_prob = noise_model.phase_flip_prob
 
         expected_factors_first = [
-            np.sqrt(1.0 / T1),                                     # Relaxation
-            np.sqrt(1.0 / (2 * T2)),                               # Dephasing
+            np.sqrt(1.0 / t1),                                     # Relaxation
+            np.sqrt(1.0 / (2 * t2)),                               # Dephasing
             np.sqrt(bit_flip_prob),                                # Bit Flip
             np.sqrt(phase_flip_prob),                              # Phase Flip
             np.sqrt(bit_flip_prob * phase_flip_prob),              # Bit-Phase Flip
             np.sqrt(bit_flip_prob / 3),                            # Depolarizing Bit Flip
             np.sqrt(bit_flip_prob / 3),                            # Depolarizing Phase Flip
-            np.sqrt(bit_flip_prob / 3)                             # Depolarizing Bit-Phase Flip
+            np.sqrt(bit_flip_prob / 3),                             # Depolarizing Bit-Phase Flip
         ]
 
         # Check the first qubit's first operator (Relaxation)
@@ -204,7 +206,7 @@ class TestNoiseModel(unittest.TestCase):
         np.testing.assert_allclose(last_op.full(), expected_last_op.full(),
                                    err_msg="Last collapse operator is not correctly scaled.")
 
-    @patch('src.noise_model.QuantumUtils.expand_operator')
+    @patch("src.noise_model.QuantumUtils.expand_operator")
     def test_c_ops_types_single_qubit(self, mock_expand_operator):
         """
         Verifies that each type of collapse operator is correctly generated and scaled for a single qubit.
@@ -220,14 +222,14 @@ class TestNoiseModel(unittest.TestCase):
 
         # Define the expected scaling factors for each type of operator
         expected_factors = [
-            np.sqrt(1.0 / noise_model.T1),                                # Relaxation
-            np.sqrt(1.0 / (2 * noise_model.T2)),                          # Dephasing
+            np.sqrt(1.0 / noise_model.t1),                                # Relaxation
+            np.sqrt(1.0 / (2 * noise_model.t2)),                          # Dephasing
             np.sqrt(noise_model.bit_flip_prob),                           # Bit Flip
             np.sqrt(noise_model.phase_flip_prob),                         # Phase Flip
             np.sqrt(noise_model.bit_flip_prob * noise_model.phase_flip_prob),  # Bit-Phase Flip
             np.sqrt(noise_model.bit_flip_prob / 3),                       # Depolarizing Bit Flip
             np.sqrt(noise_model.bit_flip_prob / 3),                       # Depolarizing Phase Flip
-            np.sqrt(noise_model.bit_flip_prob / 3)                        # Depolarizing Bit-Phase Flip
+            np.sqrt(noise_model.bit_flip_prob / 3),                        # Depolarizing Bit-Phase Flip
         ]
 
         for i, op in enumerate(noise_model.c_ops):

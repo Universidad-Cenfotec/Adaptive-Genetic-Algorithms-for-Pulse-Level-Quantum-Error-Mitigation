@@ -1,8 +1,11 @@
 import unittest
+
+from qutip import Options
+
 from src.evaluator import Evaluator
 from src.noise_model import NoiseModel
 from src.quantum_circuit import QuantumCircuit
-from qutip import basis, Options
+
 
 class TestEvaluator(unittest.TestCase):
 
