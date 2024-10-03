@@ -90,7 +90,7 @@ Contributions are what make the open-source community such an amazing place to l
 
 ## Contact
 
-William Aguilar - [@Github](https://github.com/william2215) - wil-20-01@live.com
+William Aguilar-Calvo - [@Github](https://github.com/william2215) - wil-20-01@live.com
 
 Project Link: [https://github.com/Universidad-Cenfotec/Pulse-Quantum-Error-Correction)
 
