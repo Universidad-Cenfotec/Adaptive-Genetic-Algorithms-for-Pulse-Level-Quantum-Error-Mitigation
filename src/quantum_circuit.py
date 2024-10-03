@@ -40,3 +40,4 @@ class QuantumCircuit:
         Returns the target state |000> (assuming a constant function)
         """
         return basis([2] * self.num_qubits, [0] * self.num_qubits)
+    
