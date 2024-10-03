@@ -6,8 +6,6 @@ from deap import base, creator, tools
 
 CROSSOVER_THRESHOLD = 0.5
 class GeneticOptimizer:
-   
-   
     """
     Encapsulates the genetic algorithm optimization.
     """
