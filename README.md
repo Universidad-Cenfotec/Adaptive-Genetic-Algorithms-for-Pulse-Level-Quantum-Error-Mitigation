@@ -92,5 +92,5 @@ Contributions are what make the open-source community such an amazing place to l
 
 William Aguilar - [@Github](https://github.com/william2215) - wil-20-01@live.com
 
-Project Link: [https://github.com/thewill-i-am/Quantum-Optimization-test/](https://github.com/thewill-i-am/Quantum-Optimization-test/)
+Project Link: [https://github.com/Universidad-Cenfotec/Pulse-Quantum-Error-Correction)
 
