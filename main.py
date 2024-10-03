@@ -1,5 +1,3 @@
-# src/main.py
-
 from qutip import Options, fidelity
 from qutip_qip.device import OptPulseProcessor, SpinChainModel
 

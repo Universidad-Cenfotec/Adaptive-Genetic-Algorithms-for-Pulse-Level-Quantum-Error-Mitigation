@@ -1,4 +1,3 @@
-# src/noise_model.py
 import numpy as np
 from qutip import basis, destroy, sigmax, sigmaz
 

@@ -1,4 +1,4 @@
-# Quantum Optimization Project
+# Pulse Quantum Error Correction
 
 ## Overview
 
