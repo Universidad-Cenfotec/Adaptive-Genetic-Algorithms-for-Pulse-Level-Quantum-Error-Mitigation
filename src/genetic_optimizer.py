@@ -6,6 +6,8 @@ from deap import base, creator, tools
 
 CROSSOVER_THRESHOLD = 0.5
 class GeneticOptimizer:
+   
+   
     """
     Encapsulates the genetic algorithm optimization.
     """
@@ -13,8 +15,8 @@ class GeneticOptimizer:
     def __init__(
         self,
         evaluator,
-        population_size=3,
-        num_generations=1,
+        population_size=50,
+        num_generations=10,
         mutation_probability=0.2,
         crossover_probability=0.5,
     ):
