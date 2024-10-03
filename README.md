@@ -53,11 +53,13 @@ quantum_optimization/
 To get started with this project, follow these steps:
 
 Clone the repository
-bash
-Copy code
-git clone [https://github.com/your-username/quantum_optimization.git](https://github.com/your-username/quantum_optimization.git)
+
+git clone https://github.com/your-username/quantum_optimization.git](https://github.com/your-username/quantum_optimization.git
+
 cd quantum_optimization
+
 Create and activate a virtual environment
+
 You can use venv or any other virtual environment manager:
 
 ```
