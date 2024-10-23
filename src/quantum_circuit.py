@@ -1,10 +1,12 @@
+from abc import ABC, abstractmethod
+
 from qutip import basis
-from qutip_qip.circuit import QubitCircuit
 
 
-class QuantumCircuit:
+class QuantumCircuitBase(ABC):
     """
-    Encapsulates the creation and configuration of the quantum circuit.
+    Abstract base class for quantum circuits.
+    Defines the structure for creating a quantum circuit.
     """
 
     def __init__(self, num_qubits):
@@ -13,32 +15,22 @@ class QuantumCircuit:
         self.initial_state = self._get_initial_state()
         self.target_state = self._get_target_state()
 
+    @abstractmethod
     def _create_circuit(self):
         """
-        Creates the Deutsch-Jozsa circuit.
+        Abstract method to create the quantum circuit.
+        Must be implemented by derived classes.
         """
-        circuit = QubitCircuit(self.num_qubits)
-        # Step 1: Apply X gate to the last qubit
-        circuit.add_gate("X", targets=self.num_qubits - 1)
-        # Step 2: Apply Hadamard gates to all qubits
-        for qubit in range(self.num_qubits):
-            circuit.add_gate("SNOT", targets=qubit)
-        # Step 3: Apply CNOT gates from qubits 0 and 1 to qubit 2
-        circuit.add_gate("CNOT", controls=0, targets=2)
-        circuit.add_gate("CNOT", controls=1, targets=2)
-        # Step 4: Apply Hadamard gates to the first two qubits
-        for qubit in range(2):
-            circuit.add_gate("SNOT", targets=qubit)
-        return circuit
 
     def _get_initial_state(self):
         """
-        Returns the initial state |000>
+        Returns the initial quantum state |000...0>
         """
         return basis([2] * self.num_qubits, [0] * self.num_qubits)
 
+    @abstractmethod
     def _get_target_state(self):
         """
-        Returns the target state |000> (assuming a constant function)
+        Abstract method to define the target state.
+        Must be implemented by derived classes.
         """
-        return basis([2] * self.num_qubits, [0] * self.num_qubits)
