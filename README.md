@@ -120,6 +120,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-William Aguilar-Calvo - [@Github](https://github.com/william2215) - wil-20-01@live.com
+William Aguilar-Calvo - [@Github](https://github.com/thewill-i-am) - wil-20-01@live.com
 
 Project Link: [https://github.com/Universidad-Cenfotec/Pulse-Quantum-Error-Correction](https://github.com/Universidad-Cenfotec/Pulse-Quantum-Error-Correction)
