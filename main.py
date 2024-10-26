@@ -1,3 +1,7 @@
+import warnings
+
+warnings.filterwarnings("ignore")
+
 import argparse
 
 from qutip import Options, fidelity
@@ -29,7 +33,7 @@ def run_algorithm(quantum_circuit, num_qubits, circuit_name):
 
     # Run the genetic optimizer
     optimizer = GeneticOptimizer(evaluator)
-    pop = optimizer.run()
+    pop, logbook = optimizer.run()
     best_individual = optimizer.hall_of_fame[0]
     best_fidelity = evaluator.evaluate(best_individual)[0]
     print(f"\nBest individual found for {circuit_name}:", best_individual)
@@ -56,7 +60,7 @@ def run_algorithm(quantum_circuit, num_qubits, circuit_name):
 
     # Visualization
     Visualizer.plot_pulses(processor_optimized, f"Optimized Pulses for {circuit_name} with Noise")
-    Visualizer.plot_fidelity_evolution(optimizer.logbook)
+    Visualizer.plot_fidelity_evolution(logbook)
     Visualizer.plot_histogram_fidelities(pop)
 
     parameters = ["SNOT", "X", "CNOT"]
@@ -70,8 +74,13 @@ def main():
     Main function to run either Grover or Deutsch-Jozsa based on command line arguments.
     """
     parser = argparse.ArgumentParser(description="Run quantum algorithms.")
-    parser.add_argument("--algorithm", type=str, choices=["grover", "deutsch-jozsa"], required=True,
-                        help="Specify which algorithm to run: 'grover' or 'deutsch-jozsa'")
+    parser.add_argument(
+        "--algorithm",
+        type=str,
+        choices=["grover", "deutsch-jozsa"],
+        required=True,
+        help="Specify which algorithm to run: 'grover' or 'deutsch-jozsa'"
+    )
     args = parser.parse_args()
 
     if args.algorithm == "grover":

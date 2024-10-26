@@ -29,7 +29,9 @@ class TestGeneticOptimizer(unittest.TestCase):
     def test_run(self):
         population = self.optimizer.run()
         self.assertTrue(len(population) > 0)
-        self.assertIsInstance(population[0], dict)  # Individuals should be dicts
+        self.assertIsInstance(population[0], list)  # Population is a list of individuals
+        self.assertIsInstance(population[0][0], dict)  # Each individual should be a dict
+
 
 
 if __name__ == "__main__":

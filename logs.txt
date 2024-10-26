@@ -115,3 +115,6 @@ No hay mejora en las últimas 20 generaciones. Deteniendo anticipadamente.
 Best individual found for Deutsch-Jozsa: {'SNOT': {'num_tslots': 7, 'evo_time': 0.3332478849445847}, 'X': {'num_tslots': 4, 'evo_time': 0.668092958489963}, 'CNOT': {'num_tslots': 1, 'evo_time': 1.319391860567095}}
 Fidelity of the best individual for Deutsch-Jozsa: 0.3832693034780467
 Fidelity with the best individual (with noise) for Deutsch-Jozsa: 0.466507240437198
+
+#Calcular la fidelidad entre expected output y actual output
+#Medida de clasificacion de algoritmos cuanticos a nivel de optimizacion de pulsos con respecto a dificultad para mejorar la fidelidad
