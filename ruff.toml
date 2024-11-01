@@ -78,7 +78,8 @@ ignore = [
     "PT009",  # Ignore warnings about unittest-style assertions
     "PT027",
     "PD011",
-    "D203"
+    "D203",
+    "PLR0913"
 ]
 
 # Allow fix for all enabled rules (when `--fix`) is provided.

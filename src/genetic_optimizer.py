@@ -15,11 +15,11 @@ class GeneticOptimizer:
     diversity control, elitism, early stopping, and improved parallelization.
     """
 
-    def __init__(  # noqa: PLR0913
+    def __init__(
         self,
         evaluator,
-        population_size=50,
-        num_generations=10,
+        population_size=300,
+        num_generations=100,
         mutation_probability=0.2,
         crossover_probability=0.5,
         feedback_threshold=0.01,
