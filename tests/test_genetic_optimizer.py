@@ -8,7 +8,7 @@ from src.genetic_optimizer import GeneticOptimizer
 from src.noise_model import NoiseModel
 
 
-def constant_evaluate():
+def constant_evaluate(individual):  # noqa: ARG001
     return (0.8,)
 
 def counting_evaluate(individual):
