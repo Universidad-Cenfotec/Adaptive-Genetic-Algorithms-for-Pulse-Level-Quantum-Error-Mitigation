@@ -9,13 +9,14 @@ class Visualizer:
     """
 
     @staticmethod
-    def plot_pulses(processor, title):
+    def plot_pulses(processor, title, filename="optimized_pulses.jpg"):
         """
         Plots the optimized pulses for each control in the quantum circuit.
 
         Args:
             processor (OptPulseProcessor): The pulse processor with optimized pulses.
             title (str): The title of the plot.
+            filename (str): The filename to save the plot.
 
         """
         coeffs = processor.coeffs
@@ -35,15 +36,17 @@ class Visualizer:
         plt.legend()
         plt.grid(visible=True)
         plt.tight_layout()
-        plt.show()
+        plt.savefig(filename)
+        plt.close()
 
     @staticmethod
-    def plot_fidelity_evolution(logbook):
+    def plot_fidelity_evolution(logbook, filename="fidelity_evolution.jpg"):
         """
         Plots the evolution of average and maximum fidelity over generations.
 
         Args:
             logbook (deap.tools.Logbook): The logbook containing generation statistics.
+            filename (str): The filename to save the plot.
 
         """
         genetic_book = pd.DataFrame(logbook)
@@ -63,15 +66,17 @@ class Visualizer:
         plt.legend()
         plt.grid(visible=True)
         plt.tight_layout()
-        plt.show()
+        plt.savefig(filename)
+        plt.close()
 
     @staticmethod
-    def plot_histogram_fidelities(pop):
+    def plot_histogram_fidelities(pop, filename="histogram_fidelities.jpg"):
         """
         Plots a histogram of fidelities in the final population.
 
         Args:
             pop (list): The final population of individuals.
+            filename (str): The filename to save the plot.
 
         """
         final_fidelities = [ind.fitness.values[0] for ind in pop]
@@ -82,16 +87,18 @@ class Visualizer:
         plt.ylabel("Number of Individuals")
         plt.grid(visible=True)
         plt.tight_layout()
-        plt.show()
+        plt.savefig(filename)
+        plt.close()
 
     @staticmethod
-    def plot_parameter_evolution(pop, parameters):
+    def plot_parameter_evolution(pop, parameters, filename_prefix="parameter_evolution"):
         """
         Plots the evolution of parameters (num_tslots and evo_time) for each gate.
 
         Args:
             pop (list): The final population of individuals.
             parameters (list): List of gate names (e.g., ["SNOT", "X", "CNOT"]).
+            filename_prefix (str): Prefix for filenames to save the plots.
 
         """
         for gate in parameters:
@@ -113,16 +120,18 @@ class Visualizer:
             plt.grid(visible=True)
 
             plt.tight_layout()
-            plt.show()
+            plt.savefig(f"{filename_prefix}_{gate}.jpg")
+            plt.close()
 
     @staticmethod
-    def plot_correlation(pop, parameters):
+    def plot_correlation(pop, parameters, filename="correlation_matrix.jpg"):
         """
         Plots a correlation matrix and scatter plots between parameters and fidelity.
 
         Args:
             pop (list): The final population of individuals.
             parameters (list): List of gate names (e.g., ["SNOT", "X", "CNOT"]).
+            filename (str): The filename to save the correlation matrix plot.
 
         """
         population_data = []
@@ -146,7 +155,8 @@ class Visualizer:
         sns.heatmap(corr, annot=True, cmap="coolwarm", fmt=".2f")
         plt.title("Correlation Matrix between Parameters and Fidelity")
         plt.tight_layout()
-        plt.show()
+        plt.savefig(filename)
+        plt.close()
 
         # Scatter Plots of Parameters vs Fidelity
         for gate in parameters:
@@ -171,16 +181,18 @@ class Visualizer:
             plt.grid(visible=True)
 
             plt.tight_layout()
-            plt.show()
+            plt.savefig(f"{gate}_fidelity_vs_parameters.jpg")
+            plt.close()
 
     @staticmethod
-    def plot_histogram_parameters(pop, parameters):
+    def plot_histogram_parameters(pop, parameters, filename_prefix="histogram_parameters"):
         """
         Plots histograms of parameters (num_tslots and evo_time) for each gate.
 
         Args:
             pop (list): The final population of individuals.
             parameters (list): List of gate names (e.g., ["SNOT", "X", "CNOT"]).
+            filename_prefix (str): Prefix for filenames to save the plots.
 
         """
         population_data = []
@@ -227,48 +239,5 @@ class Visualizer:
             plt.grid(visible=True)
 
             plt.tight_layout()
-            plt.show()
-
-    @staticmethod
-    def compare_pulses(processor_initial, processor_optimized):
-        """
-        Compares the initial and optimized pulses for each control in the quantum circuit.
-
-        Args:
-            processor_initial (OptPulseProcessor): The pulse processor with initial pulses.
-            processor_optimized (OptPulseProcessor): The pulse processor with optimized pulses.
-
-        """
-        tlist_initial = processor_initial.get_full_tlist()
-        tlist_optimized = processor_optimized.get_full_tlist()
-        coeffs_initial = processor_initial.coeffs
-        coeffs_optimized = processor_optimized.coeffs
-
-        plt.figure(figsize=(12, 6))
-        num_controls = len(coeffs_initial)
-        for i in range(num_controls):
-            # Plot initial pulse
-            plt.step(
-                tlist_initial[:-1],
-                coeffs_initial[i],
-                where="post",
-                label=f"Control {i} Initial",
-                linestyle="-",
-                alpha=0.7,
-            )
-            # Plot optimized pulse
-            plt.step(
-                tlist_optimized[:-1],
-                coeffs_optimized[i],
-                where="post",
-                linestyle="--",
-                label=f"Control {i} Optimized",
-                alpha=0.7,
-            )
-        plt.title("Comparison of Initial and Optimized Pulses")
-        plt.xlabel("Time")
-        plt.ylabel("Amplitude")
-        plt.legend()
-        plt.grid(visible=True)
-        plt.tight_layout()
-        plt.show()
+            plt.savefig(f"{filename_prefix}_{gate}.jpg")
+            plt.close()

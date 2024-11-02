@@ -4,3 +4,7 @@ __pycache__/
 *.txt
 !requirements.txt
 *.csv
+*.jpg
+*.jpeg
+*.png
+*.gif
