@@ -45,7 +45,7 @@ class NoiseModel:
         for qubit in range(self.num_qubits):
             bit_phase_flip_op = QuantumUtils.expand_operator(sigmax() * sigmaz(), qubit, self.num_qubits)
             c_ops.append(np.sqrt(self.bit_flip_prob * self.phase_flip_prob) * bit_phase_flip_op)
-        # Depolarizing
+        # # Depolarizing
         for qubit in range(self.num_qubits):
             p = self.bit_flip_prob  # Depolarizing probability
             depol_bit_flip = QuantumUtils.expand_operator(sigmax(), qubit, self.num_qubits)

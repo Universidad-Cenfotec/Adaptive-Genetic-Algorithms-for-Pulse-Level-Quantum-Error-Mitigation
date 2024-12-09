@@ -1,4 +1,5 @@
 import argparse
+import os  # Importar el módulo os
 import warnings
 
 from qutip import Options, fidelity
@@ -17,7 +18,7 @@ def run_algorithm(quantum_circuit, num_qubits, circuit_name, population_size, nu
     # Define solver options
     solver_options = Options(nsteps=100000, store_states=True)
 
-    # Create the noise model with specified parameters
+    # Crear el modelo de ruido con los parámetros especificados
     noise_model = NoiseModel(
         num_qubits,
         t1=t1,
@@ -26,10 +27,10 @@ def run_algorithm(quantum_circuit, num_qubits, circuit_name, population_size, nu
         phase_flip_prob=phase_flip_prob,
     )
 
-    # Create the evaluator
+    # Crear el evaluador
     evaluator = Evaluator(quantum_circuit, noise_model, solver_options)
 
-    # Run the genetic optimizer
+    # Ejecutar el optimizador genético
     optimizer = GeneticOptimizer(evaluator, population_size=population_size, num_generations=num_generations)
     pop, logbook = optimizer.run(csv_filename=f"{circuit_name}_log.csv")
     best_individual = optimizer.hall_of_fame[0]
@@ -37,7 +38,7 @@ def run_algorithm(quantum_circuit, num_qubits, circuit_name, population_size, nu
     print(f"\nBest individual found for {circuit_name}:", best_individual)
     print(f"Fidelity of the best individual for {circuit_name}:", best_fidelity)
 
-    # Run the best individual with noise to get the optimized pulses
+    # Ejecutar el mejor individuo con ruido para obtener los pulsos optimizados
     processor_optimized = OptPulseProcessor(
         num_qubits=num_qubits,
         model=SpinChainModel(num_qubits, setup="linear"),
@@ -56,15 +57,41 @@ def run_algorithm(quantum_circuit, num_qubits, circuit_name, population_size, nu
     final_fidelity = fidelity(result.states[-1], quantum_circuit.target_state)
     print(f"Fidelity with the best individual (with noise) for {circuit_name}: {final_fidelity}")
 
-    # Visualization and saving to .jpg files
-    Visualizer.plot_pulses(processor_optimized, f"Optimized Pulses for {circuit_name} with Noise", filename=f"{circuit_name}_optimized_pulses.jpg")
-    Visualizer.plot_fidelity_evolution(logbook, filename=f"{circuit_name}_fidelity_evolution.jpg")
-    Visualizer.plot_histogram_fidelities(pop, filename=f"{circuit_name}_histogram_fidelities.jpg")
+    # Crear la carpeta de salida si no existe
+    output_dir = os.path.join("output_circuits", circuit_name)
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Visualización y guardado en archivos .jpg dentro de la carpeta de salida
+    Visualizer.plot_pulses(
+        processor_optimized,
+        f"Optimized Pulses for {circuit_name} with Noise",
+        filename=os.path.join(output_dir, f"{circuit_name}_optimized_pulses.jpg")
+    )
+    Visualizer.plot_fidelity_evolution(
+        logbook,
+        filename=os.path.join(output_dir, f"{circuit_name}_fidelity_evolution.jpg")
+    )
+    Visualizer.plot_histogram_fidelities(
+        pop,
+        filename=os.path.join(output_dir, f"{circuit_name}_histogram_fidelities.jpg")
+    )
 
     parameters = ["SNOT", "X", "CNOT"]
-    Visualizer.plot_parameter_evolution(pop, parameters, filename_prefix=f"{circuit_name}_parameter_evolution")
-    Visualizer.plot_correlation(pop, parameters, filename=f"{circuit_name}_correlation_matrix.jpg")
-    Visualizer.plot_histogram_parameters(pop, parameters, filename_prefix=f"{circuit_name}_histogram_parameters")
+    Visualizer.plot_parameter_evolution(
+        pop,
+        parameters,
+        filename_prefix=os.path.join(output_dir, f"{circuit_name}_parameter_evolution")
+    )
+    Visualizer.plot_correlation(
+        pop,
+        parameters,
+        filename=os.path.join(output_dir, f"{circuit_name}_correlation_matrix.jpg")
+    )
+    Visualizer.plot_histogram_parameters(
+        pop,
+        parameters,
+        filename_prefix=os.path.join(output_dir, f"{circuit_name}_histogram_parameters")
+    )
 
 def main():
     """
@@ -115,6 +142,10 @@ def main():
         help="Specify the phase flip probability for the noise model"
     )
     args = parser.parse_args()
+
+    # Crear la carpeta base de salida
+    base_output_dir = "output_circuits"
+    os.makedirs(base_output_dir, exist_ok=True)
 
     if args.algorithm == "grover":
         num_qubits = 4  # Grover uses 4 qubits

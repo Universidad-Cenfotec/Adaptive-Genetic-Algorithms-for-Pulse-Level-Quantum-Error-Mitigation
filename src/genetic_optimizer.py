@@ -25,6 +25,8 @@ class GeneticOptimizer:
         feedback_threshold=0.01,
         feedback_interval=10,
         early_stopping_rounds=20,
+        diversity_threshold=0.5,
+        diversity_action='mutate',  # Can be 'mutate' or 'replace'
         n_jobs=None,
     ):
         self.evaluator = evaluator
@@ -35,6 +37,8 @@ class GeneticOptimizer:
         self.feedback_threshold = feedback_threshold
         self.feedback_interval = feedback_interval
         self.early_stopping_rounds = early_stopping_rounds
+        self.diversity_threshold = diversity_threshold
+        self.diversity_action = diversity_action
         self.n_jobs = n_jobs if n_jobs else max(4, multiprocessing.cpu_count())
 
         self.pool = multiprocessing.Pool(self.n_jobs)
@@ -132,6 +136,24 @@ class GeneticOptimizer:
         dispatcher[key](ind)
         return ind,
 
+    def calculate_diversity(self, population):
+        """
+        Calculates the diversity D of the population as the average Euclidean distance between all pairs of individuals.
+        """
+        distances = []
+        individuals = list(population)
+        N = len(individuals)
+        for i in range(N - 1):
+            for j in range(i + 1, N):
+                # Flatten the parameter dictionaries into vectors
+                xi = np.array([val for subdict in individuals[i].values() for val in subdict.values()])
+                xj = np.array([val for subdict in individuals[j].values() for val in subdict.values()])
+                distance = np.linalg.norm(xi - xj)
+                distances.append(distance)
+        if len(distances) == 0:
+            return 0
+        return np.mean(distances)
+
     def _adjust_probabilities(self, current_avg_fitness):
         """
         Adjusts mutation and crossover probabilities based on feedback.
@@ -162,7 +184,7 @@ class GeneticOptimizer:
         stats_fidelity.register("max", np.max)
 
         # Set up the logbook
-        self.logbook.header = ["gen", "nevals", *stats_fidelity.fields]
+        self.logbook.header = ["gen", "nevals", *stats_fidelity.fields, "diversity"]
 
         # Use Path.open() instead of open()
         csv_path = Path(csv_filename)
@@ -203,17 +225,46 @@ class GeneticOptimizer:
                 # Hall of Fame
                 self.hall_of_fame.update(pop)
 
+                # Calculate diversity
+                diversity = self.calculate_diversity(pop)
+
+                # Record statistics
                 record = stats_fidelity.compile(pop)
+                record["diversity"] = diversity
                 self.logbook.record(gen=gen, nevals=len(invalid_ind), **record)
                 print(self.logbook.stream)
 
                 writer.writerow([gen, len(invalid_ind), *list(record.values())])
 
+                # Adaptive probability adjustment
                 if (gen + 1) % self.feedback_interval == 0:
                     current_avg_fitness = record["avg"]
                     self._adjust_probabilities(current_avg_fitness)
                     self.last_avg_fitness = current_avg_fitness
 
+                # Diversity Control
+                if diversity < self.diversity_threshold:
+                    print(f"Diversidad {diversity:.4f} < umbral {self.diversity_threshold}. Aplicando acción de diversidad: {self.diversity_action}.")
+                    if self.diversity_action == 'mutate':
+                        # Apply higher variance mutation to all individuals
+                        for ind in pop:
+                            self.toolbox.mutate(ind)
+                            del ind.fitness.values
+                    elif self.diversity_action == 'replace':
+                        # Replace a percentage of the population with new random individuals
+                        num_replace = int(0.1 * self.population_size)  # Replace 10% of the population
+                        for _ in range(num_replace):
+                            new_ind = self.toolbox.individual()
+                            replace_idx = random.randint(0, self.population_size - 1)
+                            pop[replace_idx] = new_ind
+
+                    # Re-evaluate fitness after diversity action
+                    invalid_ind = [ind for ind in pop if not ind.fitness.valid]
+                    fitnesses = self.toolbox.map(self.toolbox.evaluate, invalid_ind)
+                    for ind, fit in zip(invalid_ind, fitnesses, strict=False):
+                        ind.fitness.values = fit
+
+                # Early Stopping
                 if self.last_avg_fitness is not None:
                     if record["avg"] > self.last_avg_fitness + self.feedback_threshold:
                         self.no_improvement = 0
@@ -221,7 +272,7 @@ class GeneticOptimizer:
                         self.no_improvement += 1
 
                 if self.no_improvement >= self.early_stopping_rounds:
-                    print(f"No improvement in the last {self.early_stopping_rounds} generations. Stopping early.")
+                    print(f"No hubo mejora en las últimas {self.early_stopping_rounds} generaciones. Parando temprano.")
                     break
 
         self.pool.close()
