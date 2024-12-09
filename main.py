@@ -100,12 +100,6 @@ def run_algorithm(quantum_circuit, num_qubits, circuit_name, population_size, nu
     with open(pulses_file, mode='w', newline='') as pf:
         writer = csv.writer(pf)
         writer.writerow(pulse_headers)
-        # Assuming all coeffs have the same length as tlist - 1 or tlist
-        # Usually, coeff arrays correspond to each timeslot between tlist points.
-        # If coeff length is one less than tlist length, we can pair them accordingly.
-        # We'll assume coeff[i] matches the length of tlist or tlist-1.
-        # Usually, tlist has one more element than number of pulses (timeslots).
-        # We'll assume each coeff[i] is length = len(tlist)-1.
         num_points = len(tlist)-1
         for idx in range(num_points):
             row = [tlist[idx]] + [c[idx] for c in coeffs]
