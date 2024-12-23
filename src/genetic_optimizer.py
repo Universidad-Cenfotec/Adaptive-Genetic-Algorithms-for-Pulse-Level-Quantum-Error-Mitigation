@@ -36,7 +36,7 @@ class GeneticOptimizer:
         Initializes the GeneticOptimizer with various hyperparameters.
 
         Args:
-            evaluator: An object that must implement an 'evaluate' method 
+            evaluator: An object that must implement an 'evaluate' method
                        (e.g., evaluator.evaluate(individual)).
             population_size (int): Size of the GA population.
             num_generations (int): Number of generations to run.
@@ -134,7 +134,7 @@ class GeneticOptimizer:
 
     def _mut_dict(self, ind):
         """
-        Dictionary-based mutation: randomly mutates one of the gates 
+        Dictionary-based mutation: randomly mutates one of the gates
         ('SNOT', 'X', or 'CNOT') by reassigning 'num_tslots' and 'evo_time'.
         """
         rng = np.random.default_rng()
@@ -198,8 +198,7 @@ class GeneticOptimizer:
         pairwise_distances = pdist(data, metric="mahalanobis", VI=inv_covariance_matrix)
 
         # Average Mahalanobis distance
-        avg_mahalanobis = np.mean(pairwise_distances)
-        return avg_mahalanobis
+        return np.mean(pairwise_distances)
 
     def _adjust_probabilities(self, current_avg_fitness):
         """

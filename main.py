@@ -1,7 +1,7 @@
 import argparse
 import csv
-import os
 import warnings
+from pathlib import Path
 
 from qutip import Options, fidelity
 from qutip_qip.device import OptPulseProcessor, SpinChainModel
@@ -37,7 +37,7 @@ def run_algorithm(quantum_circuit, num_qubits, circuit_name, population_size, nu
     best_individual = optimizer.hall_of_fame[0]
 
     # Evaluate the best individual
-    best_fidelity = evaluator.evaluate(best_individual)[0]
+    best_fidelity = evaluator.evaluate(best_individual)  # Assuming single-objective evaluator
     print(f"\nBest individual found for {circuit_name}:", best_individual)
     print(f"Fidelity of the best individual for {circuit_name}:", best_fidelity)
 
@@ -61,14 +61,14 @@ def run_algorithm(quantum_circuit, num_qubits, circuit_name, population_size, nu
     print(f"Fidelity with the best individual (with noise) for {circuit_name}: {final_fidelity}")
 
     # Save summary data to a CSV file
-    summary_file = f"{circuit_name}_summary.csv"
+    summary_file = Path(f"{circuit_name}_summary.csv")
     fieldnames = [
         "circuit_name", "population_size", "num_generations", "t1", "t2",
         "bit_flip_prob", "phase_flip_prob", "best_individual", "best_fidelity", "final_fidelity_with_noise"
     ]
 
-    write_header = not os.path.exists(summary_file)
-    with open(summary_file, mode="a", newline="") as f:
+    write_header = not summary_file.exists()
+    with summary_file.open(mode="a", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         if write_header:
             writer.writeheader()
@@ -88,7 +88,7 @@ def run_algorithm(quantum_circuit, num_qubits, circuit_name, population_size, nu
 
     # Also record the pulses used in the optimized processor
     # We can extract time list and coefficients for each control channel
-    pulses_file = f"{circuit_name}_pulses.csv"
+    pulses_file = Path(f"{circuit_name}_pulses.csv")
     tlist = processor_optimized.get_full_tlist()
     coeffs = processor_optimized.get_full_coeffs()  # List of arrays, one per control channel
 
@@ -97,48 +97,48 @@ def run_algorithm(quantum_circuit, num_qubits, circuit_name, population_size, nu
 
     # Write pulses data
     # Each row: time, pulse_channel_1, pulse_channel_2, ...
-    with open(pulses_file, mode="w", newline="") as pf:
+    with pulses_file.open(mode="w", newline="") as pf:
         writer = csv.writer(pf)
         writer.writerow(pulse_headers)
-        num_points = len(tlist)-1
+        num_points = len(tlist) - 1
         for idx in range(num_points):
             row = [tlist[idx]] + [c[idx] for c in coeffs]
             writer.writerow(row)
 
     # Create output directory if it doesn't exist
-    output_dir = os.path.join("output_circuits", circuit_name)
-    os.makedirs(output_dir, exist_ok=True)
+    output_dir = Path("output_circuits") / circuit_name
+    output_dir.mkdir(parents=True, exist_ok=True)
 
     # Visualization and saving as .jpg files in output directory
     Visualizer.plot_pulses(
         processor_optimized,
         f"Optimized Pulses for {circuit_name} with Noise",
-        filename=os.path.join(output_dir, f"{circuit_name}_optimized_pulses.jpg")
+        filename=output_dir / f"{circuit_name}_optimized_pulses.jpg"
     )
     Visualizer.plot_fidelity_evolution(
         logbook,
-        filename=os.path.join(output_dir, f"{circuit_name}_fidelity_evolution.jpg")
+        filename=output_dir / f"{circuit_name}_fidelity_evolution.jpg"
     )
     Visualizer.plot_histogram_fidelities(
         pop,
-        filename=os.path.join(output_dir, f"{circuit_name}_histogram_fidelities.jpg")
+        filename=output_dir / f"{circuit_name}_histogram_fidelities.jpg"
     )
 
     parameters = ["SNOT", "X", "CNOT"]
     Visualizer.plot_parameter_evolution(
         pop,
         parameters,
-        filename_prefix=os.path.join(output_dir, f"{circuit_name}_parameter_evolution")
+        filename_prefix=output_dir / f"{circuit_name}_parameter_evolution"
     )
     Visualizer.plot_correlation(
         pop,
         parameters,
-        filename=os.path.join(output_dir, f"{circuit_name}_correlation_matrix.jpg")
+        filename=output_dir / f"{circuit_name}_correlation_matrix.jpg"
     )
     Visualizer.plot_histogram_parameters(
         pop,
         parameters,
-        filename_prefix=os.path.join(output_dir, f"{circuit_name}_histogram_parameters")
+        filename_prefix=output_dir / f"{circuit_name}_histogram_parameters"
     )
 
 def main():
@@ -191,8 +191,8 @@ def main():
     )
     args = parser.parse_args()
 
-    base_output_dir = "output_circuits"
-    os.makedirs(base_output_dir, exist_ok=True)
+    base_output_dir = Path("output_circuits")
+    base_output_dir.mkdir(parents=True, exist_ok=True)
 
     if args.algorithm == "grover":
         num_qubits = 4  # Grover uses 4 qubits
