@@ -1,6 +1,5 @@
 import csv
 import multiprocessing
-import random
 import secrets
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
@@ -10,7 +9,14 @@ from deap import base, creator, tools
 from scipy.linalg import inv, pinv
 from scipy.spatial.distance import pdist
 
+# Constants to replace magic values
+WORST_FIDELITY = 0.0
+MIN_POPULATION_SIZE = 2
+EPSILON = 1e-10  # Regularization term for covariance matrix
+REPLACE_RATIO = 0.1  # Ratio of population to replace during diversity action
+
 EVALUATOR_MESSAGE = "The 'evaluator' does not have an 'evaluate' method."
+
 
 class GeneticOptimizer:
     """
@@ -126,9 +132,8 @@ class GeneticOptimizer:
         Dictionary-based crossover: with probability 'crossover_probability',
         swap the sub-dictionaries for each key.
         """
-        sys_random = random.SystemRandom()
         for key in ind1:
-            if sys_random.random() < self.crossover_probability:
+            if secrets.randbelow(100) < int(self.crossover_probability * 100):
                 ind1[key], ind2[key] = ind2[key], ind1[key]
         return ind1, ind2
 
@@ -139,17 +144,17 @@ class GeneticOptimizer:
         """
         rng = np.random.default_rng()
 
-        def mutate_snot(ind):
-            ind["SNOT"]["num_tslots"] = rng.integers(1, 10)
-            ind["SNOT"]["evo_time"] = rng.uniform(0.1, 3)
+        def mutate_snot(individual):
+            individual["SNOT"]["num_tslots"] = rng.integers(1, 10)
+            individual["SNOT"]["evo_time"] = rng.uniform(0.1, 3)
 
-        def mutate_x(ind):
-            ind["X"]["num_tslots"] = rng.integers(1, 5)
-            ind["X"]["evo_time"] = rng.uniform(0.1, 1)
+        def mutate_x(individual):
+            individual["X"]["num_tslots"] = rng.integers(1, 5)
+            individual["X"]["evo_time"] = rng.uniform(0.1, 1)
 
-        def mutate_cnot(ind):
-            ind["CNOT"]["num_tslots"] = rng.integers(1, 20)
-            ind["CNOT"]["evo_time"] = rng.uniform(0.1, 10)
+        def mutate_cnot(individual):
+            individual["CNOT"]["num_tslots"] = rng.integers(1, 20)
+            individual["CNOT"]["evo_time"] = rng.uniform(0.1, 10)
 
         dispatcher = {
             "SNOT": mutate_snot,
@@ -173,8 +178,8 @@ class GeneticOptimizer:
             float: Average Mahalanobis distance.
 
         """
-        if len(population) < 2:
-            return 0.0  # No diversity if population has less than 2 individuals
+        if len(population) < MIN_POPULATION_SIZE:
+            return WORST_FIDELITY  # No diversity if population has less than 2 individuals
 
         # Flatten individuals into a 2D array
         data = []
@@ -187,6 +192,9 @@ class GeneticOptimizer:
 
         # Compute the covariance matrix
         covariance_matrix = np.cov(data, rowvar=False)
+
+        # Regularization to ensure invertibility
+        covariance_matrix += np.eye(covariance_matrix.shape[0]) * EPSILON
 
         # Handle singular covariance matrix by using pseudo-inverse
         try:
@@ -256,14 +264,14 @@ class GeneticOptimizer:
 
                 # Crossover
                 for child1, child2 in zip(offspring[::2], offspring[1::2], strict=False):
-                    if secrets.randbelow(100) < self.crossover_probability * 100:
+                    if secrets.randbelow(100) < int(self.crossover_probability * 100):
                         self.toolbox.mate(child1, child2)
                         del child1.fitness.values
                         del child2.fitness.values
 
                 # Mutation
                 for mutant in offspring:
-                    if secrets.randbelow(100) < self.mutation_probability * 100:
+                    if secrets.randbelow(100) < int(self.mutation_probability * 100):
                         self.toolbox.mutate(mutant)
                         del mutant.fitness.values
 
@@ -305,21 +313,11 @@ class GeneticOptimizer:
                     print(f"Diversity {diversity:.4f} < threshold {self.diversity_threshold}. "
                           f"Applying diversity action: {self.diversity_action}.")
                     if self.diversity_action == "mutate":
-                        for ind in pop:
-                            self.toolbox.mutate(ind)
-                            del ind.fitness.values
+                        self._apply_mutation_action(pop)
                     elif self.diversity_action == "replace":
-                        num_replace = int(0.1 * self.population_size)
-                        for _ in range(num_replace):
-                            new_ind = self.toolbox.individual()
-                            replace_idx = random.randint(0, self.population_size - 1)
-                            pop[replace_idx] = new_ind
-                    if self.diversity_action in ["mutate", "replace"]:
-                        invalid_ind = [ind for ind in pop if not ind.fitness.valid]
-                        if invalid_ind:
-                            fitnesses = self.toolbox.map(self.toolbox.evaluate, invalid_ind)
-                            for ind, fit in zip(invalid_ind, fitnesses, strict=False):
-                                ind.fitness.values = fit
+                        self._apply_replace_action(pop)
+                    # Re-evaluate fitness of affected individuals
+                    self._evaluate_population(pop)
 
                 # Early stopping check
                 if self.last_avg_fitness is not None:
@@ -336,3 +334,34 @@ class GeneticOptimizer:
         self.executor.shutdown(wait=True)
 
         return pop, self.logbook
+
+    def _apply_mutation_action(self, population):
+        """
+        Applies mutation to the entire population to increase diversity.
+        """
+        for ind in population:
+            self.toolbox.mutate(ind)
+            del ind.fitness.values
+        print("Applied mutation to entire population for diversity.")
+
+    def _apply_replace_action(self, population):
+        """
+        Replaces a portion of the population with new individuals to increase diversity.
+        """
+        num_replace = int(REPLACE_RATIO * self.population_size)
+        for _ in range(num_replace):
+            new_ind = self.toolbox.individual()
+            replace_idx = secrets.randbelow(self.population_size)
+            population[replace_idx] = new_ind
+        print(f"Replaced {num_replace} individuals in the population for diversity.")
+
+    def _evaluate_population(self, population):
+        """
+        Evaluates the fitness of all individuals in the population that have invalid fitness.
+        """
+        invalid_ind = [ind for ind in population if not ind.fitness.valid]
+        if invalid_ind:
+            fitnesses = self.toolbox.map(self.toolbox.evaluate, invalid_ind)
+            for ind, fit in zip(invalid_ind, fitnesses, strict=False):
+                ind.fitness.values = fit
+        print("Re-evaluated fitness for affected individuals after diversity action.")
