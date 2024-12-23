@@ -29,7 +29,7 @@ class GeneticOptimizer:
         feedback_interval=10,
         early_stopping_rounds=20,
         diversity_threshold=0.5,
-        diversity_action='mutate',  # Can be 'mutate' or 'replace'
+        diversity_action="mutate",  # Can be 'mutate' or 'replace'
         n_jobs=None,
     ):
         """
@@ -48,6 +48,7 @@ class GeneticOptimizer:
             diversity_threshold (float): If population diversity falls below this, apply a diversity action.
             diversity_action (str): 'mutate' or 'replace' strategy for diversity control.
             n_jobs (int, optional): Number of parallel jobs (default is max(4, cpu_count())).
+
         """
         self.evaluator = evaluator
         self.population_size = population_size
@@ -170,6 +171,7 @@ class GeneticOptimizer:
 
         Returns:
             float: Average Mahalanobis distance.
+
         """
         if len(population) < 2:
             return 0.0  # No diversity if population has less than 2 individuals
@@ -185,7 +187,7 @@ class GeneticOptimizer:
 
         # Compute the covariance matrix
         covariance_matrix = np.cov(data, rowvar=False)
-        
+
         # Handle singular covariance matrix by using pseudo-inverse
         try:
             inv_covariance_matrix = inv(covariance_matrix)
@@ -193,8 +195,8 @@ class GeneticOptimizer:
             inv_covariance_matrix = pinv(covariance_matrix)
 
         # Compute pairwise Mahalanobis distances
-        pairwise_distances = pdist(data, metric='mahalanobis', VI=inv_covariance_matrix)
-        
+        pairwise_distances = pdist(data, metric="mahalanobis", VI=inv_covariance_matrix)
+
         # Average Mahalanobis distance
         avg_mahalanobis = np.mean(pairwise_distances)
         return avg_mahalanobis
@@ -303,17 +305,17 @@ class GeneticOptimizer:
                 if diversity < self.diversity_threshold:
                     print(f"Diversity {diversity:.4f} < threshold {self.diversity_threshold}. "
                           f"Applying diversity action: {self.diversity_action}.")
-                    if self.diversity_action == 'mutate':
+                    if self.diversity_action == "mutate":
                         for ind in pop:
                             self.toolbox.mutate(ind)
                             del ind.fitness.values
-                    elif self.diversity_action == 'replace':
+                    elif self.diversity_action == "replace":
                         num_replace = int(0.1 * self.population_size)
                         for _ in range(num_replace):
                             new_ind = self.toolbox.individual()
                             replace_idx = random.randint(0, self.population_size - 1)
                             pop[replace_idx] = new_ind
-                    if self.diversity_action in ['mutate', 'replace']:
+                    if self.diversity_action in ["mutate", "replace"]:
                         invalid_ind = [ind for ind in pop if not ind.fitness.valid]
                         if invalid_ind:
                             fitnesses = self.toolbox.map(self.toolbox.evaluate, invalid_ind)

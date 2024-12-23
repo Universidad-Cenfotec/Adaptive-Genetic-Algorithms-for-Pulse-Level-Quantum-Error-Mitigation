@@ -1,7 +1,7 @@
 import argparse
+import csv
 import os
 import warnings
-import csv
 
 from qutip import Options, fidelity
 from qutip_qip.device import OptPulseProcessor, SpinChainModel
@@ -68,7 +68,7 @@ def run_algorithm(quantum_circuit, num_qubits, circuit_name, population_size, nu
     ]
 
     write_header = not os.path.exists(summary_file)
-    with open(summary_file, mode='a', newline='') as f:
+    with open(summary_file, mode="a", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         if write_header:
             writer.writeheader()
@@ -97,7 +97,7 @@ def run_algorithm(quantum_circuit, num_qubits, circuit_name, population_size, nu
 
     # Write pulses data
     # Each row: time, pulse_channel_1, pulse_channel_2, ...
-    with open(pulses_file, mode='w', newline='') as pf:
+    with open(pulses_file, mode="w", newline="") as pf:
         writer = csv.writer(pf)
         writer.writerow(pulse_headers)
         num_points = len(tlist)-1
