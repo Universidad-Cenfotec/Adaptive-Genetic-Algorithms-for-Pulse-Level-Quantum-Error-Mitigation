@@ -7,13 +7,15 @@ from pathlib import Path
 
 import numpy as np
 from deap import base, creator, tools
+from scipy.linalg import inv, pinv
+from scipy.spatial.distance import pdist
 
 EVALUATOR_MESSAGE = "The 'evaluator' does not have an 'evaluate' method."
 
 class GeneticOptimizer:
     """
     Genetic algorithm optimization with feedback-based mutation, crossover adjustment,
-    diversity control, elitism, early stopping, and improved parallelization.
+    diversity control using Mahalanobis distance, elitism, early stopping, and improved parallelization.
     """
 
     def __init__(
@@ -160,21 +162,42 @@ class GeneticOptimizer:
 
     def calculate_diversity(self, population):
         """
-        Calculates population diversity using the average Euclidean distance
-        among all individuals in parameter space.
+        Calculates population diversity using the average Mahalanobis distance
+        among all pairs of individuals in parameter space.
+
+        Args:
+            population (list): List of individuals in the population.
+
+        Returns:
+            float: Average Mahalanobis distance.
         """
-        distances = []
-        individuals = list(population)
-        N = len(individuals)
-        for i in range(N - 1):
-            for j in range(i + 1, N):
-                xi = np.array([val for subdict in individuals[i].values() for val in subdict.values()])
-                xj = np.array([val for subdict in individuals[j].values() for val in subdict.values()])
-                distance = np.linalg.norm(xi - xj)
-                distances.append(distance)
-        if len(distances) == 0:
-            return 0
-        return np.mean(distances)
+        if len(population) < 2:
+            return 0.0  # No diversity if population has less than 2 individuals
+
+        # Flatten individuals into a 2D array
+        data = []
+        for ind in population:
+            vector = []
+            for gate in sorted(ind.keys()):  # Sort keys to ensure consistent ordering
+                vector.extend([ind[gate]["num_tslots"], ind[gate]["evo_time"]])
+            data.append(vector)
+        data = np.array(data)
+
+        # Compute the covariance matrix
+        covariance_matrix = np.cov(data, rowvar=False)
+        
+        # Handle singular covariance matrix by using pseudo-inverse
+        try:
+            inv_covariance_matrix = inv(covariance_matrix)
+        except np.linalg.LinAlgError:
+            inv_covariance_matrix = pinv(covariance_matrix)
+
+        # Compute pairwise Mahalanobis distances
+        pairwise_distances = pdist(data, metric='mahalanobis', VI=inv_covariance_matrix)
+        
+        # Average Mahalanobis distance
+        avg_mahalanobis = np.mean(pairwise_distances)
+        return avg_mahalanobis
 
     def _adjust_probabilities(self, current_avg_fitness):
         """
@@ -211,7 +234,7 @@ class GeneticOptimizer:
         pop = self.toolbox.population(n=self.population_size)
 
         # Define statistics for fitness
-        stats_fidelity = tools.Statistics(lambda ind: ind.fitness.values)
+        stats_fidelity = tools.Statistics(lambda ind: ind.fitness.values[0])
         stats_fidelity.register("avg", np.mean)
         stats_fidelity.register("std", np.std)
         stats_fidelity.register("min", np.min)
@@ -245,9 +268,10 @@ class GeneticOptimizer:
 
                 # Evaluate invalid individuals
                 invalid_ind = [ind for ind in offspring if not ind.fitness.valid]
-                fitnesses = self.toolbox.map(self.toolbox.evaluate, invalid_ind)
-                for ind, fit in zip(invalid_ind, fitnesses, strict=False):
-                    ind.fitness.values = fit
+                if invalid_ind:
+                    fitnesses = self.toolbox.map(self.toolbox.evaluate, invalid_ind)
+                    for ind, fit in zip(invalid_ind, fitnesses, strict=False):
+                        ind.fitness.values = fit
 
                 # Replace population
                 pop[:] = offspring
@@ -259,7 +283,7 @@ class GeneticOptimizer:
                 # Update Hall of Fame
                 self.hall_of_fame.update(pop)
 
-                # Calculate diversity
+                # Calculate diversity using Mahalanobis distance
                 diversity = self.calculate_diversity(pop)
 
                 # Gather stats
@@ -289,10 +313,12 @@ class GeneticOptimizer:
                             new_ind = self.toolbox.individual()
                             replace_idx = random.randint(0, self.population_size - 1)
                             pop[replace_idx] = new_ind
-                    invalid_ind = [ind for ind in pop if not ind.fitness.valid]
-                    fitnesses = self.toolbox.map(self.toolbox.evaluate, invalid_ind)
-                    for ind, fit in zip(invalid_ind, fitnesses, strict=False):
-                        ind.fitness.values = fit
+                    if self.diversity_action in ['mutate', 'replace']:
+                        invalid_ind = [ind for ind in pop if not ind.fitness.valid]
+                        if invalid_ind:
+                            fitnesses = self.toolbox.map(self.toolbox.evaluate, invalid_ind)
+                            for ind, fit in zip(invalid_ind, fitnesses, strict=False):
+                                ind.fitness.values = fit
 
                 # Early stopping check
                 if self.last_avg_fitness is not None:
