@@ -8,6 +8,8 @@ import numpy as np
 from deap import base, creator, tools
 from scipy.linalg import inv, pinv
 from scipy.spatial.distance import pdist
+from src.gate_config import DEFAULT_SETTING_ARGS 
+
 
 # Constants to replace magic values
 WORST_FIDELITY = 0.0
@@ -17,6 +19,19 @@ REPLACE_RATIO = 0.1  # Ratio of population to replace during diversity action
 
 EVALUATOR_MESSAGE = "The 'evaluator' does not have an 'evaluate' method."
 
+rng = np.random.default_rng()
+
+setting_args = {
+        "SNOT": {"num_tslots": rng.integers(1, 10), "evo_time": rng.uniform(0.1, 3)},
+        "X": {"num_tslots": rng.integers(1, 10), "evo_time": rng.uniform(0.1, 3)},
+        "CNOT": {"num_tslots": rng.integers(1, 10), "evo_time": rng.uniform(0.1, 3)},
+}
+
+default_setting_args = {
+        "SNOT": {"num_tslots": rng.integers(1, 10), "evo_time": rng.uniform(0.1, 3)},
+        "X": {"num_tslots": rng.integers(1, 10), "evo_time": rng.uniform(0.1, 3)},
+        "CNOT": {"num_tslots": rng.integers(1, 10), "evo_time": rng.uniform(0.1, 3)},
+}
 
 class GeneticOptimizer:
     """
@@ -37,6 +52,7 @@ class GeneticOptimizer:
         diversity_threshold=0.5,
         diversity_action="mutate",  # Can be 'mutate' or 'replace'
         n_jobs=None,
+        use_default=True,  # Nuevo parámetro para usar configuraciones por defecto
     ):
         """
         Initializes the GeneticOptimizer with various hyperparameters.
@@ -54,7 +70,7 @@ class GeneticOptimizer:
             diversity_threshold (float): If population diversity falls below this, apply a diversity action.
             diversity_action (str): 'mutate' or 'replace' strategy for diversity control.
             n_jobs (int, optional): Number of parallel jobs (default is max(4, cpu_count())).
-
+            use_default (bool): Whether to initialize individuals using default settings.
         """
         self.evaluator = evaluator
         self.population_size = population_size
@@ -67,6 +83,7 @@ class GeneticOptimizer:
         self.diversity_threshold = diversity_threshold
         self.diversity_action = diversity_action
         self.n_jobs = n_jobs if n_jobs else max(4, multiprocessing.cpu_count())
+        self.use_default = use_default  # Almacenar el uso de configuraciones por defecto
 
         self.executor = ProcessPoolExecutor(max_workers=self.n_jobs)
 
@@ -108,24 +125,27 @@ class GeneticOptimizer:
 
     def _init_individual(self, icls):
         """
-        Creates an individual (dictionary) with initial random parameters:
-        'SNOT', 'X', 'CNOT' gates, each with 'num_tslots' and 'evo_time'.
+        Creates an individual (dictionary) with initial parameters based on
+        either DEFAULT_SETTING_ARGS or SPECIFIC_SETTING_ARGS,
+        or random values if use_default=False and use_specific_config=False.
         """
-        rng = np.random.default_rng()
-        return icls({
-            "SNOT": {
-                "num_tslots": rng.integers(1, 10),
-                "evo_time": rng.uniform(0.1, 3),
-            },
-            "X": {
-                "num_tslots": rng.integers(1, 5),
-                "evo_time": rng.uniform(0.1, 1),
-            },
-            "CNOT": {
-                "num_tslots": rng.integers(1, 20),
-                "evo_time": rng.uniform(0.1, 10),
-            },
-        })
+        individual = {}
+
+        if self.use_default:
+            # Use DEFAULT_SETTING_ARGS
+            for gate, params in DEFAULT_SETTING_ARGS.items():
+                individual[gate] = params.copy()
+
+        else:
+            # Fallback: random initialization
+            rng = np.random.default_rng()
+            for gate in DEFAULT_SETTING_ARGS.keys():
+                individual[gate] = {
+                    "num_tslots": rng.integers(1, 10),
+                    "evo_time": rng.uniform(0.1, 3),
+                }
+
+        return icls(individual)
 
     def _cx_dict(self, ind1, ind2):
         """
@@ -176,7 +196,6 @@ class GeneticOptimizer:
 
         Returns:
             float: Average Mahalanobis distance.
-
         """
         if len(population) < MIN_POPULATION_SIZE:
             return WORST_FIDELITY  # No diversity if population has less than 2 individuals
@@ -239,7 +258,7 @@ class GeneticOptimizer:
           - Adjust mutation/crossover feedback
           - Use early stopping after consecutive no-improvement rounds
         """
-        # Create initial population
+            # Create initial population
         pop = self.toolbox.population(n=self.population_size)
 
         # Define statistics for fitness
@@ -263,7 +282,7 @@ class GeneticOptimizer:
                 offspring = list(map(self.toolbox.clone, offspring))
 
                 # Crossover
-                for child1, child2 in zip(offspring[::2], offspring[1::2], strict=False):
+                for child1, child2 in zip(offspring[::2], offspring[1::2]):
                     if secrets.randbelow(100) < int(self.crossover_probability * 100):
                         self.toolbox.mate(child1, child2)
                         del child1.fitness.values
@@ -279,7 +298,7 @@ class GeneticOptimizer:
                 invalid_ind = [ind for ind in offspring if not ind.fitness.valid]
                 if invalid_ind:
                     fitnesses = self.toolbox.map(self.toolbox.evaluate, invalid_ind)
-                    for ind, fit in zip(invalid_ind, fitnesses, strict=False):
+                    for ind, fit in zip(invalid_ind, fitnesses):
                         ind.fitness.values = fit
 
                 # Replace population
@@ -362,6 +381,6 @@ class GeneticOptimizer:
         invalid_ind = [ind for ind in population if not ind.fitness.valid]
         if invalid_ind:
             fitnesses = self.toolbox.map(self.toolbox.evaluate, invalid_ind)
-            for ind, fit in zip(invalid_ind, fitnesses, strict=False):
+            for ind, fit in zip(invalid_ind, fitnesses):
                 ind.fitness.values = fit
         print("Re-evaluated fitness for affected individuals after diversity action.")

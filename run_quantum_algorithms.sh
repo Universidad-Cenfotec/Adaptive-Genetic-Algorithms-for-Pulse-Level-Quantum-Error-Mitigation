@@ -1,13 +1,16 @@
-#!/bin/bash
+TOTAL_EJECUCIONES=5
 
-echo "Starting batch processing for quantum algorithms..."
+ejecutar_deutsch_jozsa() {
+    local i=$1
+    echo "Ejecución #$i: Ejecutando Algoritmo Deutsch-Jozsa..."
+    python3 main.py --algorithm deutsch-jozsa \
+                    --num_generations 50 \
+                    --population_size 100 \
+                    --t1 50.0 \
+                    --t2 30.0 \
+                    --bit_flip_prob 0.02 \
+                    --phase_flip_prob 0.02 \
+                    > "salida_deutsch_jozsa_$i.log" 2>&1
+}
 
-echo "Running Grover's Algorithm with custom parameters..."
-python3 main.py --algorithm grover --num_generations 3 --population_size 5 --t1 60.0 --t2 40.0 --bit_flip_prob 0.01 --phase_flip_prob 0.01 &
-
-echo "Running Deutsch-Jozsa Algorithm with custom parameters..."
-python3 main.py --algorithm deutsch-jozsa --num_generations 3 --population_size 5 --t1 50.0 --t2 30.0 --bit_flip_prob 0.02 --phase_flip_prob 0.02 &
-
-wait
-
-echo "Batch processing completed."
+export -f ejecutar_deutsch_jozsa
