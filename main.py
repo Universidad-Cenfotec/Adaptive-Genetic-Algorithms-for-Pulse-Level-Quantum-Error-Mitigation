@@ -13,6 +13,7 @@ from src.gate_config import DEFAULT_SETTING_ARGS
 
 warnings.filterwarnings("ignore")
 
+UNSUPORTED_ALGORITHM_SPECIFIED = "Unsupported algorithm specified."
 
 def run_algorithm_without_optimization(quantum_circuit, num_qubits, circuit_name, t1, t2, bit_flip_prob, phase_flip_prob):
     """
@@ -130,14 +131,15 @@ def run_algorithm(quantum_circuit, num_qubits, circuit_name, population_size, nu
     optimizer = GeneticOptimizer(
         evaluator=evaluator,
         population_size=population_size,
-        num_generations=num_generations
+        num_generations=num_generations,
+        use_default=True
     )
     pop, logbook = optimizer.run(csv_filename=f"{circuit_name}_log.csv")
     best_individual = optimizer.hall_of_fame[0]
 
     # Evaluate the best individual
     best_fidelity = evaluator.evaluate(best_individual)
-    if isinstance(best_fidelity, (tuple, list)):
+    if isinstance(best_fidelity, tuple | list):
         best_fidelity = best_fidelity[0]  # Assuming the first element is fidelity
 
     print(f"\nBest individual found for {circuit_name}: {best_individual}")
@@ -248,7 +250,7 @@ def compare_fidelities(fidelity_no_opt, fidelity_opt, circuit_name):
     """
     Compares fidelities obtained without optimization and with genetic optimization.
     Generates a bar chart to visualize the comparison.
-    
+
     Args:
         fidelity_no_opt (float): Fidelity without optimization.
         fidelity_opt (float): Fidelity with optimization.
@@ -356,7 +358,7 @@ def main():
         print("\n--- Running Deutsch-Jozsa Algorithm ---")
         quantum_circuit = DeutschJozsaCircuit(num_qubits)
     else:
-        raise ValueError("Unsupported algorithm specified.")
+        raise ValueError(UNSUPORTED_ALGORITHM_SPECIFIED)
 
     # 1. Run WITHOUT optimization (baseline fidelity under noise)
     print("\n--- Running without Genetic Optimization (Baseline Fidelity) ---")

@@ -42,6 +42,7 @@ class GeneticOptimizer:
     def __init__(
         self,
         evaluator,
+        use_default,
         population_size=300,
         num_generations=100,
         mutation_probability=0.2,
@@ -52,7 +53,6 @@ class GeneticOptimizer:
         diversity_threshold=0.5,
         diversity_action="mutate",  # Can be 'mutate' or 'replace'
         n_jobs=None,
-        use_default=True,  # Nuevo parámetro para usar configuraciones por defecto
     ):
         """
         Initializes the GeneticOptimizer with various hyperparameters.
@@ -140,7 +140,7 @@ class GeneticOptimizer:
         else:
             # Fallback: random initialization
             rng = np.random.default_rng()
-            for gate in DEFAULT_SETTING_ARGS.keys():
+            for gate in DEFAULT_SETTING_ARGS:
                 individual[gate] = {
                     "num_tslots": rng.integers(1, 10),
                     "evo_time": rng.uniform(0.1, 3),
