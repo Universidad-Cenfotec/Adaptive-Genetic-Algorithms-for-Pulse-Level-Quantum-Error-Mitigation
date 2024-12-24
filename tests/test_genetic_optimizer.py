@@ -38,7 +38,8 @@ class TestGeneticOptimizer(unittest.TestCase):
             feedback_threshold=0.01,
             feedback_interval=2,
             early_stopping_rounds=3,
-            n_jobs=1
+            n_jobs=1,
+            use_default=True
         )
 
     def test_run(self):
@@ -97,7 +98,8 @@ class TestGeneticOptimizer(unittest.TestCase):
             feedback_threshold=0.01,
             feedback_interval=2,
             early_stopping_rounds=3,
-            n_jobs=1
+            n_jobs=1,
+            use_default=True
         )
         population, _ = optimizer.run()
         unique_individuals = {str(ind) for ind in population}
@@ -114,7 +116,7 @@ class TestGeneticOptimizer(unittest.TestCase):
     def test_invalid_evaluator(self):
         with self.assertRaises(AttributeError):
             invalid_evaluator = object()
-            optimizer = GeneticOptimizer(evaluator=invalid_evaluator)
+            optimizer = GeneticOptimizer(evaluator=invalid_evaluator, use_default=True)
             optimizer._setup_toolbox() # noqa: SLF001
 
 if __name__ == "__main__":
