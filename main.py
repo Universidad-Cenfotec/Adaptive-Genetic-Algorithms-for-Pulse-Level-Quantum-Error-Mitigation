@@ -13,36 +13,25 @@ from src.gate_config import DEFAULT_SETTING_ARGS
 
 warnings.filterwarnings("ignore")
 
-UNSUPORTED_ALGORITHM_SPECIFIED = "Unsupported algorithm specified."
+UNSUPPORTED_ALGORITHM_SPECIFIED = "Unsupported algorithm specified."
 
-def run_algorithm_without_optimization(quantum_circuit, num_qubits, circuit_name, t1, t2, bit_flip_prob, phase_flip_prob):
+
+def run_algorithm_without_optimization(quantum_circuit, num_qubits, circuit_name, noise_model):
     """
     Runs the quantum circuit under noise WITHOUT any genetic optimization to obtain baseline fidelity.
-    
+
     Args:
         quantum_circuit: The quantum circuit object (e.g., GroverCircuit, DeutschJozsaCircuit).
         num_qubits (int): Number of qubits in the circuit.
         circuit_name (str): Name identifier for the circuit (used in filenames).
-        t1 (float): T1 relaxation time for the noise model.
-        t2 (float): T2 dephasing time for the noise model.
-        bit_flip_prob (float): Bit-flip probability for the noise model.
-        phase_flip_prob (float): Phase-flip probability for the noise model.
-    
+        noise_model (NoiseModel): The pre-instantiated noise model.
+
     Returns:
         float: Fidelity of the circuit without optimization.
 
-    """  # noqa: W293
+    """
     # Define solver options
     solver_options = Options(nsteps=100_000, store_states=True)
-
-    # Create the noise model with specified parameters
-    noise_model = NoiseModel(
-        num_qubits,
-        t1=t1,
-        t2=t2,
-        bit_flip_prob=bit_flip_prob,
-        phase_flip_prob=phase_flip_prob,
-    )
 
     # Initialize the pulse processor without optimization
     processor_no_opt = OptPulseProcessor(
@@ -83,46 +72,34 @@ def run_algorithm_without_optimization(quantum_circuit, num_qubits, circuit_name
 
         writer.writerow({
             "circuit_name": circuit_name,
-            "t1": t1,
-            "t2": t2,
-            "bit_flip_prob": bit_flip_prob,
-            "phase_flip_prob": phase_flip_prob,
+            "t1": noise_model.t1,
+            "t2": noise_model.t2,
+            "bit_flip_prob": noise_model.bit_flip_prob,
+            "phase_flip_prob": noise_model.phase_flip_prob,
             "fidelity": fidelity_no_opt
         })
 
     return fidelity_no_opt
 
 
-def run_algorithm(quantum_circuit, num_qubits, circuit_name, population_size, num_generations, t1, t2, bit_flip_prob, phase_flip_prob):
+def run_algorithm(quantum_circuit, num_qubits, circuit_name, population_size, num_generations, noise_model):
     """
     Runs the genetic optimization on the quantum circuit under noise and returns the optimized fidelity.
-    
+
     Args:
         quantum_circuit: The quantum circuit object (e.g., GroverCircuit, DeutschJozsaCircuit).
-        num_qubits (int): Numbesr of qubits in the circuit.
+        num_qubits (int): Number of qubits in the circuit.
         circuit_name (str): Name identifier for the circuit (used in filenames).
         population_size (int): Population size for the genetic algorithm.
         num_generations (int): Number of generations for the genetic algorithm.
-        t1 (float): T1 relaxation time for the noise model.
-        t2 (float): T2 dephasing time for the noise model.
-        bit_flip_prob (float): Bit-flip probability for the noise model.
-        phase_flip_prob (float): Phase-flip probability for the noise model.
-    
+        noise_model (NoiseModel): The pre-instantiated noise model.
+
     Returns:
         float: Optimized fidelity of the circuit under noise.
 
-    """  # noqa: W293
+    """
     # Define solver options
     solver_options = Options(nsteps=100_000, store_states=True)
-
-    # Create the noise model with specified parameters
-    noise_model = NoiseModel(
-        num_qubits,
-        t1=t1,
-        t2=t2,
-        bit_flip_prob=bit_flip_prob,
-        phase_flip_prob=phase_flip_prob,
-    )
 
     # Create the evaluator
     evaluator = Evaluator(quantum_circuit, noise_model, solver_options)
@@ -181,10 +158,10 @@ def run_algorithm(quantum_circuit, num_qubits, circuit_name, population_size, nu
             "circuit_name": circuit_name,
             "population_size": population_size,
             "num_generations": num_generations,
-            "t1": t1,
-            "t2": t2,
-            "bit_flip_prob": bit_flip_prob,
-            "phase_flip_prob": phase_flip_prob,
+            "t1": noise_model.t1,
+            "t2": noise_model.t2,
+            "bit_flip_prob": noise_model.bit_flip_prob,
+            "phase_flip_prob": noise_model.phase_flip_prob,
             "best_individual": str(best_individual),
             "best_fidelity": best_fidelity,
             "final_fidelity_with_noise": final_fidelity
@@ -358,7 +335,16 @@ def main():
         print("\n--- Running Deutsch-Jozsa Algorithm ---")
         quantum_circuit = DeutschJozsaCircuit(num_qubits)
     else:
-        raise ValueError(UNSUPORTED_ALGORITHM_SPECIFIED)
+        raise ValueError(UNSUPPORTED_ALGORITHM_SPECIFIED)
+
+    # Instantiate the NoiseModel once
+    noise_model = NoiseModel(
+        num_qubits,
+        t1=args.t1,
+        t2=args.t2,
+        bit_flip_prob=args.bit_flip_prob,
+        phase_flip_prob=args.phase_flip_prob,
+    )
 
     # 1. Run WITHOUT optimization (baseline fidelity under noise)
     print("\n--- Running without Genetic Optimization (Baseline Fidelity) ---")
@@ -366,10 +352,7 @@ def main():
         quantum_circuit,
         num_qubits,
         f"{circuit_name}_No_Optimization",
-        t1=args.t1,
-        t2=args.t2,
-        bit_flip_prob=args.bit_flip_prob,
-        phase_flip_prob=args.phase_flip_prob
+        noise_model  # Pass the same noise model
     )
 
     # 2. Run WITH genetic optimization (optimized fidelity under noise)
@@ -380,10 +363,7 @@ def main():
         f"{circuit_name}_With_Optimization",
         population_size=args.population_size,
         num_generations=args.num_generations,
-        t1=args.t1,
-        t2=args.t2,
-        bit_flip_prob=args.bit_flip_prob,
-        phase_flip_prob=args.phase_flip_prob
+        noise_model=noise_model  # Pass the same noise model
     )
 
     # 3. Compare the fidelities
