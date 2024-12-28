@@ -19,20 +19,6 @@ REPLACE_RATIO = 0.1  # Ratio of population to replace during diversity action
 
 EVALUATOR_MESSAGE = "The 'evaluator' does not have an 'evaluate' method."
 
-rng = np.random.default_rng()
-
-setting_args = {
-        "SNOT": {"num_tslots": rng.integers(1, 10), "evo_time": rng.uniform(0.1, 3)},
-        "X": {"num_tslots": rng.integers(1, 10), "evo_time": rng.uniform(0.1, 3)},
-        "CNOT": {"num_tslots": rng.integers(1, 10), "evo_time": rng.uniform(0.1, 3)},
-}
-
-default_setting_args = {
-        "SNOT": {"num_tslots": rng.integers(1, 10), "evo_time": rng.uniform(0.1, 3)},
-        "X": {"num_tslots": rng.integers(1, 10), "evo_time": rng.uniform(0.1, 3)},
-        "CNOT": {"num_tslots": rng.integers(1, 10), "evo_time": rng.uniform(0.1, 3)},
-}
-
 class GeneticOptimizer:
     """
     Genetic algorithm optimization with feedback-based mutation, crossover adjustment,
@@ -50,7 +36,7 @@ class GeneticOptimizer:
         feedback_threshold=0.01,
         feedback_interval=10,
         early_stopping_rounds=20,
-        diversity_threshold=0.5,
+        diversity_threshold=1.5,
         diversity_action="mutate",  # Can be 'mutate' or 'replace'
         n_jobs=None,
     ):

@@ -31,6 +31,7 @@ def run_algorithm_without_optimization(quantum_circuit, num_qubits, circuit_name
 
     Returns:
         float: Fidelity of the circuit without optimization.
+
     """
     # Define solver options
     solver_options = Options(nsteps=100_000, store_states=True)
@@ -98,6 +99,7 @@ def run_algorithm(quantum_circuit, num_qubits, circuit_name, population_size, nu
 
     Returns:
         float: Optimized fidelity of the circuit under noise.
+
     """
     # Define solver options
     solver_options = Options(nsteps=100_000, store_states=True)

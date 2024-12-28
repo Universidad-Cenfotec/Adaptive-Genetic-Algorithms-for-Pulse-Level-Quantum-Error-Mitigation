@@ -330,7 +330,7 @@ def main():
         print("\n--- Running Grover's Algorithm ---")
         quantum_circuit = GroverCircuit(num_qubits)
     elif args.algorithm == "deutsch-jozsa":
-        num_qubits = 3  # Deutsch-Jozsa uses 3 qubits
+        num_qubits = 4  # Deutsch-Jozsa uses 4 qubits
         circuit_name = "Deutsch-Jozsa"
         print("\n--- Running Deutsch-Jozsa Algorithm ---")
         quantum_circuit = DeutschJozsaCircuit(num_qubits)
