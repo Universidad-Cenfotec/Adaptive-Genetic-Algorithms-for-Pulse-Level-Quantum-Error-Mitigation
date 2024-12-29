@@ -10,10 +10,15 @@ class DeutschJozsaCircuit(QuantumCircuitBase):
     Qubit 3       : Ancilla
     """
 
+    REQUIRED_NUM_QUBITS = 4
+
     def _create_circuit(self):
         # Ensure that num_qubits = 4
-        if self.num_qubits != 4:
-            raise ValueError("This Deutsch-Jozsa circuit implementation requires exactly 4 qubits.")
+        if self.num_qubits != self.REQUIRED_NUM_QUBITS:
+            error_message = (
+                f"This Deutsch-Jozsa is set up for exactly {self.REQUIRED_NUM_QUBITS} qubits."
+            )
+            raise ValueError(error_message)
 
         circuit = QubitCircuit(self.num_qubits)
 

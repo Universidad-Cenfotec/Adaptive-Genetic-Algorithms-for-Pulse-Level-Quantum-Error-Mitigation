@@ -109,11 +109,11 @@ class Visualizer:
             }
             population_data.append(data)
 
-        df = pd.DataFrame(population_data)
+        dataframe = pd.DataFrame(population_data)
 
         # Heatmap
         plt.figure(figsize=(10, 8))
-        corr = df.corr()
+        corr = dataframe.corr()
         sns.heatmap(corr, annot=True, cmap="coolwarm", fmt=".2f")
         plt.title("Correlation Matrix between Parameters and Fidelity")
         plt.tight_layout()
@@ -126,7 +126,7 @@ class Visualizer:
 
             plt.subplot(1, 2, 1)
             sns.scatterplot(
-                x=f"{gate}_num_tslots", y="Fidelity", data=df, alpha=0.7
+                x=f"{gate}_num_tslots", y="Fidelity", data=dataframe, alpha=0.7
             )
             plt.title(f"Fidelity vs num_tslots for {gate}")
             plt.xlabel("num_tslots")
@@ -135,7 +135,7 @@ class Visualizer:
 
             plt.subplot(1, 2, 2)
             sns.scatterplot(
-                x=f"{gate}_evo_time", y="Fidelity", data=df, alpha=0.7
+                x=f"{gate}_evo_time", y="Fidelity", data=dataframe, alpha=0.7
             )
             plt.title(f"Fidelity vs evo_time for {gate}")
             plt.xlabel("evo_time")
@@ -160,14 +160,14 @@ class Visualizer:
             }
             population_data.append(data)
 
-        df = pd.DataFrame(population_data)
+        dataframe = pd.DataFrame(population_data)
 
         for gate in parameters:
             plt.figure(figsize=(12, 5))
 
             plt.subplot(1, 2, 1)
             sns.histplot(
-                df[f"{gate}_num_tslots"], bins=10, kde=True,
+                dataframe[f"{gate}_num_tslots"], bins=10, kde=True,
                 color="green", edgecolor="black"
             )
             plt.title(f"Distribution of num_tslots for {gate}")
@@ -177,7 +177,7 @@ class Visualizer:
 
             plt.subplot(1, 2, 2)
             sns.histplot(
-                df[f"{gate}_evo_time"], bins=10, kde=True,
+                dataframe[f"{gate}_evo_time"], bins=10, kde=True,
                 color="purple", edgecolor="black"
             )
             plt.title(f"Distribution of evo_time for {gate}")

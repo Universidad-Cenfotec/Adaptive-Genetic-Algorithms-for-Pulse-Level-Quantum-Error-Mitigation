@@ -9,9 +9,14 @@ class GroverCircuit(QuantumCircuitBase):
     Example: 4-qubit Grover's algorithm circuit marking the state |1111>.
     """
 
+    REQUIRED_NUM_QUBITS = 4
+
     def _create_circuit(self):
-        if self.num_qubits != 4:
-            raise ValueError("This Grover circuit is set up for exactly 4 qubits.")
+        if self.num_qubits != self.REQUIRED_NUM_QUBITS:
+            error_message = (
+                f"This Grover circuit is set up for exactly {self.REQUIRED_NUM_QUBITS} qubits."
+            )
+            raise ValueError(error_message)
 
         circuit = QubitCircuit(self.num_qubits)
 
