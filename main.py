@@ -129,7 +129,7 @@ def run_algorithm(
     # Parameter plots
     parameters = ["SNOT", "X", "CNOT"]
     Visualizer.plot_parameter_evolution(pop, parameters, filename_prefix=str(output_dir / f"{circuit_name}_parameter_evolution"))
-    Visualizer.plot_correlation(pop, parameters, filename=output_dir / f"{circuit_name}_correlation_matrix.jpg")
+    Visualizer.plot_correlation(pop, parameters, filename=output_dir / f"{circuit_name}_correlation_matrix.jpg", output_dir=output_dir)
     Visualizer.plot_histogram_parameters(pop, parameters, filename_prefix=str(output_dir / f"{circuit_name}_histogram_parameters"))
 
     return final_fidelity_with_noise

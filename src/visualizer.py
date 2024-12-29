@@ -95,7 +95,7 @@ class Visualizer:
             plt.close()
 
     @staticmethod
-    def plot_correlation(pop, parameters, filename="correlation_matrix.jpg"):
+    def plot_correlation(pop, parameters, output_dir, filename="correlation_matrix.jpg"):
         population_data = []
         for ind in pop:
             data = {
@@ -143,7 +143,7 @@ class Visualizer:
             plt.grid(True)
 
             plt.tight_layout()
-            plt.savefig(f"{gate}_fidelity_vs_parameters.jpg")
+            plt.savefig(str(output_dir / f"{gate}_fidelity_vs_parameters.jpg"))
             plt.close()
 
     @staticmethod
