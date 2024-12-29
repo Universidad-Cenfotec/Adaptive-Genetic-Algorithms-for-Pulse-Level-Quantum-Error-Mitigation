@@ -1,4 +1,3 @@
-from pathlib import Path
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -72,6 +71,7 @@ class Visualizer:
 
     @staticmethod
     def plot_parameter_evolution(pop, parameters, filename_prefix="parameter_evolution"):
+        import seaborn as sns
         for gate in parameters:
             num_tslots = [ind[gate]["num_tslots"] for ind in pop]
             evo_time = [ind[gate]["evo_time"] for ind in pop]
@@ -148,6 +148,8 @@ class Visualizer:
 
     @staticmethod
     def plot_histogram_parameters(pop, parameters, filename_prefix="histogram_parameters"):
+        import seaborn as sns
+
         population_data = []
         for ind in pop:
             data = {
@@ -190,13 +192,11 @@ class Visualizer:
             plt.close()
 
     @staticmethod
-    def plot_fidelity_comparison(fidelity_no_opt, fidelity_opt, circuit_name):
+    def plot_fidelity_comparison(fidelity_no_opt, fidelity_opt, circuit_name, output_dir):
         """
         Simple bar chart to compare fidelities (no opt vs. with opt).
         """
-        import matplotlib.pyplot as plt
-
-        logger = CSVLogger(circuit_name)
+        logger = CSVLogger(circuit_name, output_dir=output_dir)
         logger.write_fidelity_comparison(fidelity_no_opt, fidelity_opt)
 
         labels = ["No Optimization", "Genetic Optimization"]
@@ -219,8 +219,6 @@ class Visualizer:
                 ha="center", va="bottom"
             )
 
-        output_dir = Path("output_circuits") / circuit_name
-        output_dir.mkdir(parents=True, exist_ok=True)
         plot_filename = output_dir / f"{circuit_name}_fidelities_comparison.jpg"
         plt.savefig(plot_filename)
         plt.close()

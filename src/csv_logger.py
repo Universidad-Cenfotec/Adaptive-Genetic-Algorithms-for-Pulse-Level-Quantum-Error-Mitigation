@@ -7,14 +7,15 @@ class CSVLogger:
     Handles all CSV-writing logic in a centralized fashion.
     """
 
-    def __init__(self, circuit_name):
+    def __init__(self, circuit_name, output_dir=Path()):
         self.circuit_name = circuit_name
+        self.output_dir = output_dir
 
     def write_summary_no_optimization(self, noise_model, fidelity_no_opt):
         """
         Writes a CSV row summarizing a 'no optimization' run for a circuit.
         """
-        summary_file = Path(f"{self.circuit_name}_summary_no_optimization.csv")
+        summary_file = self.output_dir / f"{self.circuit_name}_summary_no_optimization.csv"
         fieldnames = [
             "circuit_name", "t1", "t2",
             "bit_flip_prob", "phase_flip_prob", "fidelity"
@@ -47,7 +48,7 @@ class CSVLogger:
         """
         Writes a CSV row summarizing a 'with optimization' run for a circuit.
         """
-        summary_file = Path(f"{self.circuit_name}_summary_optimization.csv")
+        summary_file = self.output_dir / f"{self.circuit_name}_summary_optimization.csv"
         fieldnames = [
             "circuit_name", "population_size", "num_generations", "t1", "t2",
             "bit_flip_prob", "phase_flip_prob", "best_individual", "best_fidelity",
@@ -77,7 +78,7 @@ class CSVLogger:
         """
         Saves the time slots and pulse amplitudes for the optimized processor.
         """
-        pulses_file = Path(f"{self.circuit_name}{filename_suffix}")
+        pulses_file = self.output_dir / f"{self.circuit_name}{filename_suffix}"
         tlist = processor.get_full_tlist()
         coeffs = processor.get_full_coeffs()  # one array per control channel
 
@@ -95,7 +96,7 @@ class CSVLogger:
         """
         Compares fidelities (no opt vs. opt) in a single CSV row.
         """
-        comparison_file = Path(f"{self.circuit_name}_fidelity_comparison.csv")
+        comparison_file = self.output_dir / f"{self.circuit_name}_fidelity_comparison.csv"
         fieldnames = [
             "circuit_name", "fidelity_no_optimization",
             "fidelity_with_optimization", "fidelity_improvement"

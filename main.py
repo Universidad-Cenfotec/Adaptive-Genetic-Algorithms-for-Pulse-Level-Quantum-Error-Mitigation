@@ -1,5 +1,6 @@
 import argparse
 import warnings
+from datetime import datetime
 from pathlib import Path
 
 from qutip import Options, fidelity
@@ -20,12 +21,11 @@ UNSUPPORTED_ALGORITHM_SPECIFIED = "Unsupported algorithm specified."
 
 
 def run_algorithm_without_optimization(
-    quantum_circuit, num_qubits, circuit_name, noise_model
+    quantum_circuit, num_qubits, circuit_name, noise_model, logger
 ):
     """
     Runs the circuit under noise WITHOUT GA optimization, returns fidelity.
     """
-    logger = CSVLogger(circuit_name)
     # Solver options
     solver_options = Options(nsteps=100000, store_states=True)
 
@@ -57,12 +57,13 @@ def run_algorithm(
     circuit_name,
     population_size,
     num_generations,
-    noise_model
+    noise_model,
+    logger,
+    output_dir,
 ):
     """
     Runs the genetic optimization on the circuit under noise, returns fidelity.
     """
-    logger = CSVLogger(circuit_name)
     solver_options = Options(nsteps=100000, store_states=True)
 
     # Example evaluator that must implement "evaluate(individual)"
@@ -77,7 +78,7 @@ def run_algorithm(
     )
 
     # Run GA
-    pop, logbook = optimizer.run(csv_logger=logger, csv_filename=f"{circuit_name}_log.csv")
+    pop, logbook = optimizer.run(csv_logger=logger, csv_filename=output_dir / f"{circuit_name}_log.csv")
     best_individual = optimizer.hall_of_fame[0]
     best_fidelity = evaluator.evaluate(best_individual)
     if isinstance(best_fidelity, list | tuple):
@@ -113,30 +114,44 @@ def run_algorithm(
     # Write pulses CSV
     logger.write_pulses(processor_optimized)
 
-    # Create an output dir for images
-    output_dir = Path("output_circuits") / circuit_name
-    output_dir.mkdir(parents=True, exist_ok=True)
-
     # Visualization
     Visualizer.plot_pulses(
         processor_optimized,
         f"Optimized Pulses for {circuit_name}",
         filename=output_dir / f"{circuit_name}_optimized_pulses.jpg"
     )
-    Visualizer.plot_fidelity_evolution(logbook, filename=output_dir / f"{circuit_name}_fidelity_evolution.jpg")
-    Visualizer.plot_histogram_fidelities(pop, filename=output_dir / f"{circuit_name}_histogram_fidelities.jpg")
+    Visualizer.plot_fidelity_evolution(
+        logbook,
+        filename=output_dir / f"{circuit_name}_fidelity_evolution.jpg"
+    )
+    Visualizer.plot_histogram_fidelities(
+        pop,
+        filename=output_dir / f"{circuit_name}_histogram_fidelities.jpg"
+    )
 
     # Parameter plots
     parameters = ["SNOT", "X", "CNOT"]
-    Visualizer.plot_parameter_evolution(pop, parameters, filename_prefix=str(output_dir / f"{circuit_name}_parameter_evolution"))
-    Visualizer.plot_correlation(pop, parameters, filename=output_dir / f"{circuit_name}_correlation_matrix.jpg", output_dir=output_dir)
-    Visualizer.plot_histogram_parameters(pop, parameters, filename_prefix=str(output_dir / f"{circuit_name}_histogram_parameters"))
+    Visualizer.plot_parameter_evolution(
+        pop, parameters,
+        filename_prefix=str(output_dir / f"{circuit_name}_parameter_evolution")
+    )
+    Visualizer.plot_correlation(
+        pop, parameters,
+        output_dir=output_dir,
+        filename=output_dir / f"{circuit_name}_correlation_matrix.jpg"
+    )
+    Visualizer.plot_histogram_parameters(
+        pop, parameters,
+        filename_prefix=str(output_dir / f"{circuit_name}_histogram_parameters")
+    )
 
     return final_fidelity_with_noise
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Run quantum algorithms with or without GA optimization under noise.")
+    parser = argparse.ArgumentParser(
+        description="Run quantum algorithms with or without GA optimization under noise."
+    )
     parser.add_argument("--algorithm", type=str, choices=["grover", "deutsch-jozsa"], required=True,
                         help="Specify which algorithm to run: 'grover' or 'deutsch-jozsa'.")
     parser.add_argument("--num_generations", type=int, default=100, help="Generations for GA.")
@@ -158,6 +173,11 @@ def main():
     else:
         raise ValueError(UNSUPPORTED_ALGORITHM_SPECIFIED)
 
+    # Create a timestamped output directory
+    timestamp_folder = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    output_dir = Path("output_circuits") / f"{circuit_name}_{timestamp_folder}"
+    output_dir.mkdir(parents=True, exist_ok=True)
+
     # Create noise model
     noise_model = NoiseModel(
         num_qubits,
@@ -167,21 +187,32 @@ def main():
         phase_flip_prob=args.phase_flip_prob,
     )
 
+    # Create CSV logger with an output_dir
+    logger = CSVLogger(circuit_name, output_dir=output_dir)
+
     # 1) Run WITHOUT optimization
     fidelity_no_opt = run_algorithm_without_optimization(
-        quantum_circuit, num_qubits, circuit_name + "_No_Opt", noise_model
+        quantum_circuit,
+        num_qubits,
+        circuit_name + "_No_Opt",
+        noise_model,
+        logger
     )
 
     # 2) Run WITH optimization
     fidelity_opt = run_algorithm(
-        quantum_circuit, num_qubits, circuit_name + "_With_Opt",
+        quantum_circuit,
+        num_qubits,
+        circuit_name + "_With_Opt",
         population_size=args.population_size,
         num_generations=args.num_generations,
-        noise_model=noise_model
+        noise_model=noise_model,
+        logger=logger,
+        output_dir=output_dir,
     )
 
-    # 3) Compare using Visualizer
-    Visualizer.plot_fidelity_comparison(fidelity_no_opt, fidelity_opt, circuit_name)
+    # 3) Compare using Visualizer (also writes CSV with comparison)
+    Visualizer.plot_fidelity_comparison(fidelity_no_opt, fidelity_opt, circuit_name, output_dir)
 
 
 if __name__ == "__main__":
