@@ -39,9 +39,9 @@ class DeutschJozsaCircuit(QuantumCircuitBase):
 
     def _get_target_state(self):
         """
-        The target state for the Deutsch-Jozsa algorithm 
-        is typically |0000>, especially if we're expecting 
-        to measure the input qubits in the standard basis 
+        The target state for the Deutsch-Jozsa algorithm
+        is typically |0000>, especially if we're expecting
+        to measure the input qubits in the standard basis
         after the algorithm finishes.
         """
         return self._get_initial_state()

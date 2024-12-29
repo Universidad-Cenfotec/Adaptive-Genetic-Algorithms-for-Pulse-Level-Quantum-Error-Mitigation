@@ -30,7 +30,7 @@ class Visualizer:
         plt.xlabel("Time")
         plt.ylabel("Amplitude")
         plt.legend()
-        plt.grid(True)
+        plt.grid(visible=True)
         plt.tight_layout()
         plt.savefig(filename)
         plt.close()
@@ -52,7 +52,7 @@ class Visualizer:
         plt.ylabel("Fidelity")
         plt.title("Fidelity Evolution during Optimization")
         plt.legend()
-        plt.grid(True)
+        plt.grid(visible=True)
         plt.tight_layout()
         plt.savefig(filename)
         plt.close()
@@ -65,7 +65,7 @@ class Visualizer:
         plt.title("Distribution of Fidelities in Final Population")
         plt.xlabel("Fidelity")
         plt.ylabel("Number of Individuals")
-        plt.grid(True)
+        plt.grid(visible=True)
         plt.tight_layout()
         plt.savefig(filename)
         plt.close()
@@ -82,13 +82,13 @@ class Visualizer:
             sns.boxplot(y=num_tslots, color="lightgreen")
             plt.title(f"Evolution of num_tslots for {gate}")
             plt.ylabel("num_tslots")
-            plt.grid(True)
+            plt.grid(visible=True)
 
             plt.subplot(1, 2, 2)
             sns.boxplot(y=evo_time, color="lightcoral")
             plt.title(f"Evolution of evo_time for {gate}")
             plt.ylabel("evo_time")
-            plt.grid(True)
+            plt.grid(visible=True)
 
             plt.tight_layout()
             plt.savefig(f"{filename_prefix}_{gate}.jpg")
@@ -131,7 +131,7 @@ class Visualizer:
             plt.title(f"Fidelity vs num_tslots for {gate}")
             plt.xlabel("num_tslots")
             plt.ylabel("Fidelity")
-            plt.grid(True)
+            plt.grid(visible=True)
 
             plt.subplot(1, 2, 2)
             sns.scatterplot(
@@ -140,7 +140,7 @@ class Visualizer:
             plt.title(f"Fidelity vs evo_time for {gate}")
             plt.xlabel("evo_time")
             plt.ylabel("Fidelity")
-            plt.grid(True)
+            plt.grid(visible=True)
 
             plt.tight_layout()
             plt.savefig(str(output_dir / f"{gate}_fidelity_vs_parameters.jpg"))
@@ -173,7 +173,7 @@ class Visualizer:
             plt.title(f"Distribution of num_tslots for {gate}")
             plt.xlabel("num_tslots")
             plt.ylabel("Frequency")
-            plt.grid(True)
+            plt.grid(visible=True)
 
             plt.subplot(1, 2, 2)
             sns.histplot(
@@ -183,7 +183,7 @@ class Visualizer:
             plt.title(f"Distribution of evo_time for {gate}")
             plt.xlabel("evo_time")
             plt.ylabel("Frequency")
-            plt.grid(True)
+            plt.grid(visible=True)
 
             plt.tight_layout()
             plt.savefig(f"{filename_prefix}_{gate}.jpg")
