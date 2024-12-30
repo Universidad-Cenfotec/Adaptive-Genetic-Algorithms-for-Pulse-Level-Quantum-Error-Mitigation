@@ -1,26 +1,22 @@
+
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 
+from src.csv_logger import CSVLogger
+
 
 class Visualizer:
     """
-    Handles plotting and visualization of genetic algorithm optimization results.
+    Handles plotting for genetic algorithm optimization results.
     """
 
     @staticmethod
-    def plot_pulses(processor, title):
-        """
-        Plots the optimized pulses for each control in the quantum circuit.
-
-        Args:
-            processor (OptPulseProcessor): The pulse processor with optimized pulses.
-            title (str): The title of the plot.
-
-        """
+    def plot_pulses(processor, title, filename="optimized_pulses.jpg"):
         coeffs = processor.coeffs
         tlist = processor.get_full_tlist()
         control_labels = processor.get_control_labels()
+
         plt.figure(figsize=(12, 6))
         for i, coeff in enumerate(coeffs):
             plt.step(
@@ -35,17 +31,11 @@ class Visualizer:
         plt.legend()
         plt.grid(visible=True)
         plt.tight_layout()
-        plt.show()
+        plt.savefig(filename)
+        plt.close()
 
     @staticmethod
-    def plot_fidelity_evolution(logbook):
-        """
-        Plots the evolution of average and maximum fidelity over generations.
-
-        Args:
-            logbook (deap.tools.Logbook): The logbook containing generation statistics.
-
-        """
+    def plot_fidelity_evolution(logbook, filename="fidelity_evolution.jpg"):
         genetic_book = pd.DataFrame(logbook)
         plt.figure(figsize=(10, 5))
         plt.plot(genetic_book["gen"], genetic_book["avg"], label="Average Fidelity")
@@ -63,17 +53,11 @@ class Visualizer:
         plt.legend()
         plt.grid(visible=True)
         plt.tight_layout()
-        plt.show()
+        plt.savefig(filename)
+        plt.close()
 
     @staticmethod
-    def plot_histogram_fidelities(pop):
-        """
-        Plots a histogram of fidelities in the final population.
-
-        Args:
-            pop (list): The final population of individuals.
-
-        """
+    def plot_histogram_fidelities(pop, filename="histogram_fidelities.jpg"):
         final_fidelities = [ind.fitness.values[0] for ind in pop]
         plt.figure(figsize=(8, 6))
         plt.hist(final_fidelities, bins=20, color="skyblue", edgecolor="black")
@@ -82,18 +66,12 @@ class Visualizer:
         plt.ylabel("Number of Individuals")
         plt.grid(visible=True)
         plt.tight_layout()
-        plt.show()
+        plt.savefig(filename)
+        plt.close()
 
     @staticmethod
-    def plot_parameter_evolution(pop, parameters):
-        """
-        Plots the evolution of parameters (num_tslots and evo_time) for each gate.
-
-        Args:
-            pop (list): The final population of individuals.
-            parameters (list): List of gate names (e.g., ["SNOT", "X", "CNOT"]).
-
-        """
+    def plot_parameter_evolution(pop, parameters, filename_prefix="parameter_evolution"):
+        import seaborn as sns
         for gate in parameters:
             num_tslots = [ind[gate]["num_tslots"] for ind in pop]
             evo_time = [ind[gate]["evo_time"] for ind in pop]
@@ -113,18 +91,11 @@ class Visualizer:
             plt.grid(visible=True)
 
             plt.tight_layout()
-            plt.show()
+            plt.savefig(f"{filename_prefix}_{gate}.jpg")
+            plt.close()
 
     @staticmethod
-    def plot_correlation(pop, parameters):
-        """
-        Plots a correlation matrix and scatter plots between parameters and fidelity.
-
-        Args:
-            pop (list): The final population of individuals.
-            parameters (list): List of gate names (e.g., ["SNOT", "X", "CNOT"]).
-
-        """
+    def plot_correlation(pop, parameters, output_dir, filename="correlation_matrix.jpg"):
         population_data = []
         for ind in pop:
             data = {
@@ -138,23 +109,24 @@ class Visualizer:
             }
             population_data.append(data)
 
-        genetic_book_population = pd.DataFrame(population_data)
+        dataframe = pd.DataFrame(population_data)
 
-        # Correlation Matrix
+        # Heatmap
         plt.figure(figsize=(10, 8))
-        corr = genetic_book_population.corr()
+        corr = dataframe.corr()
         sns.heatmap(corr, annot=True, cmap="coolwarm", fmt=".2f")
         plt.title("Correlation Matrix between Parameters and Fidelity")
         plt.tight_layout()
-        plt.show()
+        plt.savefig(filename)
+        plt.close()
 
-        # Scatter Plots of Parameters vs Fidelity
+        # Scatter plots
         for gate in parameters:
             plt.figure(figsize=(12, 5))
 
             plt.subplot(1, 2, 1)
             sns.scatterplot(
-                x=f"{gate}_num_tslots", y="Fidelity", data=genetic_book_population, alpha=0.7
+                x=f"{gate}_num_tslots", y="Fidelity", data=dataframe, alpha=0.7
             )
             plt.title(f"Fidelity vs num_tslots for {gate}")
             plt.xlabel("num_tslots")
@@ -163,7 +135,7 @@ class Visualizer:
 
             plt.subplot(1, 2, 2)
             sns.scatterplot(
-                x=f"{gate}_evo_time", y="Fidelity", data=genetic_book_population, alpha=0.7
+                x=f"{gate}_evo_time", y="Fidelity", data=dataframe, alpha=0.7
             )
             plt.title(f"Fidelity vs evo_time for {gate}")
             plt.xlabel("evo_time")
@@ -171,18 +143,13 @@ class Visualizer:
             plt.grid(visible=True)
 
             plt.tight_layout()
-            plt.show()
+            plt.savefig(str(output_dir / f"{gate}_fidelity_vs_parameters.jpg"))
+            plt.close()
 
     @staticmethod
-    def plot_histogram_parameters(pop, parameters):
-        """
-        Plots histograms of parameters (num_tslots and evo_time) for each gate.
+    def plot_histogram_parameters(pop, parameters, filename_prefix="histogram_parameters"):
+        import seaborn as sns
 
-        Args:
-            pop (list): The final population of individuals.
-            parameters (list): List of gate names (e.g., ["SNOT", "X", "CNOT"]).
-
-        """
         population_data = []
         for ind in pop:
             data = {
@@ -195,18 +162,15 @@ class Visualizer:
             }
             population_data.append(data)
 
-        genetic_book_population = pd.DataFrame(population_data)
+        dataframe = pd.DataFrame(population_data)
 
         for gate in parameters:
             plt.figure(figsize=(12, 5))
 
             plt.subplot(1, 2, 1)
             sns.histplot(
-                genetic_book_population[f"{gate}_num_tslots"],
-                bins=10,
-                kde=True,
-                color="green",
-                edgecolor="black",
+                dataframe[f"{gate}_num_tslots"], bins=10, kde=True,
+                color="green", edgecolor="black"
             )
             plt.title(f"Distribution of num_tslots for {gate}")
             plt.xlabel("num_tslots")
@@ -215,11 +179,8 @@ class Visualizer:
 
             plt.subplot(1, 2, 2)
             sns.histplot(
-                genetic_book_population[f"{gate}_evo_time"],
-                bins=10,
-                kde=True,
-                color="purple",
-                edgecolor="black",
+                dataframe[f"{gate}_evo_time"], bins=10, kde=True,
+                color="purple", edgecolor="black"
             )
             plt.title(f"Distribution of evo_time for {gate}")
             plt.xlabel("evo_time")
@@ -227,48 +188,39 @@ class Visualizer:
             plt.grid(visible=True)
 
             plt.tight_layout()
-            plt.show()
+            plt.savefig(f"{filename_prefix}_{gate}.jpg")
+            plt.close()
 
     @staticmethod
-    def compare_pulses(processor_initial, processor_optimized):
+    def plot_fidelity_comparison(fidelity_no_opt, fidelity_opt, circuit_name, output_dir):
         """
-        Compares the initial and optimized pulses for each control in the quantum circuit.
-
-        Args:
-            processor_initial (OptPulseProcessor): The pulse processor with initial pulses.
-            processor_optimized (OptPulseProcessor): The pulse processor with optimized pulses.
-
+        Simple bar chart to compare fidelities (no opt vs. with opt).
         """
-        tlist_initial = processor_initial.get_full_tlist()
-        tlist_optimized = processor_optimized.get_full_tlist()
-        coeffs_initial = processor_initial.coeffs
-        coeffs_optimized = processor_optimized.coeffs
+        logger = CSVLogger(circuit_name, output_dir=output_dir)
+        logger.write_fidelity_comparison(fidelity_no_opt, fidelity_opt)
 
-        plt.figure(figsize=(12, 6))
-        num_controls = len(coeffs_initial)
-        for i in range(num_controls):
-            # Plot initial pulse
-            plt.step(
-                tlist_initial[:-1],
-                coeffs_initial[i],
-                where="post",
-                label=f"Control {i} Initial",
-                linestyle="-",
-                alpha=0.7,
+        labels = ["No Optimization", "Genetic Optimization"]
+        fidelities = [fidelity_no_opt, fidelity_opt]
+        colors = ["red", "green"]
+
+        plt.figure(figsize=(8, 6))
+        bars = plt.bar(labels, fidelities, color=colors)
+        plt.ylim(0, 1)
+        plt.ylabel("Fidelity")
+        plt.title(f"Fidelity Comparison for {circuit_name}")
+
+        for bar in bars:
+            height = bar.get_height()
+            plt.annotate(
+                f"{height:.4f}",
+                xy=(bar.get_x() + bar.get_width() / 2, height),
+                xytext=(0, 3),
+                textcoords="offset points",
+                ha="center", va="bottom"
             )
-            # Plot optimized pulse
-            plt.step(
-                tlist_optimized[:-1],
-                coeffs_optimized[i],
-                where="post",
-                linestyle="--",
-                label=f"Control {i} Optimized",
-                alpha=0.7,
-            )
-        plt.title("Comparison of Initial and Optimized Pulses")
-        plt.xlabel("Time")
-        plt.ylabel("Amplitude")
-        plt.legend()
-        plt.grid(visible=True)
-        plt.tight_layout()
-        plt.show()
+
+        plot_filename = output_dir / f"{circuit_name}_fidelities_comparison.jpg"
+        plt.savefig(plot_filename)
+        plt.close()
+
+        print(f"\nFidelity comparison plot saved at {plot_filename}")

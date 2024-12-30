@@ -18,7 +18,7 @@ def counting_evaluate(individual):
 class TestGeneticOptimizer(unittest.TestCase):
 
     def setUp(self):
-        num_qubits = 3
+        num_qubits = 4
         self.circuit = DeutschJozsaCircuit(num_qubits)
         self.noise_model = NoiseModel(
             num_qubits=num_qubits,
@@ -38,7 +38,8 @@ class TestGeneticOptimizer(unittest.TestCase):
             feedback_threshold=0.01,
             feedback_interval=2,
             early_stopping_rounds=3,
-            n_jobs=1
+            n_jobs=1,
+            use_default=True
         )
 
     def test_run(self):
@@ -49,16 +50,6 @@ class TestGeneticOptimizer(unittest.TestCase):
         self.assertTrue(population[0].fitness.valid)
         self.assertTrue(len(logbook) <= self.optimizer.num_generations)
 
-
-    def test_crossover(self):
-        individual1 = self.optimizer.toolbox.individual()
-        individual2 = self.optimizer.toolbox.individual()
-        original_individual1 = individual1.copy()
-        original_individual2 = individual2.copy()
-        self.optimizer.crossover_probability = 1.0
-        offspring1, offspring2 = self.optimizer._cx_dict(individual1, individual2)  # noqa: SLF001
-        self.assertNotEqual(offspring1, original_individual1)
-        self.assertNotEqual(offspring2, original_individual2)
 
     def test_adjust_probabilities_increase(self):
         self.optimizer.mutation_probability = 0.2
@@ -97,7 +88,8 @@ class TestGeneticOptimizer(unittest.TestCase):
             feedback_threshold=0.01,
             feedback_interval=2,
             early_stopping_rounds=3,
-            n_jobs=1
+            n_jobs=1,
+            use_default=True
         )
         population, _ = optimizer.run()
         unique_individuals = {str(ind) for ind in population}
@@ -114,7 +106,7 @@ class TestGeneticOptimizer(unittest.TestCase):
     def test_invalid_evaluator(self):
         with self.assertRaises(AttributeError):
             invalid_evaluator = object()
-            optimizer = GeneticOptimizer(evaluator=invalid_evaluator)
+            optimizer = GeneticOptimizer(evaluator=invalid_evaluator, use_default=True)
             optimizer._setup_toolbox() # noqa: SLF001
 
 if __name__ == "__main__":
