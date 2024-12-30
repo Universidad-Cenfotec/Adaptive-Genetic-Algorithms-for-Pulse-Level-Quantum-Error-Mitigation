@@ -87,6 +87,5 @@ class GroverCircuit(QuantumCircuitBase):
     def _get_target_state(self):
         """
         By default, let's consider the 'winning' or 'marked' state as |1111>.
-        Adjust if you need a different marked state or multiple targets.
         """
         return basis([2] * self.num_qubits, [1] * self.num_qubits)
