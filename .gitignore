@@ -3,8 +3,9 @@ __pycache__/
 *.pyc
 *.txt
 !requirements.txt
-*.csv
-*.jpg
-*.jpeg
-*.png
-*.gif
+# *.csv
+# *.jpg
+# *.jpeg
+# *.png
+# *.gif
+# *.log
