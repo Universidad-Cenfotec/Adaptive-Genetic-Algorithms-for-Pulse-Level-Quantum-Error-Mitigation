@@ -31,6 +31,7 @@ def run_algorithm_without_optimization(quantum_circuit, num_qubits, circuit_name
 
     Returns:
         float: Fidelity of the circuit without optimization.
+
     """
     # Define solver options
     solver_options = Options(nsteps=100_000, store_states=True)
@@ -98,6 +99,7 @@ def run_algorithm(quantum_circuit, num_qubits, circuit_name, population_size, nu
 
     Returns:
         float: Optimized fidelity of the circuit under noise.
+
     """
     # Define solver options
     solver_options = Options(nsteps=100_000, store_states=True)
@@ -117,7 +119,7 @@ def run_algorithm(quantum_circuit, num_qubits, circuit_name, population_size, nu
 
     # Evaluate the best individual
     best_fidelity = evaluator.evaluate(best_individual)
-    if isinstance(best_fidelity, (tuple, list)):
+    if isinstance(best_fidelity, tuple | list):
         best_fidelity = best_fidelity[0]  # Assuming the first element is fidelity
 
     print(f"\nBest individual found for {circuit_name}: {best_individual}")
