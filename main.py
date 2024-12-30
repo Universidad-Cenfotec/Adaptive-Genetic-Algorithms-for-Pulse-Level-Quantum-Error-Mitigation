@@ -94,20 +94,12 @@ def run_algorithm(
     processor_optimized.load_circuit(
         quantum_circuit.circuit, setting_args=best_individual, merge_gates=False
     )
-    result_opt = processor_optimized.run_state(
-        quantum_circuit.initial_state,
-        options=solver_options,
-        c_ops=noise_model.c_ops,
-    )
-    final_fidelity_with_noise = fidelity(result_opt.states[-1], quantum_circuit.target_state)
-    print(f"Fidelity with noise for {circuit_name} best_individual: {final_fidelity_with_noise:.4f}")
 
     # Write summary CSV
     logger.write_summary_optimization(
         noise_model,
         best_individual,
         best_fidelity,
-        final_fidelity_with_noise,
         population_size,
         num_generations
     )
@@ -145,7 +137,7 @@ def run_algorithm(
         filename_prefix=str(output_dir / f"{circuit_name}_histogram_parameters")
     )
 
-    return final_fidelity_with_noise
+    return best_fidelity
 
 
 def main():

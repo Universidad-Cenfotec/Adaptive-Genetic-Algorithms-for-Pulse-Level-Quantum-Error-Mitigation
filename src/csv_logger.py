@@ -41,7 +41,6 @@ class CSVLogger:
         noise_model,
         best_individual,
         best_fidelity,
-        final_fidelity_with_noise,
         population_size,
         num_generations,
     ):
@@ -51,8 +50,7 @@ class CSVLogger:
         summary_file = self.output_dir / f"{self.circuit_name}_summary_optimization.csv"
         fieldnames = [
             "circuit_name", "population_size", "num_generations", "t1", "t2",
-            "bit_flip_prob", "phase_flip_prob", "best_individual", "best_fidelity",
-            "final_fidelity_with_noise"
+            "bit_flip_prob", "phase_flip_prob", "best_individual", "best_fidelity"
         ]
 
         write_header = not summary_file.exists()
@@ -70,8 +68,7 @@ class CSVLogger:
                 "bit_flip_prob": noise_model.bit_flip_prob,
                 "phase_flip_prob": noise_model.phase_flip_prob,
                 "best_individual": str(best_individual),
-                "best_fidelity": best_fidelity,
-                "final_fidelity_with_noise": final_fidelity_with_noise
+                "best_fidelity": best_fidelity
             })
 
     def write_pulses(self, processor, filename_suffix="_pulses_optimization.csv"):
