@@ -12,7 +12,7 @@ from src.noise_model import NoiseModel
 class TestEvaluator(unittest.TestCase):
 
     def setUp(self):
-        num_qubits = 3
+        num_qubits = 4
         self.circuit = DeutschJozsaCircuit(num_qubits)
         self.noise_model = NoiseModel(
             num_qubits,
