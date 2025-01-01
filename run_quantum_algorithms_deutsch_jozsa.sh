@@ -1,16 +1,16 @@
 #!/bin/bash
 
-echo "Starting 50 parallel executions of the Deutsch-Jozsa Algorithm..."
+echo "Starting 5 parallel executions of the Deutsch-Jozsa Algorithm..."
 
-TOTAL_EXECUTIONS=10
-MAX_PARALLEL=3  # Maximum number of parallel jobs
+TOTAL_EXECUTIONS=5
+MAX_PARALLEL=1  # Maximum number of parallel jobs
 
 for ((i=1; i<=TOTAL_EXECUTIONS; i++))
 do
     echo "Execution #$i: Running Deutsch-Jozsa Algorithm..."
     python3 main.py --algorithm deutsch-jozsa \
-                    --num_generations 5 \
-                    --population_size 10 \
+                    --num_generations 15 \
+                    --population_size 50 \
                     --t1 50.0 \
                     --t2 30.0 \
                     --bit_flip_prob 0.02 \
@@ -29,4 +29,4 @@ wait
 
 echo "All parallel executions have completed."
 
-34472
+# 250 y 500 gen

@@ -1,0 +1,27 @@
+
+Fidelity WITHOUT optimization for Grover_4Q_No_Opt: 0.2403
+Method 'evaluate' successfully registered in the toolbox.
+gen	nevals	avg     	std       	min     	max    	diversity
+0  	50    	0.239644	0.00325501	0.230199	0.24763	1.57578  
+1  	27    	0.241135	0.00343155	0.229424	0.248747	1.48178  
+Diversity 1.4818 < threshold 1.5.
+Applied mutation to entire population for diversity.
+Re-evaluated fitness for affected individuals after diversity action.
+2  	23    	0.244399	0.00871273	0.235071	0.276368	3.2374   
+3  	30    	0.246759	0.0107815 	0.230526	0.276368	3.2211   
+4  	34    	0.251316	0.0194132 	0.215962	0.322543	3.24857  
+5  	35    	0.249689	0.0235569 	0.213264	0.32374 	3.14621  
+6  	39    	0.247467	0.0200918 	0.202122	0.322543	3.17522  
+7  	36    	0.250817	0.0201738 	0.21924 	0.322543	3.13676  
+8  	28    	0.260772	0.0304076 	0.219751	0.361428	2.96813  
+9  	27    	0.269133	0.0460988 	0.185668	0.383781	2.67378  
+10 	26    	0.28109 	0.0461073 	0.219458	0.383781	2.48581  
+11 	29    	0.270612	0.0543555 	0.177678	0.383781	1.98369  
+12 	26    	0.284457	0.0550065 	0.201938	0.383781	2.11031  
+13 	34    	0.272445	0.0553918 	0.159659	0.383781	2.34951  
+14 	37    	0.270952	0.0477153 	0.200479	0.383781	2.75898  
+
+Best individual for Grover_4Q_With_Opt: {'SNOT': {'num_tslots': 2, 'evo_time': 0.14401448949773082}, 'X': {'num_tslots': 1, 'evo_time': 0.13119574205126078}, 'CNOT': {'num_tslots': 7, 'evo_time': 0.30558883606282}}
+Fidelity (best_individual): 0.2454
+
+Fidelity comparison plot saved at output_circuits/Grover_4Q_2024-12-31_23-30-51/Grover_4Q_fidelities_comparison.jpg
