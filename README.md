@@ -252,12 +252,6 @@ Designed for Python 3.12, runs efficiently on any modern laptop with >8GB RAM.
 ## Citation
 If you use this code for academic purposes, please cite:
 ```bibtex
-@misc{aguilar2025pulseqc,
-  title        = {Pulse Quantum Error Correction with Genetic Algorithms},
-  author       = {Aguilar-Calvo, William},
-  year         = {2025},
-  howpublished = {\url{https://github.com/Universidad-Cenfotec/Pulse-Quantum-Error-Correction}}
-}
 ```
 
 ---
