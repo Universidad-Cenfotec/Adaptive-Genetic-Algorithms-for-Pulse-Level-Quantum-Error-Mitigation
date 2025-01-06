@@ -117,12 +117,12 @@ quantum_optimization/
 | Argument        | Description                                    | Example                      |
 |-----------------|------------------------------------------------|------------------------------|
 | `--algorithm`   | Specify which circuit to run (`grover` or `deutsch-jozsa`). | `--algorithm grover`         |
-| `--pop_size`    | Set the population size for the genetic algorithm.   | `--pop_size 50`              |
+| `--population_size`    | Set the population size for the genetic algorithm.   | `--population_size 50`              |
 | `--generations` | Set the number of generations for optimization.      | `--generations 100`          |
 | `--t1`          | T1 relaxation time constant (noise model).          | `--t1 50`                    |
 | `--t2`          | T2 dephasing time constant (noise model).           | `--t2 30`                    |
-| `--bit_flip`    | Bit-flip error probability.                         | `--bit_flip 0.02`            |
-| `--phase_flip`  | Phase-flip error probability.                       | `--phase_flip 0.02`          |
+| `--bit_flip_prob`    | Bit-flip error probability.                         | `--bit_flip_prob 0.02`            |
+| `--phase_flip_prob`  | Phase-flip error probability.                       | `--phase_flip_prob 0.02`          |
 
 ### Running the Project
 Run the project with default parameters:
