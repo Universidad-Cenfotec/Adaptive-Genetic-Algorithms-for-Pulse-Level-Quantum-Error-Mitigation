@@ -1,4 +1,4 @@
-# Pulse Quantum Error Correction
+# Adaptive Genetic Algorithms for Pulse Level Quantum Error Mitigation
 
 **A Genetic Algorithm proposal for Optimizing Deutsch-Jozsa and Grover Circuits Under Noise**
 
