@@ -1,3 +1,11 @@
 venv/
 __pycache__/
 *.pyc
+*.txt
+!requirements.txt
+# *.csv
+# *.jpg
+# *.jpeg
+# *.png
+# *.gif
+# *.log

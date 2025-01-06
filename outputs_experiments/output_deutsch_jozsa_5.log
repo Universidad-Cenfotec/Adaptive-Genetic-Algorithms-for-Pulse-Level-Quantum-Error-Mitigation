@@ -1,0 +1,27 @@
+
+Fidelity WITHOUT optimization for DeutschJozsa_4Q_No_Opt: 0.2729
+Method 'evaluate' successfully registered in the toolbox.
+gen	nevals	avg     	std      	min     	max     	diversity
+0  	50    	0.256879	0.0103132	0.232069	0.278119	2.15199  
+1  	25    	0.262907	0.0119452	0.239782	0.299285	2.28489  
+2  	37    	0.262016	0.0159284	0.235178	0.299285	2.68354  
+3  	30    	0.264645	0.0178664	0.231263	0.299285	2.57792  
+4  	29    	0.268336	0.0178016	0.239055	0.299285	2.08093  
+5  	26    	0.271642	0.0205517	0.23077 	0.299285	2.33826  
+6  	28    	0.272647	0.0212821	0.224303	0.299285	2.10137  
+7  	25    	0.275588	0.0207379	0.245821	0.299285	1.32814  
+Diversity 1.3281 < threshold 1.5.
+Applied mutation to entire population for diversity.
+Re-evaluated fitness for affected individuals after diversity action.
+8  	33    	0.260605	0.00691255	0.25006 	0.279247	3.29062  
+9  	27    	0.262068	0.00767443	0.238523	0.273485	3.26957  
+10 	29    	0.262762	0.0101167 	0.235662	0.287101	3.1936   
+11 	30    	0.262752	0.00914244	0.244761	0.287101	3.21177  
+12 	29    	0.263733	0.0109231 	0.235821	0.287101	3.21103  
+13 	26    	0.264785	0.0149354 	0.19196 	0.287101	3.08523  
+14 	30    	0.262484	0.0150021 	0.211109	0.287101	3.00437  
+
+Best individual for DeutschJozsa_4Q_With_Opt: {'SNOT': {'num_tslots': 1, 'evo_time': 1.1750086441694891}, 'X': {'num_tslots': 3, 'evo_time': 0.5404247656471131}, 'CNOT': {'num_tslots': 4, 'evo_time': 0.7020494915734358}}
+Fidelity (best_individual): 0.2537
+
+Fidelity comparison plot saved at output_circuits/DeutschJozsa_4Q_2024-12-31_22-09-55/DeutschJozsa_4Q_fidelities_comparison.jpg
