@@ -28,5 +28,3 @@ done
 wait
 
 echo "All parallel executions have completed."
-
-# 250 y 500 gen
