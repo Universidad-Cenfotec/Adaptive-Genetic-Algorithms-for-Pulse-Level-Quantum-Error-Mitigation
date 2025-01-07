@@ -214,27 +214,27 @@ Below are enhanced visualizations and results generated during the optimization 
 1. **Fidelity Evolution Over Generations**\\
    This graph demonstrates how the fidelity improves over successive generations, showcasing the effectiveness of the genetic algorithm in optimizing gate parameters under noise conditions.\\
 
-   ![Fidelity Evolution](./output_circuits/DeutschJozsa_4Q_2024-12-31_21-58-14/DeutschJozsa_4Q_With_Opt_fidelity_evolution.jpg)
+   ![Fidelity Evolution](./output_circuits/Five%20DeutschJozsa%20Experiments%20(Short%20Runs)/DeutschJozsa_4Q_2024-12-31_21-58-14/DeutschJozsa_4Q_With_Opt_fidelity_evolution.jpg)
 
 2. **Optimized Pulse Sequence**\\
    Visual representation of the optimized pulse sequence for the Deutsch-Jozsa circuit after applying the genetic algorithm. Notice the distinct modulation patterns designed to counteract noise.\\
 
-   ![Optimized Pulses](./output_circuits/DeutschJozsa_4Q_2024-12-31_21-58-14/DeutschJozsa_4Q_With_Opt_optimized_pulses.jpg)
+   ![Optimized Pulses](./output_circuits/Five%20DeutschJozsa%20Experiments%20(Short%20Runs)/DeutschJozsa_4Q_2024-12-31_21-58-14/DeutschJozsa_4Q_With_Opt_optimized_pulses.jpg)
 
 3. **Parameter Correlation Matrix**\\
    A heatmap illustrating the correlation between optimized parameters, providing insights into their interdependence and the genetic algorithm’s exploration of the parameter space.\\
 
-   ![Correlation Matrix](./output_circuits/DeutschJozsa_4Q_2024-12-31_21-58-14/DeutschJozsa_4Q_With_Opt_correlation_matrix.jpg)
+   ![Correlation Matrix](./output_circuits/Five%20DeutschJozsa%20Experiments%20(Short%20Runs)/DeutschJozsa_4Q_2024-12-31_21-58-14/DeutschJozsa_4Q_With_Opt_correlation_matrix.jpg)
 
 4. **Distribution of Fidelity Values**\\
    Histogram showing the distribution of fidelity values across individuals in the population during the final generation, reflecting the diversity and robustness of the optimization.\\
 
-   ![Fidelity Histogram](./output_circuits/DeutschJozsa_4Q_2024-12-31_21-58-14/DeutschJozsa_4Q_With_Opt_histogram_fidelities.jpg)
+   ![Fidelity Histogram](./output_circuits/Five%20DeutschJozsa%20Experiments%20(Short%20Runs)/DeutschJozsa_4Q_2024-12-31_21-58-14/DeutschJozsa_4Q_With_Opt_histogram_fidelities.jpg)
 
 5. **Gate Parameter Evolution**\\
    A dynamic plot tracking the evolution of key gate parameters (e.g., CNOT, SNOT) across generations, highlighting how the genetic algorithm fine-tunes each parameter.\\
 
-   ![Parameter Evolution](./output_circuits/DeutschJozsa_4Q_2024-12-31_21-58-14/DeutschJozsa_4Q_With_Opt_parameter_evolution_CNOT.jpg)
+   ![Parameter Evolution](./output_circuits/Five%20DeutschJozsa%20Experiments%20(Short%20Runs)/DeutschJozsa_4Q_2024-12-31_21-58-14/DeutschJozsa_4Q_With_Opt_parameter_evolution_CNOT.jpg)
 
 These results collectively illustrate the power of pulse-level optimization in mitigating quantum noise, underscoring the potential of genetic algorithms in quantum computing research.
 
