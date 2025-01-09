@@ -8,3 +8,4 @@ qutip-qtrl==0.1.3
 deap==1.4
 ruff
 scipy
+psutil
