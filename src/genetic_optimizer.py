@@ -1,13 +1,10 @@
-import multiprocessing
-import platform
 import secrets
-from concurrent.futures import ProcessPoolExecutor
 
 import numpy as np
-import psutil
 from deap import base, creator, tools
 from scipy.linalg import inv, pinv
 from scipy.spatial.distance import pdist
+from scoop import futures
 
 from src.gate_config import DEFAULT_SETTING_ARGS
 
@@ -17,20 +14,11 @@ EPSILON = 1e-10
 REPLACE_RATIO = 0.1  # Ratio of population to replace during diversity action
 EVALUATOR_MESSAGE = "The 'evaluator' does not have an 'evaluate' method."
 
-def determinate_n_jobs():
-    cpu_use = psutil.cpu_percent(interval=1)
-    cpu_count = multiprocessing.cpu_count()
-
-    if cpu_use < 50:
-        return cpu_count
-    if cpu_use < 80:
-        return max(1, cpu_count // 2)
-    return max(1, cpu_count // 4)
-
 class GeneticOptimizer:
     """
     Genetic algorithm optimization with feedback-based mutation, crossover adjustment,
-    diversity control using Mahalanobis distance, elitism, early stopping, and improved parallelization.
+    diversity control using Mahalanobis distance, elitism, early stopping,
+    and improved parallelization (now via SCOOP).
     """
 
     def __init__(
@@ -46,7 +34,6 @@ class GeneticOptimizer:
         early_stopping_rounds=20,
         diversity_threshold=1.5,
         diversity_action="mutate",  # or 'replace'
-        n_jobs=None,
     ):
         """
         Initializes the genetic optimizer with given hyperparameters.
@@ -63,8 +50,7 @@ class GeneticOptimizer:
             early_stopping_rounds (int): If no improvement after these many checks, stop early.
             diversity_threshold (float): If population diversity (Mahalanobis) < threshold, apply a diversity action.
             diversity_action (str): 'mutate' or 'replace' to handle low diversity.
-            n_jobs (int or None): # of parallel jobs. Defaults to max(4, CPU count).
-
+            n_jobs (int or None): # of parallel jobs (informational only for SCOOP).
         """
         self.evaluator = evaluator
         self.population_size = population_size
@@ -76,12 +62,7 @@ class GeneticOptimizer:
         self.early_stopping_rounds = early_stopping_rounds
         self.diversity_threshold = diversity_threshold
         self.diversity_action = diversity_action
-        print("Jobs: ", determinate_n_jobs())
-        self.n_jobs = n_jobs if n_jobs else determinate_n_jobs()
         self.use_default = use_default
-
-        # Parallel pool
-        self.executor = ProcessPoolExecutor(max_workers=self.n_jobs)
 
         # DEAP setup
         self.toolbox = self._setup_toolbox()
@@ -109,20 +90,13 @@ class GeneticOptimizer:
             raise AttributeError(EVALUATOR_MESSAGE)
 
         toolbox.register("evaluate", self.evaluator.evaluate)
-        print("Method 'evaluate' successfully registered in the toolbox.")
 
-        def parallel_map(func, data):
-            return list(self.executor.map(func, data, chunksize=10))
-        toolbox.register("map", parallel_map)
+        # --- SCOOP for parallelism ---
+        toolbox.register("map", futures.map)
+
+        print("Method 'evaluate' successfully registered in the toolbox.")
         return toolbox
 
-    def update_n_jobs(self):
-        new_n_jobs = determinate_n_jobs()
-        if new_n_jobs != self.n_jobs:
-            self.executor.shutdown(wait=True)
-            self.n_jobs = new_n_jobs
-            self.executor = ProcessPoolExecutor(max_workers=self.n_jobs)
-            print(f"n_jobs updated to {self.n_jobs}")
 
     def _init_individual(self, icls):
         individual = {}
@@ -248,7 +222,7 @@ class GeneticOptimizer:
                     self.toolbox.mutate(mutant)
                     del mutant.fitness.values
 
-            # Evaluate invalid individuals
+            # Evaluate invalid individuals (parallel via SCOOP)
             invalid_ind = [ind for ind in offspring if not ind.fitness.valid]
             if invalid_ind:
                 fitnesses = self.toolbox.map(self.toolbox.evaluate, invalid_ind)
@@ -294,10 +268,6 @@ class GeneticOptimizer:
                     self._apply_replace_action(pop)
                 self._evaluate_population(pop)
 
-            # Update n_jobs in specifc intervals
-            if (gen + 1) % self.feedback_interval == 0:
-                self.update_n_jobs()
-
             # Early stopping
             if self.last_avg_fitness is not None:
                 if record["avg"] > self.last_avg_fitness + self.feedback_threshold:
@@ -308,7 +278,7 @@ class GeneticOptimizer:
                 print(f"No improvement in the last {self.early_stopping_rounds} generations. Stopping early.")
                 break
 
-        self.executor.shutdown(wait=True)
+        # With SCOOP, no need to shut down our own pool
         return pop, self.logbook
 
     def _apply_mutation_action(self, population):

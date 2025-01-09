@@ -1,5 +1,4 @@
 import argparse
-import multiprocessing
 import warnings
 from datetime import datetime
 from pathlib import Path
@@ -209,5 +208,4 @@ def main():
 
 
 if __name__ == "__main__":
-    multiprocessing.set_start_method("spawn")
     main()

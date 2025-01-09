@@ -9,3 +9,4 @@ deap==1.4
 ruff
 scipy
 psutil
+scoop
