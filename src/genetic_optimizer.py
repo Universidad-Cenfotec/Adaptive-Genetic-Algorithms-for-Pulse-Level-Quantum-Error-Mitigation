@@ -32,7 +32,7 @@ class GeneticOptimizer:
         feedback_threshold=0.01,
         feedback_interval=10,
         early_stopping_rounds=20,
-        diversity_threshold=1.5,
+        diversity_threshold=1.2,
         diversity_action="mutate",  # or 'replace'
     ):
         """
