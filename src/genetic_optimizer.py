@@ -51,6 +51,7 @@ class GeneticOptimizer:
             diversity_threshold (float): If population diversity (Mahalanobis) < threshold, apply a diversity action.
             diversity_action (str): 'mutate' or 'replace' to handle low diversity.
             n_jobs (int or None): # of parallel jobs (informational only for SCOOP).
+
         """
         self.evaluator = evaluator
         self.population_size = population_size
