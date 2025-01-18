@@ -21,7 +21,7 @@ warnings.filterwarnings("ignore")
 UNSUPPORTED_ALGORITHM_SPECIFIED = "Unsupported algorithm specified."
 
 def run_algorithm_without_optimization(
-    quantum_circuit, num_qubits, circuit_name, noise_model, logger
+    quantum_circuit, num_qubits, circuit_name, noise_model, logger, output_dir
 ):
     """
     Runs the circuit under noise WITHOUT GA optimization, returns fidelity.
@@ -48,6 +48,13 @@ def run_algorithm_without_optimization(
 
     # Write CSV summary
     logger.write_summary_no_optimization(noise_model, fidelity_no_opt)
+    processor_no_opt.plot_pulses(title=f"Pulses without optimization {circuit_name}", dpi=600)[0].savefig(output_dir/"pulseswithoutoptimization")
+    # Visualization
+    Visualizer.plot_pulses(
+        processor_no_opt,
+        f"Optimized Pulses for {circuit_name}",
+        filename=output_dir / f"{circuit_name}_non_optimized_pulses.jpg"
+    )
     return fidelity_no_opt
 
 def run_algorithm(
@@ -79,7 +86,7 @@ def run_algorithm(
     # Run GA
     pop, logbook = optimizer.run(csv_logger=logger, csv_filename=output_dir / f"{circuit_name}_log.csv")
     best_individual = optimizer.hall_of_fame[0]
-    best_fidelity = evaluator.evaluate(best_individual)
+    best_fidelity = evaluator.evaluate(best_individual, plot_pulses=True, outputdir=output_dir, circuit_name=circuit_name)
     if isinstance(best_fidelity, list | tuple):
         best_fidelity = best_fidelity[0]
 
@@ -188,7 +195,8 @@ def main():
         args.num_qubits,
         circuit_name + "_No_Opt",
         noise_model,
-        logger
+        logger,
+        output_dir=output_dir
     )
 
     # 2) Run WITH optimization

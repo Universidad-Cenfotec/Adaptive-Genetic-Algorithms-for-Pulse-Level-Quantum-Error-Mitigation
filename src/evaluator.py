@@ -1,6 +1,8 @@
 from qutip import fidelity
 from qutip_qip.device import OptPulseProcessor, SpinChainModel
 
+from src.visualizer import Visualizer
+
 
 class Evaluator:
     """
@@ -15,7 +17,7 @@ class Evaluator:
         self.c_ops = noise_model.c_ops
         self.solver_options = solver_options
 
-    def evaluate(self, individual):
+    def evaluate(self, individual, plot_pulses = False, outputdir = "", circuit_name = ""):  # noqa: FBT002
         """
         Evaluates an individual by running the circuit with the given parameters and computing the fidelity.
         Returns (0.0,) in case of an error during evaluation.
@@ -34,6 +36,17 @@ class Evaluator:
                 options=self.solver_options,
                 c_ops=self.c_ops
             )
+
+            if plot_pulses:
+                processor.plot_pulses(title=f"Pulses with optimization {circuit_name}", dpi=600)[0].savefig(outputdir/"pulseswithoptimization")
+
+            # Visualization
+                Visualizer.plot_pulses(
+                    processor,
+                    f"Optimized Pulses for {circuit_name}",
+                    filename=outputdir / f"{circuit_name}_optimized_pulses.jpg"
+                )
+
             # Compute fidelity with the target state
             return (fidelity(result.states[-1], self.target_state) , )
 
