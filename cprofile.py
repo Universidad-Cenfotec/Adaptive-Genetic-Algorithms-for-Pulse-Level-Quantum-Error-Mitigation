@@ -1,10 +1,8 @@
 import argparse
+import cProfile
 import warnings
 from datetime import datetime
 from pathlib import Path
-import cProfile
-import pstats
-import io
 
 from qutip import Options, fidelity
 from qutip_qip.device import OptPulseProcessor, SpinChainModel

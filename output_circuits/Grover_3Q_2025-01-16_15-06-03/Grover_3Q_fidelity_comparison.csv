@@ -1,0 +1,2 @@
+circuit_name,fidelity_no_optimization,fidelity_with_optimization,fidelity_improvement
+Grover_3Q,0.3417089633717551,0.35587586417970063,0.014166900807945526

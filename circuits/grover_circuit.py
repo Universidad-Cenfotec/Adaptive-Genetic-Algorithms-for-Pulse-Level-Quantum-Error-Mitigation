@@ -6,15 +6,13 @@ from src.quantum_circuit import QuantumCircuitBase
 
 class GroverCircuit(QuantumCircuitBase):
     """
-    Example: 4-qubit Grover's algorithm circuit marking the state |1111>.
+    Example: Grover's algorithm circuit marking the state |111...1> for n qubits.
     """
 
-    REQUIRED_NUM_QUBITS = 4
-
     def _create_circuit(self):
-        if self.num_qubits != self.REQUIRED_NUM_QUBITS:
+        if self.num_qubits == 1:
             error_message = (
-                f"This Grover circuit is set up for exactly {self.REQUIRED_NUM_QUBITS} qubits."
+                f"This Grover circuit requires more than {self.REQUIRED_NUM_QUBITS} qubits."
             )
             raise ValueError(error_message)
 
@@ -23,28 +21,29 @@ class GroverCircuit(QuantumCircuitBase):
         ############################################################
         # STEP 1: HADAMARD ON ALL QUBITS
         ############################################################
-        # Create an equal superposition over the 16 possible states.
+        # Create an equal superposition over all possible states for the given number of qubits.
+        # Mathematically: Apply H^{\otimes n} to the initial state |0...0>, resulting in:
+        #     |\psi\rangle = \frac{1}{\sqrt{2^n}} \sum_{x=0}^{2^n-1} |x\rangle
         for q in range(self.num_qubits):
             circuit.add_gate("SNOT", targets=q)
 
         ############################################################
-        # STEP 2: ORACLE (Marking |1111>)
+        # STEP 2: ORACLE (Marking a specific state |111...1>)
         #
-        # One way to implement a 'phase flip' on |1111> is:
-        #   - Apply X to all qubits (so |1111> becomes |0000>)
+        # This implementation applies a phase flip to the marked state |111...1>.
+        # General steps:
+        #   - Apply X to all qubits (so |111...1> becomes |000...0>)
         #   - Apply a chain of CNOTs or a multi-controlled gate
         #   - Apply X to all qubits again
-        #
-        # This effectively adds a phase of -1 to |1111>.
+        # This effectively adds a phase of -1 to the marked state.
         ############################################################
         # Flip all qubits
         for q in range(self.num_qubits):
             circuit.add_gate("X", targets=q)
 
-        # Chain of CNOTs to flip the last qubit if all are 0 (equivalently, original was |1111>)
-        circuit.add_gate("CNOT", controls=0, targets=1)
-        circuit.add_gate("CNOT", controls=1, targets=2)
-        circuit.add_gate("CNOT", controls=2, targets=3)
+        # Chain of CNOTs to flip the last qubit if all are 0 (equivalently, original was |111...1>)
+        for q in range(self.num_qubits-1):
+            circuit.add_gate("CNOT", controls=q, targets=q+1)
 
         # Flip all qubits back
         for q in range(self.num_qubits):
@@ -53,10 +52,11 @@ class GroverCircuit(QuantumCircuitBase):
         ############################################################
         # STEP 3: DIFFUSION OPERATOR
         #
-        # For 4 qubits, the diffusion operator is:
+        # The diffusion operator amplifies the amplitude of the marked state.
+        # General steps for n qubits:
         #   - Hadamard on all qubits
         #   - X on all qubits
-        #   - Multi-controlled Z (again, can be done via chain of CNOTs)
+        #   - Multi-controlled Z (can be implemented via a chain of CNOTs)
         #   - X on all qubits
         #   - Hadamard on all qubits
         ############################################################
@@ -69,10 +69,9 @@ class GroverCircuit(QuantumCircuitBase):
         for q in range(self.num_qubits):
             circuit.add_gate("X", targets=q)
 
-        # 3c. Chain of CNOTs to perform a multi-controlled phase flip
-        circuit.add_gate("CNOT", controls=0, targets=1)
-        circuit.add_gate("CNOT", controls=1, targets=2)
-        circuit.add_gate("CNOT", controls=2, targets=3)
+        # Chain of CNOTs to flip the last qubit if all are 0 (equivalently, original was |111...1>)
+        for q in range(self.num_qubits-1):
+            circuit.add_gate("CNOT", controls=q, targets=q+1)
 
         # 3d. X on all qubits
         for q in range(self.num_qubits):
@@ -86,6 +85,7 @@ class GroverCircuit(QuantumCircuitBase):
 
     def _get_target_state(self):
         """
-        By default, let's consider the 'winning' or 'marked' state as |1111>.
+        By default, consider the 'winning' or 'marked' state as |111...1> for n qubits.
+        Adjust if you need a different marked state or multiple targets.
         """
         return basis([2] * self.num_qubits, [1] * self.num_qubits)
