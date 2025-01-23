@@ -89,10 +89,7 @@ def run_algorithm(
     print("\nGA performance profile saved to 'profile_results_ga.prof'.")
 
     best_individual = optimizer.hall_of_fame[0]
-    best_fidelity = evaluator.evaluate(best_individual)
-    if isinstance(best_fidelity, list | tuple):
-        best_fidelity = best_fidelity[0]
-
+    best_fidelity = max(logbook.select("avg"))
     print(f"\nBest individual for {circuit_name}: {best_individual}")
     print(f"Fidelity (best_individual): {best_fidelity:.4f}")
 

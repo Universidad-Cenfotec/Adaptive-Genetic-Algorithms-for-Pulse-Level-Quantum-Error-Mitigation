@@ -86,10 +86,8 @@ def run_algorithm(
     # Run GA
     pop, logbook = optimizer.run(csv_logger=logger, csv_filename=output_dir / f"{circuit_name}_log.csv")
     best_individual = optimizer.hall_of_fame[0]
-    best_fidelity = evaluator.evaluate(best_individual, plot_pulses=True, outputdir=output_dir, circuit_name=circuit_name)
-    if isinstance(best_fidelity, list | tuple):
-        best_fidelity = best_fidelity[0]
-
+    evaluator.evaluate(best_individual, plot_pulses=True, outputdir=output_dir, circuit_name=circuit_name)
+    best_fidelity = max(logbook.select("avg"))
     print(f"\nBest individual for {circuit_name}: {best_individual}")
     print(f"Fidelity (best_individual): {best_fidelity:.4f}")
 
