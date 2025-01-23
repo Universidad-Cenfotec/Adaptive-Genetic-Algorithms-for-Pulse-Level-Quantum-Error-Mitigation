@@ -19,6 +19,4 @@ gen	nevals	avg     	std       	min     	max     	diversity
 14 	25    	0.245783	0.00552422	0.22877 	0.251055	2.36977  
 
 Best individual for Grover_4Q_With_Opt: {'SNOT': {'num_tslots': 6, 'evo_time': 1.7857987009911913}, 'X': {'num_tslots': 8, 'evo_time': 0.8631112949236366}, 'CNOT': {'num_tslots': 9, 'evo_time': 1.2341572230144746}}
-Fidelity (best_individual): 0.2462
-
-Fidelity comparison plot saved at output_circuits/Grover_4Q_2024-12-31_21-33-31/Grover_4Q_fidelities_comparison.jpg
+Fidelity (best_individual): 0.2440

@@ -1,2 +1,2 @@
 circuit_name,population_size,num_generations,t1,t2,bit_flip_prob,phase_flip_prob,best_individual,best_fidelity
-Grover_4Q,50,15,50.0,30.0,0.02,0.02,"{'SNOT': {'num_tslots': 7, 'evo_time': 0.21447081714985633}, 'X': {'num_tslots': 3, 'evo_time': 0.13722867140559442}, 'CNOT': {'num_tslots': 2, 'evo_time': 6.652865984442321}}",0.2532021215656047
+Grover_4Q,50,15,50.0,30.0,0.02,0.02,"{'SNOT': {'num_tslots': 7, 'evo_time': 0.21447081714985633}, 'X': {'num_tslots': 3, 'evo_time': 0.13722867140559442}, 'CNOT': {'num_tslots': 2, 'evo_time': 6.652865984442321}}",0.2495695420237994

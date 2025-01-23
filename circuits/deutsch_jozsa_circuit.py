@@ -5,47 +5,44 @@ from src.quantum_circuit import QuantumCircuitBase
 
 class DeutschJozsaCircuit(QuantumCircuitBase):
     """
-    Quantum circuit for the Deutsch-Jozsa algorithm with 4 qubits.
-    Qubits 0, 1, 2: Input qubits
-    Qubit 3       : Ancilla
+    Quantum circuit for the Deutsch-Jozsa algorithm with n qubits.
+    Qubits 0 to n-2: Input qubits
+    Qubit n-1       : Ancilla qubit
     """
 
-    REQUIRED_NUM_QUBITS = 4
+    REQUIRED_NUM_QUBITS = 1
 
     def _create_circuit(self):
-        # Ensure that num_qubits = 4
-        if self.num_qubits != self.REQUIRED_NUM_QUBITS:
+        if self.num_qubits == 1:
             error_message = (
-                f"This Deutsch-Jozsa is set up for exactly {self.REQUIRED_NUM_QUBITS} qubits."
+                f"This Deutsch-Jozsa implementation requires more than {self.REQUIRED_NUM_QUBITS} qubits."
             )
             raise ValueError(error_message)
 
         circuit = QubitCircuit(self.num_qubits)
 
-        # Step 1: Apply an X gate to the ancilla (qubit 3)
-        circuit.add_gate("X", targets=3)
+        # Step 1: Apply an X gate to the ancilla
+        circuit.add_gate("X", targets=self.num_qubits-1)
 
-        # Step 2: Apply Hadamard (SNOT) gates to all 4 qubits [0, 1, 2, 3]
+        # Step 2: Apply Hadamard gates to all qubits
         for qubit in range(self.num_qubits):
             circuit.add_gate("SNOT", targets=qubit)
 
-        # Step 3: Oracle example.
-        # For a typical Deutsch-Jozsa demonstration,
-        # let's mark the state |111> on the 3 input qubits by flipping the ancilla:
-        circuit.add_gate("CNOT", controls=0, targets=3)
-        circuit.add_gate("CNOT", controls=1, targets=3)
-        circuit.add_gate("CNOT", controls=2, targets=3)
+        # Step 3: Example oracle implementation
+        # Flip the ancilla qubit conditioned on the input qubits being in the state |1...1>
+        # Specifically, apply a controlled NOT (CNOT) gate from each input qubit to the ancilla
+        for cnotqubit in range(self.num_qubits-1):
+            circuit.add_gate("CNOT", controls=cnotqubit, targets=self.num_qubits-1)
 
-        # Step 4: Apply Hadamard (SNOT) again on the first three qubits [0, 1, 2]
-        for qubit in range(3):
+        # Step 4: Apply Hadamard gates again to the input qubits
+        for qubit in range(self.num_qubits-1):
             circuit.add_gate("SNOT", targets=qubit)
-
         return circuit
 
     def _get_target_state(self):
         """
         The target state for the Deutsch-Jozsa algorithm
-        is typically |0000>, especially if we're expecting
+        is typically |0...0>, especially if we're expecting
         to measure the input qubits in the standard basis
         after the algorithm finishes.
         """

@@ -1,2 +1,2 @@
 circuit_name,population_size,num_generations,t1,t2,bit_flip_prob,phase_flip_prob,best_individual,best_fidelity
-DeutschJozsa_4Q,50,15,50.0,30.0,0.02,0.02,"{'SNOT': {'num_tslots': 2, 'evo_time': 1.9644356579125066}, 'X': {'num_tslots': 6, 'evo_time': 1.6850223315606163}, 'CNOT': {'num_tslots': 2, 'evo_time': 2.6904345947661574}}",0.2799546401751062
+DeutschJozsa_4Q,50,15,50.0,30.0,0.02,0.02,"{'SNOT': {'num_tslots': 2, 'evo_time': 1.9644356579125066}, 'X': {'num_tslots': 6, 'evo_time': 1.6850223315606163}, 'CNOT': {'num_tslots': 2, 'evo_time': 2.6904345947661574}}",0.26525218934093164

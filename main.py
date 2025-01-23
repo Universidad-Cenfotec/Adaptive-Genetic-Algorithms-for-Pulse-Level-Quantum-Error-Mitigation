@@ -1,4 +1,5 @@
 import argparse
+import time
 import warnings
 from datetime import datetime
 from pathlib import Path
@@ -19,9 +20,8 @@ warnings.filterwarnings("ignore")
 
 UNSUPPORTED_ALGORITHM_SPECIFIED = "Unsupported algorithm specified."
 
-
 def run_algorithm_without_optimization(
-    quantum_circuit, num_qubits, circuit_name, noise_model, logger
+    quantum_circuit, num_qubits, circuit_name, noise_model, logger, output_dir
 ):
     """
     Runs the circuit under noise WITHOUT GA optimization, returns fidelity.
@@ -48,8 +48,14 @@ def run_algorithm_without_optimization(
 
     # Write CSV summary
     logger.write_summary_no_optimization(noise_model, fidelity_no_opt)
+    processor_no_opt.plot_pulses(title=f"Pulses without optimization {circuit_name}", dpi=600)[0].savefig(output_dir/"pulseswithoutoptimization")
+    # Visualization
+    Visualizer.plot_pulses(
+        processor_no_opt,
+        f"Optimized Pulses for {circuit_name}",
+        filename=output_dir / f"{circuit_name}_non_optimized_pulses.jpg"
+    )
     return fidelity_no_opt
-
 
 def run_algorithm(
     quantum_circuit,
@@ -80,10 +86,8 @@ def run_algorithm(
     # Run GA
     pop, logbook = optimizer.run(csv_logger=logger, csv_filename=output_dir / f"{circuit_name}_log.csv")
     best_individual = optimizer.hall_of_fame[0]
-    best_fidelity = evaluator.evaluate(best_individual)
-    if isinstance(best_fidelity, list | tuple):
-        best_fidelity = best_fidelity[0]
-
+    evaluator.evaluate(best_individual, plot_pulses=True, outputdir=output_dir, circuit_name=circuit_name)
+    best_fidelity = max(logbook.select("avg"))
     print(f"\nBest individual for {circuit_name}: {best_individual}")
     print(f"Fidelity (best_individual): {best_fidelity:.4f}")
 
@@ -139,13 +143,13 @@ def run_algorithm(
 
     return best_fidelity
 
-
 def main():
     parser = argparse.ArgumentParser(
-        description="Run quantum algorithms with or without GA optimization under noise."
+    description="Run quantum algorithms with or without GA optimization under noise."
     )
     parser.add_argument("--algorithm", type=str, choices=["grover", "deutsch-jozsa"], required=True,
                         help="Specify which algorithm to run: 'grover' or 'deutsch-jozsa'.")
+    parser.add_argument("--num_qubits", type=int, default=4, help="Number of qubits to use in the circuit.")
     parser.add_argument("--num_generations", type=int, default=100, help="Generations for GA.")
     parser.add_argument("--population_size", type=int, default=50, help="Population size for GA.")
     parser.add_argument("--t1", type=float, default=50.0, help="T1 relaxation time.")
@@ -155,13 +159,11 @@ def main():
     args = parser.parse_args()
 
     if args.algorithm == "grover":
-        num_qubits = 4
-        circuit_name = "Grover_4Q"
-        quantum_circuit = GroverCircuit(num_qubits)
+        circuit_name = f"Grover_{args.num_qubits}Q"
+        quantum_circuit = GroverCircuit(args.num_qubits)
     elif args.algorithm == "deutsch-jozsa":
-        num_qubits = 4
-        circuit_name = "DeutschJozsa_4Q"
-        quantum_circuit = DeutschJozsaCircuit(num_qubits)
+        circuit_name = f"DeutschJozsa_{args.num_qubits}Q"
+        quantum_circuit = DeutschJozsaCircuit(args.num_qubits)
     else:
         raise ValueError(UNSUPPORTED_ALGORITHM_SPECIFIED)
 
@@ -172,7 +174,7 @@ def main():
 
     # Create noise model
     noise_model = NoiseModel(
-        num_qubits,
+        args.num_qubits,
         t1=args.t1,
         t2=args.t2,
         bit_flip_prob=args.bit_flip_prob,
@@ -182,19 +184,23 @@ def main():
     # Create CSV logger with an output_dir
     logger = CSVLogger(circuit_name, output_dir=output_dir)
 
+    # Track total experiment time
+    start_time = time.time()
+
     # 1) Run WITHOUT optimization
     fidelity_no_opt = run_algorithm_without_optimization(
         quantum_circuit,
-        num_qubits,
+        args.num_qubits,
         circuit_name + "_No_Opt",
         noise_model,
-        logger
+        logger,
+        output_dir=output_dir
     )
 
     # 2) Run WITH optimization
     fidelity_opt = run_algorithm(
         quantum_circuit,
-        num_qubits,
+        args.num_qubits,
         circuit_name + "_With_Opt",
         population_size=args.population_size,
         num_generations=args.num_generations,
@@ -203,9 +209,15 @@ def main():
         output_dir=output_dir,
     )
 
+    # Calculate total time elapsed
+    total_time = time.time() - start_time
+    print(f"\nTotal experiment time: {total_time:.2f} seconds")
+
     # 3) Compare using Visualizer (also writes CSV with comparison)
     Visualizer.plot_fidelity_comparison(fidelity_no_opt, fidelity_opt, circuit_name, output_dir)
 
+    # Log total time to CSV
+    logger.write_experiment_time(total_time)
 
 if __name__ == "__main__":
     main()

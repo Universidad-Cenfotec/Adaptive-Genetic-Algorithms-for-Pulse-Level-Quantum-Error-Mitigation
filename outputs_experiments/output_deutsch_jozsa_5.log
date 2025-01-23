@@ -22,6 +22,4 @@ Re-evaluated fitness for affected individuals after diversity action.
 14 	30    	0.262484	0.0150021 	0.211109	0.287101	3.00437  
 
 Best individual for DeutschJozsa_4Q_With_Opt: {'SNOT': {'num_tslots': 1, 'evo_time': 1.1750086441694891}, 'X': {'num_tslots': 3, 'evo_time': 0.5404247656471131}, 'CNOT': {'num_tslots': 4, 'evo_time': 0.7020494915734358}}
-Fidelity (best_individual): 0.2537
-
-Fidelity comparison plot saved at output_circuits/DeutschJozsa_4Q_2024-12-31_22-09-55/DeutschJozsa_4Q_fidelities_comparison.jpg
+Fidelity (best_individual): 0.2755

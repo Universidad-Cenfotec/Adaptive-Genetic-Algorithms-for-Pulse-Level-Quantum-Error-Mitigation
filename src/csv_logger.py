@@ -111,6 +111,24 @@ class CSVLogger:
                 "fidelity_improvement": fidelity_opt - fidelity_no_opt
             })
 
+    def write_experiment_time(self, total_time):
+        """
+        Writes the total experiment time to a CSV file.
+        """
+        time_file = self.output_dir / f"{self.circuit_name}_experiment_time.csv"
+        fieldnames = ["circuit_name", "total_time_seconds"]
+
+        write_header = not time_file.exists()
+        with time_file.open(mode="a", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            if write_header:
+                writer.writeheader()
+
+            writer.writerow({
+                "circuit_name": self.circuit_name,
+                "total_time_seconds": total_time
+            })
+
     def write_logbook_header(self, logbook, csv_filename):
         """
         Writes the header for the GA logbook.
