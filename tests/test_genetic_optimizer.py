@@ -38,7 +38,6 @@ class TestGeneticOptimizer(unittest.TestCase):
             feedback_threshold=0.01,
             feedback_interval=2,
             early_stopping_rounds=3,
-            n_jobs=1,
             use_default=True
         )
 
@@ -88,7 +87,6 @@ class TestGeneticOptimizer(unittest.TestCase):
             feedback_threshold=0.01,
             feedback_interval=2,
             early_stopping_rounds=3,
-            n_jobs=1,
             use_default=True
         )
         population, _ = optimizer.run()
