@@ -22,6 +22,4 @@ Re-evaluated fitness for affected individuals after diversity action.
 14 	37    	0.270952	0.0477153 	0.200479	0.383781	2.75898  
 
 Best individual for Grover_4Q_With_Opt: {'SNOT': {'num_tslots': 2, 'evo_time': 0.14401448949773082}, 'X': {'num_tslots': 1, 'evo_time': 0.13119574205126078}, 'CNOT': {'num_tslots': 7, 'evo_time': 0.30558883606282}}
-Fidelity (best_individual): 0.2454
-
-Fidelity comparison plot saved at output_circuits/Grover_4Q_2024-12-31_23-30-51/Grover_4Q_fidelities_comparison.jpg
+Fidelity (best_individual): 0.2691

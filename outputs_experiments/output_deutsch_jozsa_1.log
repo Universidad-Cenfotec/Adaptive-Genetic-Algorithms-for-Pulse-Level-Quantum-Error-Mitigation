@@ -19,6 +19,4 @@ gen	nevals	avg     	std      	min     	max     	diversity
 14 	32    	0.269923	0.0284004	0.228831	0.315009	2.59942  
 
 Best individual for DeutschJozsa_4Q_With_Opt: {'SNOT': {'num_tslots': 9, 'evo_time': 0.6731132096237534}, 'X': {'num_tslots': 1, 'evo_time': 1.485244235075815}, 'CNOT': {'num_tslots': 6, 'evo_time': 1.2486085473418562}}
-Fidelity (best_individual): 0.2422
-
-Fidelity comparison plot saved at output_circuits/DeutschJozsa_4Q_2024-12-31_21-33-25/DeutschJozsa_4Q_fidelities_comparison.jpg
+Fidelity (best_individual): 0.2797
