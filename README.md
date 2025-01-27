@@ -262,6 +262,15 @@ Designed for Python 3.12, runs efficiently on any modern laptop with >8GB RAM.
 ## Citation
 If you use this code for academic purposes, please cite:
 ```bibtex
+@misc{aguilarcalvo2025adaptivegeneticalgorithmspulselevel,
+      title={Adaptive Genetic Algorithms for Pulse-Level Quantum Error Mitigation}, 
+      author={William Aguilar-Calvo and Santiago Núñez-Corrales},
+      year={2025},
+      eprint={2501.14007},
+      archivePrefix={arXiv},
+      primaryClass={quant-ph},
+      url={https://arxiv.org/abs/2501.14007}, 
+}
 ```
 
 ---
