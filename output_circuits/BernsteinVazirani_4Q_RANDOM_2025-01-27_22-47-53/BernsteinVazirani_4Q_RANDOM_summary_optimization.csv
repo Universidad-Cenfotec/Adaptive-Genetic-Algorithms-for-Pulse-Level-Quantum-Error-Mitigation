@@ -1,0 +1,2 @@
+circuit_name,population_size,num_generations,t1,t2,bit_flip_prob,phase_flip_prob,best_individual,best_fidelity
+BernsteinVazirani_4Q_RANDOM,30,20,50.0,30.0,0.02,0.02,"{'SNOT': {'num_tslots': 3, 'evo_time': 0.18253373783545385}, 'X': {'num_tslots': 2, 'evo_time': 0.11446151051943675}, 'CNOT': {'num_tslots': 19, 'evo_time': 0.6226005131054196}}",0.5226559325497554

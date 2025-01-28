@@ -7,8 +7,10 @@ from pathlib import Path
 from qutip import Options, fidelity
 from qutip_qip.device import OptPulseProcessor, SpinChainModel
 
+from circuits.bernstein_vaizirani_circuit import BernsteinVaziraniCircuit
 from circuits.deutsch_jozsa_circuit import DeutschJozsaCircuit
 from circuits.grover_circuit import GroverCircuit
+from circuits.quantum_fourier_transformation import QuantumFourierCircuit
 from src.csv_logger import CSVLogger
 from src.evaluator import Evaluator
 from src.gate_config import DEFAULT_SETTING_ARGS
@@ -147,7 +149,7 @@ def main():
     parser = argparse.ArgumentParser(
     description="Run quantum algorithms with or without GA optimization under noise."
     )
-    parser.add_argument("--algorithm", type=str, choices=["grover", "deutsch-jozsa"], required=True,
+    parser.add_argument("--algorithm", type=str, choices=["grover", "deutsch-jozsa", "bernstein-vazirani", "qft"], required=True,
                         help="Specify which algorithm to run: 'grover' or 'deutsch-jozsa'.")
     parser.add_argument("--num_qubits", type=int, default=4, help="Number of qubits to use in the circuit.")
     parser.add_argument("--num_generations", type=int, default=100, help="Generations for GA.")
@@ -158,12 +160,20 @@ def main():
     parser.add_argument("--phase_flip_prob", type=float, default=0.02, help="Phase-flip probability.")
     args = parser.parse_args()
 
+   # Choose circuit
     if args.algorithm == "grover":
         circuit_name = f"Grover_{args.num_qubits}Q"
         quantum_circuit = GroverCircuit(args.num_qubits)
     elif args.algorithm == "deutsch-jozsa":
         circuit_name = f"DeutschJozsa_{args.num_qubits}Q"
         quantum_circuit = DeutschJozsaCircuit(args.num_qubits)
+    elif args.algorithm == "bernstein-vazirani":
+        circuit_name = f"BernsteinVazirani_{args.num_qubits}Q"
+        # We set secret_string=None so the circuit picks a random string
+        quantum_circuit = BernsteinVaziraniCircuit(args.num_qubits, None)
+    elif args.algorithm == "qft":
+        circuit_name = f"QFT_{args.num_qubits}Q"
+        quantum_circuit = QuantumFourierCircuit(args.num_qubits) # no se si funciona
     else:
         raise ValueError(UNSUPPORTED_ALGORITHM_SPECIFIED)
 
