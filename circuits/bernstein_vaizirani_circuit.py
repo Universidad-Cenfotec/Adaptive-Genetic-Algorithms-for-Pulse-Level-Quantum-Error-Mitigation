@@ -9,7 +9,7 @@ from src.quantum_circuit import QuantumCircuitBase
 class BernsteinVaziraniCircuit(QuantumCircuitBase):
     """
     Bernstein-Vazirani circuit with a random hidden bitstring (by default).
-    
+
     Qubits 0 .. (n-2) : Input qubits
     Qubit (n-1)       : Ancilla qubit
 
@@ -26,17 +26,21 @@ class BernsteinVaziraniCircuit(QuantumCircuitBase):
                               of length (num_qubits - 1) is generated.
         """
         if num_qubits < self.REQUIRED_NUM_QUBITS:
+            msg = f"Bernstein-Vazirani requires at least {self.REQUIRED_NUM_QUBITS} qubits."
             raise ValueError(
-                f"Bernstein-Vazirani requires at least {self.REQUIRED_NUM_QUBITS} qubits."
+                msg
             )
 
         # If user does not supply a secret string, generate a random one:
         if secret_string is None:
             secret_string = [random.randint(0, 1) for _ in range(num_qubits - 1)]
         elif len(secret_string) != num_qubits - 1:
-            raise ValueError(
+            msg = (
                 f"Length of 'secret_string' must be (num_qubits - 1). "
                 f"Received {len(secret_string)}, expected {num_qubits - 1}."
+            )
+            raise ValueError(
+                msg
             )
 
         self.secret_string = secret_string
@@ -78,7 +82,7 @@ class BernsteinVaziraniCircuit(QuantumCircuitBase):
         """
         basis_list = []
         for bit in self.secret_string:
-            basis_list.append(basis(2, bit))  # |0> or |1> for each input bit
+            basis_list.append(basis(2, bit))  # |0> or |1> for each input bit  # noqa: PERF401
         # Ancilla is |1>
         basis_list.append(basis(2, 1))
 
