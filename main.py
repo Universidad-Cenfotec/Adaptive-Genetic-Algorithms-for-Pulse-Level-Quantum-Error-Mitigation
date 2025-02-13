@@ -10,6 +10,9 @@ from qutip_qip.device import OptPulseProcessor, SpinChainModel
 from circuits.bernstein_vaizirani_circuit import BernsteinVaziraniCircuit
 from circuits.deutsch_jozsa_circuit import DeutschJozsaCircuit
 from circuits.grover_circuit import GroverCircuit
+from circuits.inverse_quantum_fourier_transformation import (
+    InverseQuantumFourierCircuit,
+)
 from circuits.quantum_fourier_transformation import QuantumFourierCircuit
 from src.csv_logger import CSVLogger
 from src.evaluator import Evaluator
@@ -149,7 +152,7 @@ def main():
     parser = argparse.ArgumentParser(
     description="Run quantum algorithms with or without GA optimization under noise."
     )
-    parser.add_argument("--algorithm", type=str, choices=["grover", "deutsch-jozsa", "bernstein-vazirani", "qft"], required=True,
+    parser.add_argument("--algorithm", type=str, choices=["grover", "deutsch-jozsa", "bernstein-vazirani", "qft", "iqft"], required=True,
                         help="Specify which algorithm to run: 'grover' or 'deutsch-jozsa'.")
     parser.add_argument("--num_qubits", type=int, default=4, help="Number of qubits to use in the circuit.")
     parser.add_argument("--num_generations", type=int, default=100, help="Generations for GA.")
@@ -174,6 +177,9 @@ def main():
     elif args.algorithm == "qft":
         circuit_name = f"QFT_{args.num_qubits}Q"
         quantum_circuit = QuantumFourierCircuit(args.num_qubits) # no se si funciona
+    elif args.algorithm == "iqft":
+        circuit_name = f"IQFT_{args.num_qubits}Q"
+        quantum_circuit = InverseQuantumFourierCircuit(args.num_qubits) # no se si funciona
     else:
         raise ValueError(UNSUPPORTED_ALGORITHM_SPECIFIED)
 
