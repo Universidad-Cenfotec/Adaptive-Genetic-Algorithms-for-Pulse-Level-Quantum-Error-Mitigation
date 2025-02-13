@@ -22,7 +22,7 @@ class BernsteinVaziraniCircuit(QuantumCircuitBase):
     def __init__(self, num_qubits, secret_string=None):
         """
         :param num_qubits: Total number of qubits (input + 1 ancilla).
-        :param secret_string: Optional. If None, a random bitstring 
+        :param secret_string: Optional. If None, a random bitstring
                               of length (num_qubits - 1) is generated.
         """
         if num_qubits < self.REQUIRED_NUM_QUBITS:
@@ -33,7 +33,7 @@ class BernsteinVaziraniCircuit(QuantumCircuitBase):
 
         # If user does not supply a secret string, generate a random one:
         if secret_string is None:
-            secret_string = [random.randint(0, 1) for _ in range(num_qubits - 1)]
+            secret_string = [random.randint(0, 1) for _ in range(num_qubits - 1)]  # noqa: S311
         elif len(secret_string) != num_qubits - 1:
             msg = (
                 f"Length of 'secret_string' must be (num_qubits - 1). "
