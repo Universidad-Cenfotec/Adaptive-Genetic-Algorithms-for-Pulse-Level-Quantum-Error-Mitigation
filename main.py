@@ -54,6 +54,8 @@ def run_algorithm_without_optimization(
     # Write CSV summary
     logger.write_summary_no_optimization(noise_model, fidelity_no_opt)
     processor_no_opt.plot_pulses(title=f"Pulses without optimization {circuit_name}", dpi=600)[0].savefig(output_dir/"pulseswithoutoptimization")
+
+    logger.write_pulses(processor_no_opt, filename_suffix="_pulses_without_optimization.csv")
     # Visualization
     Visualizer.plot_pulses(
         processor_no_opt,
