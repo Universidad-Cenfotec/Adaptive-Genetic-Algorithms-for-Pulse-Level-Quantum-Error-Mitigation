@@ -1,0 +1,15 @@
+bernstein-vazirani | Success | Time: 1205s
+bernstein-vazirani | Success | Time: 1005s
+bernstein-vazirani | Success | Time: 863s
+deutsch-jozsa | Success | Time: 849s
+deutsch-jozsa | Success | Time: 1374s
+deutsch-jozsa | Success | Time: 774s
+grover | Success | Time: 7398s
+grover | Success | Time: 2221s
+grover | Success | Time: 4450s
+iqft | Success | Time: 8014s
+iqft | Success | Time: 8663s
+iqft | Success | Time: 2358s
+qft | Success | Time: 14237s
+qft | Success | Time: 7463s
+qft | Success | Time: 2638s

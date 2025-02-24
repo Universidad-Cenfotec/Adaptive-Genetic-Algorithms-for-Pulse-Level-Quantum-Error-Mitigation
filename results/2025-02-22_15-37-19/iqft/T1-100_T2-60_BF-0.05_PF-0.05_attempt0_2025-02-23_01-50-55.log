@@ -1,0 +1,296 @@
+[2025-02-23 01:50:55,552] launcher  INFO    SCOOP 0.7 2.0 on darwin using Python 3.12.4 | packaged by Anaconda, Inc. | (main, Jun 18 2024, 10:07:17) [Clang 14.0.6 ], API: 1013
+[2025-02-23 01:50:55,553] launcher  INFO    Deploying 7 worker(s) over 1 host(s).
+[2025-02-23 01:50:55,553] launcher  INFO    Worker distribution: 
+[2025-02-23 01:50:55,553] launcher  INFO       127.0.0.1:	6 + origin
+Launching 7 worker(s) using /bin/zsh.
+[2025-02-23 01:55:01,608] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 95):evaluate({'SNOT': {'num_tslots': 8, 'evo_time': 2.7496069189619647}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 16, 'evo_time': 2.749881167667713}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.5371164893825342}},){}=None. Resending it...
+[2025-02-23 01:55:07,618] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 95):evaluate({'SNOT': {'num_tslots': 8, 'evo_time': 2.7496069189619647}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 16, 'evo_time': 2.749881167667713}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.5371164893825342}},){}=None. Resending it...
+[2025-02-23 01:55:34,243] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 95)
+[2025-02-23 01:55:58,506] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 95)
+[2025-02-23 02:01:54,181] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 264):evaluate({'SNOT': {'num_tslots': 8, 'evo_time': 2.7496069189619647}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 3, 'evo_time': 0.2559332362964517}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.5371164893825342}},){}=None. Resending it...
+[2025-02-23 02:02:15,541] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 264)
+[2025-02-23 02:07:17,811] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 400):evaluate({'SNOT': {'num_tslots': 8, 'evo_time': 2.7496069189619647}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 3, 'evo_time': 0.2559332362964517}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 2, 'evo_time': 0.9576934271435829}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.5371164893825342}},){}=None. Resending it...
+[2025-02-23 02:07:17,813] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 401):evaluate({'SNOT': {'num_tslots': 8, 'evo_time': 2.7496069189619647}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 3, 'evo_time': 0.2559332362964517}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 2, 'evo_time': 0.9576934271435829}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.5371164893825342}},){}=None. Resending it...
+[2025-02-23 02:07:31,561] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 400)
+[2025-02-23 02:07:31,562] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 401)
+[2025-02-23 02:09:30,751] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 456):evaluate({'SNOT': {'num_tslots': 8, 'evo_time': 2.7496069189619647}, 'X': {'num_tslots': 1, 'evo_time': 0.48340763483951443}, 'CNOT': {'num_tslots': 3, 'evo_time': 0.2559332362964517}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.5371164893825342}},){}=None. Resending it...
+[2025-02-23 02:09:30,753] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 457):evaluate({'SNOT': {'num_tslots': 8, 'evo_time': 2.7496069189619647}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 12, 'evo_time': 3.1589019990716336}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.5371164893825342}},){}=None. Resending it...
+[2025-02-23 02:09:42,067] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 456)
+[2025-02-23 02:09:44,071] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 405):evaluate({'SNOT': {'num_tslots': 6, 'evo_time': 0.2490870533602889}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 11, 'evo_time': 1.633017946590333}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.5371164893825342}},){}=None. Resending it...
+[2025-02-23 02:09:44,071] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 457):evaluate({'SNOT': {'num_tslots': 8, 'evo_time': 2.7496069189619647}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 12, 'evo_time': 3.1589019990716336}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.5371164893825342}},){}=None. Resending it...
+[2025-02-23 02:09:57,586] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 457)
+[2025-02-23 02:10:09,416] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 405)
+[2025-02-23 02:10:28,189] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 457)
+[2025-02-23 02:12:45,305] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 521):evaluate({'SNOT': {'num_tslots': 8, 'evo_time': 2.7496069189619647}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 18, 'evo_time': 3.50532454953648}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.5371164893825342}},){}=None. Resending it...
+[2025-02-23 02:12:45,306] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 530):evaluate({'SNOT': {'num_tslots': 8, 'evo_time': 2.7496069189619647}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 3, 'evo_time': 0.2559332362964517}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 7, 'evo_time': 1.9166297257863874}},){}=None. Resending it...
+[2025-02-23 02:12:45,306] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 531):evaluate({'SNOT': {'num_tslots': 8, 'evo_time': 2.7496069189619647}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 3, 'evo_time': 0.2559332362964517}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.5371164893825342}},){}=None. Resending it...
+[2025-02-23 02:12:45,307] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 532):evaluate({'SNOT': {'num_tslots': 8, 'evo_time': 2.7496069189619647}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 1, 'evo_time': 9.717241191395141}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.5371164893825342}},){}=None. Resending it...
+[2025-02-23 02:12:45,307] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 533):evaluate({'SNOT': {'num_tslots': 8, 'evo_time': 2.7496069189619647}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 3, 'evo_time': 0.2559332362964517}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.5371164893825342}},){}=None. Resending it...
+[2025-02-23 02:12:56,518] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 530)
+[2025-02-23 02:13:07,792] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 532)
+[2025-02-23 02:13:07,793] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 531)
+[2025-02-23 02:13:07,793] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 533)
+[2025-02-23 02:13:31,592] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 521)
+[2025-02-23 02:15:22,113] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 588):evaluate({'SNOT': {'num_tslots': 5, 'evo_time': 1.6706957149266395}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 12, 'evo_time': 3.839478544028964}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 0.8346821436335743}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.5371164893825342}},){}=None. Resending it...
+[2025-02-23 02:15:57,184] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 588)
+[2025-02-23 02:17:49,456] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 647):evaluate({'SNOT': {'num_tslots': 8, 'evo_time': 2.7496069189619647}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 19, 'evo_time': 3.7951133356730153}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.5371164893825342}},){}=None. Resending it...
+[2025-02-23 02:17:49,459] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 652):evaluate({'SNOT': {'num_tslots': 8, 'evo_time': 2.7496069189619647}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 12, 'evo_time': 3.1589019990716336}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.5371164893825342}},){}=None. Resending it...
+[2025-02-23 02:18:13,047] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 652)
+[2025-02-23 02:18:35,488] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 647)
+[2025-02-23 02:20:43,585] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 716):evaluate({'SNOT': {'num_tslots': 6, 'evo_time': 0.20935544366318695}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 3, 'evo_time': 0.2559332362964517}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.5371164893825342}},){}=None. Resending it...
+[2025-02-23 02:20:43,586] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 717):evaluate({'SNOT': {'num_tslots': 8, 'evo_time': 2.7496069189619647}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 3, 'evo_time': 0.2559332362964517}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 6, 'evo_time': 2.83495012957864}},){}=None. Resending it...
+[2025-02-23 02:20:53,780] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 717)
+[2025-02-23 02:20:54,339] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 716)
+[2025-02-23 02:20:58,836] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 719):evaluate({'SNOT': {'num_tslots': 8, 'evo_time': 2.7496069189619647}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 14, 'evo_time': 9.939548044308893}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.5371164893825342}},){}=None. Resending it...
+[2025-02-23 02:21:38,266] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 719)
+[2025-02-23 02:23:06,741] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 766):evaluate({'SNOT': {'num_tslots': 8, 'evo_time': 2.7496069189619647}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 18, 'evo_time': 7.9439557763440405}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.5371164893825342}},){}=None. Resending it...
+[2025-02-23 02:23:56,108] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 766)
+[2025-02-23 02:25:33,493] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 831):evaluate({'SNOT': {'num_tslots': 8, 'evo_time': 2.7496069189619647}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 3, 'evo_time': 0.2559332362964517}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.5371164893825342}},){}=None. Resending it...
+[2025-02-23 02:25:33,495] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 833):evaluate({'SNOT': {'num_tslots': 8, 'evo_time': 2.7496069189619647}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 3, 'evo_time': 0.2559332362964517}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 8, 'evo_time': 1.2154523904474432}},){}=None. Resending it...
+[2025-02-23 02:25:42,734] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 833)
+[2025-02-23 02:25:53,542] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 831)
+[2025-02-23 02:27:44,047] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 883):evaluate({'SNOT': {'num_tslots': 8, 'evo_time': 2.7496069189619647}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 3, 'evo_time': 0.2559332362964517}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.5371164893825342}},){}=None. Resending it...
+[2025-02-23 02:27:44,048] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 884):evaluate({'SNOT': {'num_tslots': 8, 'evo_time': 2.7496069189619647}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 3, 'evo_time': 0.2559332362964517}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.5371164893825342}},){}=None. Resending it...
+[2025-02-23 02:27:44,049] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 885):evaluate({'SNOT': {'num_tslots': 8, 'evo_time': 2.7496069189619647}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 14, 'evo_time': 7.126079152574148}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.5371164893825342}},){}=None. Resending it...
+[2025-02-23 02:27:44,049] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 887):evaluate({'SNOT': {'num_tslots': 8, 'evo_time': 2.7496069189619647}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 3, 'evo_time': 0.2559332362964517}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.5371164893825342}},){}=None. Resending it...
+[2025-02-23 02:27:44,050] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 888):evaluate({'SNOT': {'num_tslots': 8, 'evo_time': 2.7496069189619647}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 3, 'evo_time': 0.2559332362964517}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.5371164893825342}},){}=None. Resending it...
+[2025-02-23 02:27:54,679] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 884)
+[2025-02-23 02:28:00,249] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 883)
+[2025-02-23 02:28:02,713] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 887)
+[2025-02-23 02:28:04,715] scoopzmq  (b'127.0.0.1:52307') WARNING Lost track of future (b'127.0.0.1:52307', 885):evaluate({'SNOT': {'num_tslots': 8, 'evo_time': 2.7496069189619647}, 'X': {'num_tslots': 6, 'evo_time': 2.038627557898652}, 'CNOT': {'num_tslots': 14, 'evo_time': 7.126079152574148}, 'SWAP': {'num_tslots': 8, 'evo_time': 0.7759843494078769}, 'CPHASE': {'num_tslots': 5, 'evo_time': 2.291966440691142}, 'RZ': {'num_tslots': 6, 'evo_time': 1.580343765321394}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.5371164893825342}},){}=None. Resending it...
+[2025-02-23 02:28:06,045] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 888)
+Exception in thread Thread-2 (run):
+Traceback (most recent call last):
+  File "/opt/miniconda3/lib/python3.12/threading.py", line 1073, in _bootstrap_inner
+    self.run()
+  File "/opt/miniconda3/lib/python3.12/threading.py", line 1010, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/broker/brokerzmq.py", line 216, in run
+    self.assigned_tasks[address].add(task_id)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'tuple' object has no attribute 'add'
+[2025-02-23 02:28:19,655] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 885)
+[2025-02-23 02:28:34,801] _types    (b'127.0.0.1:52307') WARNING b'127.0.0.1:52307': Received an unexpected future: (b'127.0.0.1:52307', 885)
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 298, in <module>
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 298, in <module>
+Traceback (most recent call last):
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 298, in <module>
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 298, in <module>
+  File "<frozen runpy>", line 88, in _run_code
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 298, in <module>
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 298, in <module>
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 298, in <module>
+    b.main()
+    b.main()
+    b.main()
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 92, in main
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 92, in main
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 92, in main
+    self.run()
+    self.run()
+    b.main()
+    b.main()
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 285, in run
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 285, in run
+    b.main()
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 92, in main
+    futures_startup()
+    self.run()
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 92, in main
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 261, in futures_startup
+    b.main()
+    self.run()
+    return futures._startup(
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 92, in main
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 285, in run
+           ^^^^^^^^^^^^^^^^^
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 285, in run
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/futures.py", line 71, in _startup
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 92, in main
+    self.run()
+    futures_startup()
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 285, in run
+    self.run()
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 261, in futures_startup
+    self.run()
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 285, in run
+    return futures._startup(
+           ^^^^^^^^^^^^^^^^^
+    futures_startup()
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/futures.py", line 71, in _startup
+    result = _controller.switch(rootFuture, *args, **kargs)
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 261, in futures_startup
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 285, in run
+    result = _controller.switch(rootFuture, *args, **kargs)
+    futures_startup()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/_control.py", line 276, in runController
+    return futures._startup(
+    futures_startup()
+    futures_startup()
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 261, in futures_startup
+           ^^^^^^^^^^^^^^^^^
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 261, in futures_startup
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/futures.py", line 71, in _startup
+    futures_startup()
+    return futures._startup(
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 261, in futures_startup
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/bootstrap/__main__.py", line 261, in futures_startup
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/_control.py", line 258, in runController
+           ^^^^^^^^^^^^^^^^^
+    return futures._startup(
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/futures.py", line 71, in _startup
+    future = execQueue.pop()
+    return futures._startup(
+           ^^^^^^^^^^^^^^^^^
+    return futures._startup(
+             ^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/_types.py", line 358, in pop
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/futures.py", line 71, in _startup
+           ^^^^^^^^^^^^^^^^^
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/futures.py", line 71, in _startup
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/futures.py", line 71, in _startup
+    result = _controller.switch(rootFuture, *args, **kargs)
+    result = _controller.switch(rootFuture, *args, **kargs)
+    result = _controller.switch(rootFuture, *args, **kargs)
+    future = execQueue.pop()
+    self.socket._poll(POLLING_TIME)
+    result = _controller.switch(rootFuture, *args, **kargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/_comm/scoopzmq.py", line 227, in _poll
+             ^^^^^^^^^^^^^^^
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/_control.py", line 258, in runController
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/_types.py", line 358, in pop
+    result = _controller.switch(rootFuture, *args, **kargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    future = execQueue.pop()
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/_control.py", line 258, in runController
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/_control.py", line 258, in runController
+             ^^^^^^^^^^^^^^^
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/_types.py", line 358, in pop
+    future = execQueue.pop()
+             ^^^^^^^^^^^^^^^
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/_types.py", line 358, in pop
+    return self.poller.poll(timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/zmq/sugar/poll.py", line 106, in poll
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    self.socket._poll(POLLING_TIME)
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/_control.py", line 258, in runController
+    self.socket._poll(POLLING_TIME)
+    self.socket._poll(POLLING_TIME)
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/_comm/scoopzmq.py", line 227, in _poll
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/_comm/scoopzmq.py", line 227, in _poll
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/_comm/scoopzmq.py", line 227, in _poll
+    return self.poller.poll(timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/zmq/sugar/poll.py", line 106, in poll
+    future = execQueue.pop()
+    return self.poller.poll(timeout)
+             ^^^^^^^^^^^^^^^
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/_types.py", line 358, in pop
+    future = execQueue.pop()
+    return self.poller.poll(timeout)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/_control.py", line 258, in runController
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/zmq/sugar/poll.py", line 106, in poll
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/zmq/sugar/poll.py", line 106, in poll
+             ^^^^^^^^^^^^^^^
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/_types.py", line 358, in pop
+    return zmq_poll(self.sockets, timeout=timeout)
+    return zmq_poll(self.sockets, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "_zmq.py", line 1555, in zmq.backend.cython._zmq.zmq_poll
+    return zmq_poll(self.sockets, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "_zmq.py", line 1555, in zmq.backend.cython._zmq.zmq_poll
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    return zmq_poll(self.sockets, timeout=timeout)
+    self.socket._poll(POLLING_TIME)
+    future = execQueue.pop()
+  File "_zmq.py", line 1555, in zmq.backend.cython._zmq.zmq_poll
+    self.socket._poll(POLLING_TIME)
+             ^^^^^^^^^^^^^^^
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/_types.py", line 358, in pop
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/_comm/scoopzmq.py", line 227, in _poll
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "_zmq.py", line 1555, in zmq.backend.cython._zmq.zmq_poll
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/_comm/scoopzmq.py", line 227, in _poll
+    return self.poller.poll(timeout)
+    return self.poller.poll(timeout)
+    self.socket._poll(POLLING_TIME)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/zmq/sugar/poll.py", line 106, in poll
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/zmq/sugar/poll.py", line 106, in poll
+    return zmq_poll(self.sockets, timeout=timeout)
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/scoop/_comm/scoopzmq.py", line 227, in _poll
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "_zmq.py", line 1555, in zmq.backend.cython._zmq.zmq_poll
+    return zmq_poll(self.sockets, timeout=timeout)
+    return self.poller.poll(timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/thewilliam/Desktop/quantum_optimization/venv/lib/python3.12/site-packages/zmq/sugar/poll.py", line 106, in poll
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "_zmq.py", line 1555, in zmq.backend.cython._zmq.zmq_poll
+    return zmq_poll(self.sockets, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "_zmq.py", line 1555, in zmq.backend.cython._zmq.zmq_poll
+  File "_zmq.py", line 160, in zmq.backend.cython._zmq._check_rc
+  File "_zmq.py", line 160, in zmq.backend.cython._zmq._check_rc
+  File "_zmq.py", line 160, in zmq.backend.cython._zmq._check_rc
+  File "_zmq.py", line 160, in zmq.backend.cython._zmq._check_rc
+KeyboardInterrupt
+KeyboardInterrupt
+KeyboardInterrupt
+  File "_zmq.py", line 160, in zmq.backend.cython._zmq._check_rc
+KeyboardInterrupt
+KeyboardInterrupt
+  File "_zmq.py", line 160, in zmq.backend.cython._zmq._check_rc
+  File "_zmq.py", line 160, in zmq.backend.cython._zmq._check_rc
+KeyboardInterrupt
+KeyboardInterrupt
+
+Fidelity WITHOUT optimization for IQFT_4Q_No_Opt: 0.2495
+Method 'evaluate' successfully registered in the toolbox.
+gen	nevals	avg     	std        	min     	max     	diversity
+0  	100   	0.250599	0.000838681	0.248744	0.252302	2.65822  
+1  	58    	0.251022	0.00093506 	0.248147	0.253507	3.48823  
+2  	53    	0.251236	0.000988763	0.249235	0.253507	4.02697  
+3  	55    	0.251293	0.00115354 	0.248787	0.253507	4.25088  
+4  	71    	0.251122	0.00125632 	0.248991	0.253507	4.10181  
+5  	67    	0.251186	0.00123302 	0.248437	0.253507	4.19495  
+6  	57    	0.251344	0.0011663  	0.248651	0.253507	4.27076  
+7  	73    	0.251235	0.00116131 	0.248672	0.253507	4.16822  
+8  	61    	0.251326	0.00118193 	0.248782	0.253507	4.40976  
+9  	60    	0.251468	0.00127894 	0.248443	0.253507	4.65673  
+10 	66    	0.251442	0.00124588 	0.248922	0.253507	4.35713  
+11 	52    	0.25167 	0.00133432 	0.248477	0.253507	4.59899  
+12 	60    	0.251652	0.00123682 	0.248753	0.253507	4.34236  
+13 	55    	0.251715	0.00127458 	0.248977	0.253507	4.45266  
+[2025-02-23 02:30:13,879] launcher  (127.0.0.1:52087) INFO    Root process is done.
+[2025-02-23 02:30:13,883] launcher  (127.0.0.1:52087) INFO    Finished cleaning spawned subprocesses.

@@ -1,0 +1,50 @@
+[2025-02-22 17:05:35,407] launcher  INFO    SCOOP 0.7 2.0 on darwin using Python 3.12.4 | packaged by Anaconda, Inc. | (main, Jun 18 2024, 10:07:17) [Clang 14.0.6 ], API: 1013
+[2025-02-22 17:05:35,407] launcher  INFO    Deploying 7 worker(s) over 1 host(s).
+[2025-02-22 17:05:35,407] launcher  INFO    Worker distribution: 
+[2025-02-22 17:05:35,407] launcher  INFO       127.0.0.1:	6 + origin
+Launching 7 worker(s) using /bin/zsh.
+[2025-02-22 17:09:48,874] scoopzmq  (b'127.0.0.1:50938') WARNING Lost track of future (b'127.0.0.1:50938', 471):evaluate({'SNOT': {'num_tslots': 3, 'evo_time': 1.2749153541179383}, 'X': {'num_tslots': 8, 'evo_time': 1.804281030625717}, 'CNOT': {'num_tslots': 17, 'evo_time': 9.942247766388926}, 'SWAP': {'num_tslots': 1, 'evo_time': 1.360295046065323}, 'CPHASE': {'num_tslots': 6, 'evo_time': 2.7465187485795144}, 'RZ': {'num_tslots': 6, 'evo_time': 1.7379838496310367}, 'GLOBALPHASE': {'num_tslots': 6, 'evo_time': 0.2030671396229159}},){}=None. Resending it...
+[2025-02-22 17:09:55,229] _types    (b'127.0.0.1:50938') WARNING b'127.0.0.1:50938': Received an unexpected future: (b'127.0.0.1:50938', 471)
+[2025-02-22 17:16:02,101] scoopzmq  (b'127.0.0.1:50938') WARNING Lost track of future (b'127.0.0.1:50938', 1210):evaluate({'SNOT': {'num_tslots': 1, 'evo_time': 2.7586933650021606}, 'X': {'num_tslots': 1, 'evo_time': 0.25861502660778474}, 'CNOT': {'num_tslots': 18, 'evo_time': 1.9892941095223071}, 'SWAP': {'num_tslots': 1, 'evo_time': 1.360295046065323}, 'CPHASE': {'num_tslots': 4, 'evo_time': 1.4170484135112846}, 'RZ': {'num_tslots': 6, 'evo_time': 1.7379838496310367}, 'GLOBALPHASE': {'num_tslots': 6, 'evo_time': 0.2030671396229159}},){}=None. Resending it...
+[2025-02-22 17:16:07,875] _types    (b'127.0.0.1:50938') WARNING b'127.0.0.1:50938': Received an unexpected future: (b'127.0.0.1:50938', 1210)
+[2025-02-22 17:16:30,519] scoopzmq  (b'127.0.0.1:50938') WARNING Lost track of future (b'127.0.0.1:50938', 1265):evaluate({'SNOT': {'num_tslots': 3, 'evo_time': 1.2749153541179383}, 'X': {'num_tslots': 1, 'evo_time': 0.25861502660778474}, 'CNOT': {'num_tslots': 18, 'evo_time': 1.9892941095223071}, 'SWAP': {'num_tslots': 1, 'evo_time': 1.360295046065323}, 'CPHASE': {'num_tslots': 4, 'evo_time': 1.4170484135112846}, 'RZ': {'num_tslots': 6, 'evo_time': 1.7379838496310367}, 'GLOBALPHASE': {'num_tslots': 6, 'evo_time': 0.2030671396229159}},){}=None. Resending it...
+[2025-02-22 17:16:37,046] _types    (b'127.0.0.1:50938') WARNING b'127.0.0.1:50938': Received an unexpected future: (b'127.0.0.1:50938', 1265)
+
+Fidelity WITHOUT optimization for DeutschJozsa_4Q_No_Opt: 0.2580
+Method 'evaluate' successfully registered in the toolbox.
+gen	nevals	avg     	std       	min     	max     	diversity
+0  	100   	0.254389	0.00215002	0.249871	0.260922	2.49599  
+1  	65    	0.25503 	0.00234027	0.250517	0.260922	3.46649  
+2  	63    	0.255172	0.00240547	0.250265	0.260922	3.87488  
+3  	63    	0.254979	0.00221519	0.249863	0.260922	4.10431  
+4  	71    	0.255071	0.00210997	0.25    	0.260922	4.0641   
+5  	52    	0.255596	0.0021873 	0.25045 	0.260922	3.99607  
+6  	68    	0.255124	0.00280588	0.243389	0.261839	4.39899  
+7  	68    	0.255131	0.00254674	0.249524	0.261839	4.63801  
+8  	64    	0.255359	0.00259945	0.249978	0.261839	4.77099  
+9  	64    	0.254995	0.00546652	0.208152	0.261839	4.84941  
+10 	64    	0.255558	0.00290187	0.250026	0.261839	4.88436  
+11 	56    	0.25596 	0.00316836	0.249385	0.261839	4.91078  
+12 	54    	0.256518	0.0031184 	0.249878	0.261839	4.73559  
+13 	47    	0.257094	0.00347407	0.250748	0.266097	4.59726  
+14 	56    	0.256857	0.00417245	0.249291	0.267154	4.46746  
+15 	69    	0.256413	0.00427064	0.247266	0.267154	4.19204  
+16 	72    	0.255736	0.00414055	0.239692	0.267154	4.59373  
+17 	58    	0.255248	0.00760963	0.206253	0.267154	4.71817  
+18 	56    	0.256879	0.00469986	0.248893	0.267154	4.61462  
+19 	65    	0.256656	0.00455785	0.249069	0.267154	4.34039  
+Improvement 0.0017 < threshold => Increase mutation/crossover.
+20 	63    	0.256603	0.00507099	0.237828	0.267154	4.20119  
+21 	65    	0.256547	0.00477005	0.249373	0.267154	4.35468  
+22 	68    	0.256435	0.00400226	0.24999 	0.267154	4.37596  
+23 	67    	0.256436	0.00480154	0.241785	0.269858	4.55711  
+No improvement in the last 15 generations. Stopping early.
+
+Best individual for DeutschJozsa_4Q_With_Opt: {'SNOT': {'num_tslots': 3, 'evo_time': 0.3829156307645616}, 'X': {'num_tslots': 1, 'evo_time': 0.25861502660778474}, 'CNOT': {'num_tslots': 6, 'evo_time': 0.4332605227486037}, 'SWAP': {'num_tslots': 1, 'evo_time': 1.360295046065323}, 'CPHASE': {'num_tslots': 4, 'evo_time': 1.4170484135112846}, 'RZ': {'num_tslots': 6, 'evo_time': 1.7379838496310367}, 'GLOBALPHASE': {'num_tslots': 6, 'evo_time': 0.2030671396229159}}
+Fidelity (best_individual): 0.2571
+
+Total experiment time: 772.54 seconds
+
+Fidelity comparison plot saved at output_circuits/DeutschJozsa_4Q_2025-02-22_17-05-36/DeutschJozsa_4Q_fidelities_comparison.jpg
+[2025-02-22 17:18:29,567] launcher  (127.0.0.1:51047) INFO    Root process is done.
+[2025-02-22 17:18:29,567] launcher  (127.0.0.1:51047) INFO    Finished cleaning spawned subprocesses.

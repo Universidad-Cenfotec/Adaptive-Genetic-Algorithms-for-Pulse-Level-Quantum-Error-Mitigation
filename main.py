@@ -1,5 +1,7 @@
 import argparse
+import sys
 import time
+import traceback
 import warnings
 from datetime import datetime
 from pathlib import Path
@@ -10,9 +12,7 @@ from qutip_qip.device import OptPulseProcessor, SpinChainModel
 from circuits.bernstein_vaizirani_circuit import BernsteinVaziraniCircuit
 from circuits.deutsch_jozsa_circuit import DeutschJozsaCircuit
 from circuits.grover_circuit import GroverCircuit
-from circuits.inverse_quantum_fourier_transformation import (
-    InverseQuantumFourierCircuit,
-)
+from circuits.inverse_quantum_fourier_transformation import InverseQuantumFourierCircuit
 from circuits.quantum_fourier_transformation import QuantumFourierCircuit
 from src.csv_logger import CSVLogger
 from src.evaluator import Evaluator
@@ -149,91 +149,97 @@ def run_algorithm(
     return best_fidelity
 
 def main():
-    parser = argparse.ArgumentParser(
-    description="Run quantum algorithms with or without GA optimization under noise."
-    )
-    parser.add_argument("--algorithm", type=str, choices=["grover", "deutsch-jozsa", "bernstein-vazirani", "qft", "iqft"], required=True,
-                        help="Specify which algorithm to run: 'grover' or 'deutsch-jozsa'.")
-    parser.add_argument("--num_qubits", type=int, default=4, help="Number of qubits to use in the circuit.")
-    parser.add_argument("--num_generations", type=int, default=100, help="Generations for GA.")
-    parser.add_argument("--population_size", type=int, default=50, help="Population size for GA.")
-    parser.add_argument("--t1", type=float, default=50.0, help="T1 relaxation time.")
-    parser.add_argument("--t2", type=float, default=30.0, help="T2 dephasing time.")
-    parser.add_argument("--bit_flip_prob", type=float, default=0.02, help="Bit-flip probability.")
-    parser.add_argument("--phase_flip_prob", type=float, default=0.02, help="Phase-flip probability.")
-    args = parser.parse_args()
+    try:
+        parser = argparse.ArgumentParser(
+            description="Run quantum algorithms with or without GA optimization under noise."
+        )
+        parser.add_argument("--algorithm", type=str, choices=["grover", "deutsch-jozsa", "bernstein-vazirani", "qft", "iqft"], required=True,
+                            help="Specify which algorithm to run: 'grover' or 'deutsch-jozsa'.")
+        parser.add_argument("--num_qubits", type=int, default=4, help="Number of qubits to use in the circuit.")
+        parser.add_argument("--num_generations", type=int, default=100, help="Generations for GA.")
+        parser.add_argument("--population_size", type=int, default=50, help="Population size for GA.")
+        parser.add_argument("--t1", type=float, default=50.0, help="T1 relaxation time.")
+        parser.add_argument("--t2", type=float, default=30.0, help="T2 dephasing time.")
+        parser.add_argument("--bit_flip_prob", type=float, default=0.02, help="Bit-flip probability.")
+        parser.add_argument("--phase_flip_prob", type=float, default=0.02, help="Phase-flip probability.")
+        args = parser.parse_args()
 
-   # Choose circuit
-    if args.algorithm == "grover":
-        circuit_name = f"Grover_{args.num_qubits}Q"
-        quantum_circuit = GroverCircuit(args.num_qubits)
-    elif args.algorithm == "deutsch-jozsa":
-        circuit_name = f"DeutschJozsa_{args.num_qubits}Q"
-        quantum_circuit = DeutschJozsaCircuit(args.num_qubits)
-    elif args.algorithm == "bernstein-vazirani":
-        circuit_name = f"BernsteinVazirani_{args.num_qubits}Q"
-        # We set secret_string=None so the circuit picks a random string
-        quantum_circuit = BernsteinVaziraniCircuit(args.num_qubits, None)
-    elif args.algorithm == "qft":
-        circuit_name = f"QFT_{args.num_qubits}Q"
-        quantum_circuit = QuantumFourierCircuit(args.num_qubits) # no se si funciona
-    elif args.algorithm == "iqft":
-        circuit_name = f"IQFT_{args.num_qubits}Q"
-        quantum_circuit = InverseQuantumFourierCircuit(args.num_qubits) # no se si funciona
-    else:
-        raise ValueError(UNSUPPORTED_ALGORITHM_SPECIFIED)
+        # Choose circuit
+        if args.algorithm == "grover":
+            circuit_name = f"Grover_{args.num_qubits}Q"
+            quantum_circuit = GroverCircuit(args.num_qubits)
+        elif args.algorithm == "deutsch-jozsa":
+            circuit_name = f"DeutschJozsa_{args.num_qubits}Q"
+            quantum_circuit = DeutschJozsaCircuit(args.num_qubits)
+        elif args.algorithm == "bernstein-vazirani":
+            circuit_name = f"BernsteinVazirani_{args.num_qubits}Q"
+            quantum_circuit = BernsteinVaziraniCircuit(args.num_qubits, None)
+        elif args.algorithm == "qft":
+            circuit_name = f"QFT_{args.num_qubits}Q"
+            quantum_circuit = QuantumFourierCircuit(args.num_qubits)
+        elif args.algorithm == "iqft":
+            circuit_name = f"IQFT_{args.num_qubits}Q"
+            quantum_circuit = InverseQuantumFourierCircuit(args.num_qubits)
+        else:
+            raise ValueError(UNSUPPORTED_ALGORITHM_SPECIFIED)  # noqa: TRY301
 
-    # Create a timestamped output directory
-    timestamp_folder = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    output_dir = Path("output_circuits") / f"{circuit_name}_{timestamp_folder}"
-    output_dir.mkdir(parents=True, exist_ok=True)
+        # Create output directory
+        timestamp_folder = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        output_dir = Path("output_circuits") / f"{circuit_name}_{timestamp_folder}"
+        output_dir.mkdir(parents=True, exist_ok=True)
 
-    # Create noise model
-    noise_model = NoiseModel(
-        args.num_qubits,
-        t1=args.t1,
-        t2=args.t2,
-        bit_flip_prob=args.bit_flip_prob,
-        phase_flip_prob=args.phase_flip_prob,
-    )
+        # Create noise model
+        noise_model = NoiseModel(
+            args.num_qubits,
+            t1=args.t1,
+            t2=args.t2,
+            bit_flip_prob=args.bit_flip_prob,
+            phase_flip_prob=args.phase_flip_prob,
+        )
 
-    # Create CSV logger with an output_dir
-    logger = CSVLogger(circuit_name, output_dir=output_dir)
+        # Create CSV logger
+        logger = CSVLogger(circuit_name, output_dir=output_dir)
 
-    # Track total experiment time
-    start_time = time.time()
+        # Track total experiment time
+        start_time = time.time()
 
-    # 1) Run WITHOUT optimization
-    fidelity_no_opt = run_algorithm_without_optimization(
-        quantum_circuit,
-        args.num_qubits,
-        circuit_name + "_No_Opt",
-        noise_model,
-        logger,
-        output_dir=output_dir
-    )
+        # 1) Run WITHOUT optimization
+        fidelity_no_opt = run_algorithm_without_optimization(
+            quantum_circuit,
+            args.num_qubits,
+            circuit_name + "_No_Opt",
+            noise_model,
+            logger,
+            output_dir=output_dir
+        )
 
-    # 2) Run WITH optimization
-    fidelity_opt = run_algorithm(
-        quantum_circuit,
-        args.num_qubits,
-        circuit_name + "_With_Opt",
-        population_size=args.population_size,
-        num_generations=args.num_generations,
-        noise_model=noise_model,
-        logger=logger,
-        output_dir=output_dir,
-    )
+        # 2) Run WITH optimization
+        fidelity_opt = run_algorithm(
+            quantum_circuit,
+            args.num_qubits,
+            circuit_name + "_With_Opt",
+            population_size=args.population_size,
+            num_generations=args.num_generations,
+            noise_model=noise_model,
+            logger=logger,
+            output_dir=output_dir,
+        )
 
-    # Calculate total time elapsed
-    total_time = time.time() - start_time
-    print(f"\nTotal experiment time: {total_time:.2f} seconds")
+        # Calculate total time elapsed
+        total_time = time.time() - start_time
+        print(f"\nTotal experiment time: {total_time:.2f} seconds")
 
-    # 3) Compare using Visualizer (also writes CSV with comparison)
-    Visualizer.plot_fidelity_comparison(fidelity_no_opt, fidelity_opt, circuit_name, output_dir)
+        # 3) Compare using Visualizer
+        Visualizer.plot_fidelity_comparison(fidelity_no_opt, fidelity_opt, circuit_name, output_dir)
 
-    # Log total time to CSV
-    logger.write_experiment_time(total_time)
+        # Log total time
+        logger.write_experiment_time(total_time)
+
+    except Exception as e:
+        print("\n[ERROR] An error occurred during execution!", file=sys.stderr)
+        print(f"[DETAILS] {e!s}", file=sys.stderr)
+        traceback.print_exc()
+        sys.exit(1)  # 🔴 Exit with an error code
 
 if __name__ == "__main__":
     main()

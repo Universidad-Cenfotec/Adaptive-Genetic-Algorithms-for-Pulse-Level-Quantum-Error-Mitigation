@@ -1,0 +1,2 @@
+circuit_name,fidelity_no_optimization,fidelity_with_optimization,fidelity_improvement
+BernsteinVazirani_4Q,0.300682023375284,0.5859469447526667,0.28526492137738274
