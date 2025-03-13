@@ -1,2 +1,0 @@
-circuit_name,population_size,num_generations,t1,t2,bit_flip_prob,phase_flip_prob,best_individual,best_fidelity
-IQFT_4Q,30,5,50.0,30.0,0.02,0.02,"{'SNOT': {'num_tslots': 7, 'evo_time': 2.025493509497789}, 'X': {'num_tslots': 5, 'evo_time': 2.6950388369242773}, 'CNOT': {'num_tslots': 5, 'evo_time': 2.4824168589897764}, 'SWAP': {'num_tslots': 7, 'evo_time': 1.4434192971626028}, 'CPHASE': {'num_tslots': 7, 'evo_time': 0.7784321886422526}, 'RZ': {'num_tslots': 7, 'evo_time': 2.633552537569214}, 'GLOBALPHASE': {'num_tslots': 6, 'evo_time': 1.765773147100491}}",0.25570650830481484

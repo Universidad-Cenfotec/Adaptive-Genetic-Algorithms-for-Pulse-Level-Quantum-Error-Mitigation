@@ -31,7 +31,7 @@ class GeneticOptimizer:
         crossover_probability=0.5,
         feedback_threshold=0.01,
         feedback_interval=10,
-        early_stopping_rounds=15,
+        early_stopping_rounds=150,
         diversity_threshold=1.8,
         diversity_action="mutate",  # or 'replace'
     ):

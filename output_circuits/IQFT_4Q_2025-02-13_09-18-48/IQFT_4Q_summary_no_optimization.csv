@@ -1,2 +1,0 @@
-circuit_name,t1,t2,bit_flip_prob,phase_flip_prob,fidelity
-IQFT_4Q,50.0,30.0,0.02,0.02,0.24891941769929438
