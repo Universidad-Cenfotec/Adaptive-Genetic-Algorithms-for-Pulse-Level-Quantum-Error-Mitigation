@@ -2,21 +2,21 @@
 
 # Ordered scenarios (FASTEST to SLOWEST)
 SCENARIOS=(
-    # "bernstein-vazirani 4 30 15 0.01 0.01"
-    # "bernstein-vazirani 4 50 30 0.02 0.02"
-    # "bernstein-vazirani 4 100 60 0.05 0.05"
+    "bernstein-vazirani 4 30 15 0.01 0.01"
+    "bernstein-vazirani 4 50 30 0.02 0.02"
+    "bernstein-vazirani 4 100 60 0.05 0.05"
     "deutsch-jozsa 4 30 15 0.01 0.01"
     "deutsch-jozsa 4 50 30 0.02 0.02"
     "deutsch-jozsa 4 100 60 0.05 0.05"
-    # "grover 4 30 15 0.01 0.01"
-    # "grover 4 50 30 0.02 0.02"
-    # "grover 4 100 60 0.05 0.05"
-    # "iqft 4 30 15 0.01 0.01"
-    # "iqft 4 50 30 0.02 0.02"
-    # "iqft 4 100 60 0.05 0.05"
-    # "qft 4 30 15 0.01 0.01"
-    # "qft 4 50 30 0.02 0.02"
-    # "qft 4 100 60 0.05 0.05"
+    "grover 4 30 15 0.01 0.01"
+    "grover 4 50 30 0.02 0.02"
+    "grover 4 100 60 0.05 0.05"
+    "iqft 4 30 15 0.01 0.01"
+    "iqft 4 50 30 0.02 0.02"
+    "iqft 4 100 60 0.05 0.05"
+    "qft 4 30 15 0.01 0.01"
+    "qft 4 50 30 0.02 0.02"
+    "qft 4 100 60 0.05 0.05"
 )
 
 # Experiment parameters
@@ -24,7 +24,7 @@ GEN_COUNT=200
 POPULATION=100
 MAX_RETRIES=2
 CPU_THRESHOLD=80  # If CPU usage is above this, wait before starting a new experiment
-EMAIL="wil-19-60@live.com"
+EMAIL=""
 
 # Log directory setup
 LOG_DIR="results"

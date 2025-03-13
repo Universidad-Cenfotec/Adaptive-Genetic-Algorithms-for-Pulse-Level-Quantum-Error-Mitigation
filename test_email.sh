@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Email recipient (replace with your email)
-EMAIL="wil-19-60@live.com"
+EMAIL=""
 
 # Function to send an email
 send_email() {
