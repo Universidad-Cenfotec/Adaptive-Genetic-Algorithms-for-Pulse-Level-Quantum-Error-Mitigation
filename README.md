@@ -121,7 +121,7 @@ quantum_optimization/
 ### Command-Line Arguments
 | Argument        | Description                                    | Example                      |
 |-----------------|------------------------------------------------|------------------------------|
-| `--algorithm`   | Specify which circuit to run (`grover` or `deutsch-jozsa`). | `--algorithm grover`         |
+| `--algorithm`        | Quantum algorithm (`grover`, `deutsch-jozsa`, `bernstein-vazirani`, `qft`, `iqft`, `custom`). | `--algorithm grover`         |
 | `--num_qubits`  | Set the number of qubits for the circuit.      | `--num_qubits 4`             |
 | `--population_size` | Set the population size for the genetic algorithm.   | `--population_size 50`      |
 | `--generations` | Set the number of generations for optimization. | `--generations 100`          |
@@ -176,6 +176,15 @@ Results are stored in **`output_circuits/`**, organized by timestamped folders. 
 
 2. **Grover's Algorithm**:
    - Searches an unstructured database of \( N \) items in \( O(\sqrt{N}) \) queries.
+
+3. **Bernstein-Vazirani Algorithm**:
+   - Determines a hidden binary string by querying an oracle function.
+
+4. **Quantum Fourier Transform (QFT)**:
+   - Performs a quantum version of the discrete Fourier transform, useful in phase estimation and number-theoretic algorithms.
+
+5. **Inverse Quantum Fourier Transform (IQFT)**:
+   - The inverse operation of QFT, used in quantum algorithms that require phase unwrapping.
 
 ### Noise Model
 - **T1 Relaxation**: Simulates energy loss from qubits.
@@ -262,6 +271,15 @@ Designed for Python 3.12, runs efficiently on any modern laptop with >8GB RAM.
 ## Citation
 If you use this code for academic purposes, please cite:
 ```bibtex
+@misc{aguilarcalvo2025adaptivegeneticalgorithmspulselevel,
+      title={Adaptive Genetic Algorithms for Pulse-Level Quantum Error Mitigation}, 
+      author={William Aguilar-Calvo and Santiago Núñez-Corrales},
+      year={2025},
+      eprint={2501.14007},
+      archivePrefix={arXiv},
+      primaryClass={quant-ph},
+      url={https://arxiv.org/abs/2501.14007}, 
+}
 ```
 
 ---
