@@ -32,9 +32,11 @@
 ---
 
 ## Overview
-This project implements a **genetic algorithm** to optimize **Deutsch-Jozsa** and **Grover** quantum circuits at the pulse level under realistic noise conditions. The aim is to **maximize fidelity** of the final quantum state by tweaking gate parameters. This code was developed for research purposes and supports pulse-level error mitigation in noisy quantum environments.
+This project implements an adaptative genetic algorithm to optimize quantum circuits at the pulse level under realistic noise conditions. The optimization targets Deutsch-Jozsa, Grover, Bernstein-Vazirani, Quantum Fourier Transform (QFT), and Inverse Quantum Fourier Transform (IQFT) algorithms. The goal is to maximize the fidelity of the final quantum state by fine-tuning gate parameters at the pulse level.
 
+Developed for research purposes, this implementation facilitates pulse-level error mitigation in noisy quantum environments, enabling adaptive optimization for improved circuit performance under various noise conditions.
 Technologies:
+
 - **[QuTiP](http://qutip.org/)** for quantum simulations.
 - **[QuTiP-QIP](https://qutip-qip.readthedocs.io/en/latest/)** for quantum information processing and circuit modeling.
 - **[DEAP](https://deap.readthedocs.io/en/master/)** for the genetic algorithm.
@@ -42,6 +44,28 @@ Technologies:
 - **Python 3.12** for development.
 
 ---
+
+## Data for Verification
+To facilitate the verification and review process for the *IEEE Quantum Week 2025* conference, all experimental data has been structured within the repository. The data can be found in:
+
+```
+IEEE Quantum Week Conference Data for Review/
+│   ├── {algorithm}/
+│       ├── Full Output Circuit Information/
+│       ├── Logs/
+│       ├── Summary of Results/
+│   ├── instructions.md
+```
+
+Each algorithm has its dedicated directory containing:
+- **Summary of Results**: Genetic evolution data for each quantum algorithm under three noise levels (High, Mid, Low).
+- **Logs**: Execution logs detailing optimization iterations, configurations, and final metrics.
+- **Full Output Circuit Information**: Visualizations, optimized pulse sequences, and detailed statistical analyses.
+
+All information regarding the review and interpretation of this data is provided in **instructions.md**. Reviewers are encouraged to follow the instructions to ensure a structured and transparent evaluation of the results.
+
+---
+
 
 ## Features
 - **Quantum Circuit Simulation**: Implements Deutsch-Jozsa and Grover algorithms.
@@ -65,8 +89,11 @@ quantum_optimization/
 │   ├── instructions.md # Instructions for reviewing the data produced
 ├── circuits/                     # Quantum circuit definitions
 │   ├── __init__.py
+│   ├── bernstein_vaizirani_circuit.py   # Bernstein_vaizirani_circuit circuit implementation
 │   ├── deutsch_jozsa_circuit.py   # Deutsch-Jozsa circuit implementation
-│   ├── grover_circuit.py          # Grover circuit implementation       
+│   ├── grover_circuit.py          # Grover circuit implementation    
+│   ├── inverse_quantum_fourier_transformation.py   # IQFT circuit implementation
+│   ├── quantum_fourier_transformation.py          # QFT circuit implementation    
 ├── output_circuits/
 │   ├── (Long Runs)               # Results for extended runs
 │   ├── (Short Runs)              # Results for short runs
