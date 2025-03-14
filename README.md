@@ -1,6 +1,6 @@
 # Adaptive Genetic Algorithms for Pulse Level Quantum Error Mitigation
 
-**A Genetic Algorithm proposal for Optimizing Deutsch-Jozsa and Grover Circuits Under Noise**
+**A Genetic Algorithm proposal for Optimizing Standard Quantum Algorithms Under Noise**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.12](https://img.shields.io/badge/python-3.12-green.svg)](https://www.python.org/downloads/release/python-312/)
