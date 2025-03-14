@@ -1,0 +1,70 @@
+[2025-02-23 08:31:53,237] launcher  INFO    SCOOP 0.7 2.0 on darwin using Python 3.12.4 | packaged by Anaconda, Inc. | (main, Jun 18 2024, 10:07:17) [Clang 14.0.6 ], API: 1013
+[2025-02-23 08:31:53,237] launcher  INFO    Deploying 7 worker(s) over 1 host(s).
+[2025-02-23 08:31:53,237] launcher  INFO    Worker distribution: 
+[2025-02-23 08:31:53,237] launcher  INFO       127.0.0.1:	6 + origin
+Launching 7 worker(s) using /bin/zsh.
+[2025-02-23 08:35:56,142] scoopzmq  (b'127.0.0.1:59146') WARNING Lost track of future (b'127.0.0.1:59146', 93):evaluate({'SNOT': {'num_tslots': 5, 'evo_time': 1.29159600544212}, 'X': {'num_tslots': 4, 'evo_time': 0.6687967855365569}, 'CNOT': {'num_tslots': 14, 'evo_time': 7.511529209824219}, 'SWAP': {'num_tslots': 6, 'evo_time': 0.5927811750825293}, 'CPHASE': {'num_tslots': 8, 'evo_time': 2.235955802895409}, 'RZ': {'num_tslots': 7, 'evo_time': 0.8999370985984344}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.9598892944699835}},){}=None. Resending it...
+[2025-02-23 08:36:19,673] _types    (b'127.0.0.1:59146') WARNING b'127.0.0.1:59146': Received an unexpected future: (b'127.0.0.1:59146', 93)
+[2025-02-23 08:41:36,906] scoopzmq  (b'127.0.0.1:59146') WARNING Lost track of future (b'127.0.0.1:59146', 166):evaluate({'SNOT': {'num_tslots': 5, 'evo_time': 1.29159600544212}, 'X': {'num_tslots': 4, 'evo_time': 0.6687967855365569}, 'CNOT': {'num_tslots': 6, 'evo_time': 0.48070401689675957}, 'SWAP': {'num_tslots': 6, 'evo_time': 0.5927811750825293}, 'CPHASE': {'num_tslots': 5, 'evo_time': 3.974079003568774}, 'RZ': {'num_tslots': 7, 'evo_time': 0.8999370985984344}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.9598892944699835}},){}=None. Resending it...
+[2025-02-23 08:41:36,908] scoopzmq  (b'127.0.0.1:59146') WARNING Lost track of future (b'127.0.0.1:59146', 171):evaluate({'SNOT': {'num_tslots': 5, 'evo_time': 1.29159600544212}, 'X': {'num_tslots': 2, 'evo_time': 0.7318761064597586}, 'CNOT': {'num_tslots': 6, 'evo_time': 0.48070401689675957}, 'SWAP': {'num_tslots': 6, 'evo_time': 0.5927811750825293}, 'CPHASE': {'num_tslots': 8, 'evo_time': 2.235955802895409}, 'RZ': {'num_tslots': 7, 'evo_time': 0.8999370985984344}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.9598892944699835}},){}=None. Resending it...
+[2025-02-23 08:41:36,908] scoopzmq  (b'127.0.0.1:59146') WARNING Lost track of future (b'127.0.0.1:59146', 173):evaluate({'SNOT': {'num_tslots': 5, 'evo_time': 1.29159600544212}, 'X': {'num_tslots': 4, 'evo_time': 0.6687967855365569}, 'CNOT': {'num_tslots': 6, 'evo_time': 0.48070401689675957}, 'SWAP': {'num_tslots': 9, 'evo_time': 4.640372237029754}, 'CPHASE': {'num_tslots': 8, 'evo_time': 2.235955802895409}, 'RZ': {'num_tslots': 7, 'evo_time': 0.8999370985984344}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.9598892944699835}},){}=None. Resending it...
+[2025-02-23 08:41:36,909] scoopzmq  (b'127.0.0.1:59146') WARNING Lost track of future (b'127.0.0.1:59146', 233):evaluate({'SNOT': {'num_tslots': 5, 'evo_time': 1.29159600544212}, 'X': {'num_tslots': 4, 'evo_time': 0.6687967855365569}, 'CNOT': {'num_tslots': 15, 'evo_time': 1.4387084460019899}, 'SWAP': {'num_tslots': 6, 'evo_time': 0.5927811750825293}, 'CPHASE': {'num_tslots': 8, 'evo_time': 2.235955802895409}, 'RZ': {'num_tslots': 7, 'evo_time': 0.8999370985984344}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.9598892944699835}},){}=None. Resending it...
+[2025-02-23 08:41:48,364] _types    (b'127.0.0.1:59146') WARNING b'127.0.0.1:59146': Received an unexpected future: (b'127.0.0.1:59146', 166)
+[2025-02-23 08:41:55,803] _types    (b'127.0.0.1:59146') WARNING b'127.0.0.1:59146': Received an unexpected future: (b'127.0.0.1:59146', 171)
+[2025-02-23 08:41:55,804] _types    (b'127.0.0.1:59146') WARNING b'127.0.0.1:59146': Received an unexpected future: (b'127.0.0.1:59146', 173)
+[2025-02-23 08:42:06,342] _types    (b'127.0.0.1:59146') WARNING b'127.0.0.1:59146': Received an unexpected future: (b'127.0.0.1:59146', 233)
+[2025-02-23 08:52:54,246] scoopzmq  (b'127.0.0.1:59146') WARNING Lost track of future (b'127.0.0.1:59146', 538):evaluate({'SNOT': {'num_tslots': 5, 'evo_time': 1.29159600544212}, 'X': {'num_tslots': 4, 'evo_time': 0.6687967855365569}, 'CNOT': {'num_tslots': 6, 'evo_time': 0.48070401689675957}, 'SWAP': {'num_tslots': 6, 'evo_time': 0.5927811750825293}, 'CPHASE': {'num_tslots': 8, 'evo_time': 1.0068749990419723}, 'RZ': {'num_tslots': 7, 'evo_time': 0.8999370985984344}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.9598892944699835}},){}=None. Resending it...
+[2025-02-23 08:52:54,248] scoopzmq  (b'127.0.0.1:59146') WARNING Lost track of future (b'127.0.0.1:59146', 539):evaluate({'SNOT': {'num_tslots': 5, 'evo_time': 1.29159600544212}, 'X': {'num_tslots': 4, 'evo_time': 0.6687967855365569}, 'CNOT': {'num_tslots': 6, 'evo_time': 0.48070401689675957}, 'SWAP': {'num_tslots': 7, 'evo_time': 4.9338895035857195}, 'CPHASE': {'num_tslots': 8, 'evo_time': 1.0068749990419723}, 'RZ': {'num_tslots': 7, 'evo_time': 0.8999370985984344}, 'GLOBALPHASE': {'num_tslots': 9, 'evo_time': 1.9598892944699835}},){}=None. Resending it...
+[2025-02-23 08:53:05,837] _types    (b'127.0.0.1:59146') WARNING b'127.0.0.1:59146': Received an unexpected future: (b'127.0.0.1:59146', 539)
+[2025-02-23 08:53:13,437] _types    (b'127.0.0.1:59146') WARNING b'127.0.0.1:59146': Received an unexpected future: (b'127.0.0.1:59146', 538)
+[2025-02-23 08:59:53,127] scoopzmq  (b'127.0.0.1:59146') WARNING Lost track of future (b'127.0.0.1:59146', 769):evaluate({'SNOT': {'num_tslots': 5, 'evo_time': 1.29159600544212}, 'X': {'num_tslots': 4, 'evo_time': 0.6687967855365569}, 'CNOT': {'num_tslots': 6, 'evo_time': 0.48070401689675957}, 'SWAP': {'num_tslots': 6, 'evo_time': 0.5927811750825293}, 'CPHASE': {'num_tslots': 8, 'evo_time': 2.235955802895409}, 'RZ': {'num_tslots': 7, 'evo_time': 0.11475642667095978}, 'GLOBALPHASE': {'num_tslots': 4, 'evo_time': 0.3341502250086703}},){}=None. Resending it...
+[2025-02-23 08:59:53,128] scoopzmq  (b'127.0.0.1:59146') WARNING Lost track of future (b'127.0.0.1:59146', 771):evaluate({'SNOT': {'num_tslots': 5, 'evo_time': 1.29159600544212}, 'X': {'num_tslots': 4, 'evo_time': 0.6687967855365569}, 'CNOT': {'num_tslots': 1, 'evo_time': 7.71200773711221}, 'SWAP': {'num_tslots': 6, 'evo_time': 0.5927811750825293}, 'CPHASE': {'num_tslots': 8, 'evo_time': 2.235955802895409}, 'RZ': {'num_tslots': 7, 'evo_time': 0.8999370985984344}, 'GLOBALPHASE': {'num_tslots': 4, 'evo_time': 0.3341502250086703}},){}=None. Resending it...
+[2025-02-23 08:59:53,129] scoopzmq  (b'127.0.0.1:59146') WARNING Lost track of future (b'127.0.0.1:59146', 772):evaluate({'SNOT': {'num_tslots': 5, 'evo_time': 1.29159600544212}, 'X': {'num_tslots': 4, 'evo_time': 0.6687967855365569}, 'CNOT': {'num_tslots': 6, 'evo_time': 0.48070401689675957}, 'SWAP': {'num_tslots': 6, 'evo_time': 0.5927811750825293}, 'CPHASE': {'num_tslots': 8, 'evo_time': 2.235955802895409}, 'RZ': {'num_tslots': 1, 'evo_time': 2.75602660975975}, 'GLOBALPHASE': {'num_tslots': 4, 'evo_time': 0.3341502250086703}},){}=None. Resending it...
+[2025-02-23 09:00:08,869] _types    (b'127.0.0.1:59146') WARNING b'127.0.0.1:59146': Received an unexpected future: (b'127.0.0.1:59146', 772)
+[2025-02-23 09:00:08,869] _types    (b'127.0.0.1:59146') WARNING b'127.0.0.1:59146': Received an unexpected future: (b'127.0.0.1:59146', 771)
+[2025-02-23 09:00:08,870] _types    (b'127.0.0.1:59146') WARNING b'127.0.0.1:59146': Received an unexpected future: (b'127.0.0.1:59146', 769)
+[2025-02-23 09:04:26,711] scoopzmq  (b'127.0.0.1:59146') WARNING Lost track of future (b'127.0.0.1:59146', 956):evaluate({'SNOT': {'num_tslots': 5, 'evo_time': 0.2171540984734097}, 'X': {'num_tslots': 4, 'evo_time': 0.6687967855365569}, 'CNOT': {'num_tslots': 12, 'evo_time': 6.702598491759288}, 'SWAP': {'num_tslots': 6, 'evo_time': 0.5927811750825293}, 'CPHASE': {'num_tslots': 8, 'evo_time': 2.235955802895409}, 'RZ': {'num_tslots': 7, 'evo_time': 0.8999370985984344}, 'GLOBALPHASE': {'num_tslots': 4, 'evo_time': 0.3341502250086703}},){}=None. Resending it...
+[2025-02-23 09:04:56,778] _types    (b'127.0.0.1:59146') WARNING b'127.0.0.1:59146': Received an unexpected future: (b'127.0.0.1:59146', 956)
+[2025-02-23 09:06:57,016] scoopzmq  (b'127.0.0.1:59146') WARNING Lost track of future (b'127.0.0.1:59146', 1076):evaluate({'SNOT': {'num_tslots': 3, 'evo_time': 1.0473544044002616}, 'X': {'num_tslots': 3, 'evo_time': 0.9580707705009279}, 'CNOT': {'num_tslots': 6, 'evo_time': 8.830823339272193}, 'SWAP': {'num_tslots': 6, 'evo_time': 0.5927811750825293}, 'CPHASE': {'num_tslots': 8, 'evo_time': 2.235955802895409}, 'RZ': {'num_tslots': 3, 'evo_time': 0.4230596334910032}, 'GLOBALPHASE': {'num_tslots': 4, 'evo_time': 0.3341502250086703}},){}=None. Resending it...
+[2025-02-23 09:07:09,408] _types    (b'127.0.0.1:59146') WARNING b'127.0.0.1:59146': Received an unexpected future: (b'127.0.0.1:59146', 1076)
+[2025-02-23 09:08:17,804] scoopzmq  (b'127.0.0.1:59146') WARNING Lost track of future (b'127.0.0.1:59146', 1080):evaluate({'SNOT': {'num_tslots': 5, 'evo_time': 0.2171540984734097}, 'X': {'num_tslots': 1, 'evo_time': 0.7422090469358291}, 'CNOT': {'num_tslots': 6, 'evo_time': 0.48070401689675957}, 'SWAP': {'num_tslots': 6, 'evo_time': 4.219821971400954}, 'CPHASE': {'num_tslots': 8, 'evo_time': 2.235955802895409}, 'RZ': {'num_tslots': 3, 'evo_time': 0.4230596334910032}, 'GLOBALPHASE': {'num_tslots': 8, 'evo_time': 2.802202049541698}},){}=None. Resending it...
+[2025-02-23 09:08:24,661] _types    (b'127.0.0.1:59146') WARNING b'127.0.0.1:59146': Received an unexpected future: (b'127.0.0.1:59146', 1080)
+
+Fidelity WITHOUT optimization for QFT_4Q_No_Opt: 0.2522
+Method 'evaluate' successfully registered in the toolbox.
+gen	nevals	avg     	std        	min     	max     	diversity
+0  	100   	0.251671	0.000931805	0.249929	0.253928	3.14116  
+1  	65    	0.251892	0.00113463 	0.248464	0.255447	3.72961  
+2  	70    	0.252149	0.00130322 	0.247967	0.255447	4.26617  
+3  	64    	0.25218 	0.00125748 	0.249193	0.255447	4.09389  
+4  	53    	0.25246 	0.00139563 	0.249325	0.255447	4.58203  
+5  	61    	0.252676	0.00152051 	0.249717	0.255941	4.38339  
+6  	63    	0.252954	0.00247149 	0.248843	0.265957	4.34155  
+7  	63    	0.25286 	0.00149201 	0.249583	0.255941	4.64056  
+8  	49    	0.253025	0.00174055 	0.249347	0.255941	4.23758  
+9  	56    	0.253183	0.00183811 	0.249104	0.256629	4.54471  
+10 	68    	0.253273	0.00187041 	0.248807	0.257448	4.64711  
+11 	61    	0.253958	0.00264106 	0.249585	0.264877	4.767    
+12 	64    	0.254061	0.00285619 	0.248837	0.264895	4.84251  
+13 	62    	0.254507	0.00348692 	0.24856 	0.26503 	4.84302  
+14 	57    	0.255831	0.00409047 	0.249169	0.265092	4.86105  
+15 	63    	0.257689	0.00491502 	0.248496	0.266009	4.96054  
+16 	57    	0.260641	0.00474792 	0.251225	0.266403	4.83065  
+17 	66    	0.262231	0.00475689 	0.251073	0.269001	4.64727  
+18 	71    	0.262346	0.00489536 	0.250108	0.268262	4.70919  
+19 	70    	0.26333 	0.00476878 	0.249771	0.268262	4.20359  
+Improvement 0.0101 >= threshold => Decrease mutation/crossover.
+20 	59    	0.265017	0.00386856 	0.250009	0.268648	4.54642  
+21 	62    	0.264817	0.00482771 	0.251032	0.270597	4.59242  
+22 	57    	0.266674	0.00324854 	0.25173 	0.270597	4.27395  
+23 	54    	0.265683	0.00503566 	0.250502	0.270597	4.32798  
+No improvement in the last 15 generations. Stopping early.
+
+Best individual for QFT_4Q_With_Opt: {'SNOT': {'num_tslots': 5, 'evo_time': 0.2171540984734097}, 'X': {'num_tslots': 1, 'evo_time': 0.7422090469358291}, 'CNOT': {'num_tslots': 6, 'evo_time': 0.48070401689675957}, 'SWAP': {'num_tslots': 9, 'evo_time': 1.1129295067058012}, 'CPHASE': {'num_tslots': 3, 'evo_time': 3.3959855817315834}, 'RZ': {'num_tslots': 3, 'evo_time': 0.4230596334910032}, 'GLOBALPHASE': {'num_tslots': 4, 'evo_time': 0.21160003574201894}}
+Fidelity (best_individual): 0.2667
+
+Total experiment time: 2636.15 seconds
+
+Fidelity comparison plot saved at output_circuits/QFT_4Q_2025-02-23_08-31-54/QFT_4Q_fidelities_comparison.jpg
+[2025-02-23 09:15:51,000] launcher  (127.0.0.1:52580) INFO    Root process is done.
+[2025-02-23 09:15:51,000] launcher  (127.0.0.1:52580) INFO    Finished cleaning spawned subprocesses.

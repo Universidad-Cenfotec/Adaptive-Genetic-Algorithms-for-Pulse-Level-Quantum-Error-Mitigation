@@ -31,7 +31,7 @@ class GeneticOptimizer:
         crossover_probability=0.5,
         feedback_threshold=0.01,
         feedback_interval=10,
-        early_stopping_rounds=30,
+        early_stopping_rounds=150,
         diversity_threshold=1.8,
         diversity_action="mutate",  # or 'replace'
     ):
@@ -138,11 +138,32 @@ class GeneticOptimizer:
             individual["CNOT"]["num_tslots"] = rng.integers(1, 20)
             individual["CNOT"]["evo_time"] = rng.uniform(0.1, 10)
 
+        def mutate_swap(individual):
+            individual["SWAP"]["num_tslots"] = rng.integers(1, 15)
+            individual["SWAP"]["evo_time"] = rng.uniform(0.1, 5)
+
+        def mutate_cphase(individual):
+            individual["CPHASE"]["num_tslots"] = rng.integers(1, 15)
+            individual["CPHASE"]["evo_time"] = rng.uniform(0.1, 5)
+
+        def mutate_rz(individual):
+            individual["RZ"]["num_tslots"] = rng.integers(1, 10)
+            individual["RZ"]["evo_time"] = rng.uniform(0.1, 3)
+
+        def mutate_globalphase(individual):
+            individual["GLOBALPHASE"]["num_tslots"] = rng.integers(1, 10)
+            individual["GLOBALPHASE"]["evo_time"] = rng.uniform(0.1, 3)
+
         dispatcher = {
             "SNOT": mutate_snot,
             "X": mutate_x,
             "CNOT": mutate_cnot,
+            "SWAP": mutate_swap,
+            "CPHASE": mutate_cphase,
+            "RZ": mutate_rz,
+            "GLOBALPHASE": mutate_globalphase,
         }
+
         key = secrets.choice(list(ind.keys()))
         dispatcher[key](ind)
         return (ind,)
