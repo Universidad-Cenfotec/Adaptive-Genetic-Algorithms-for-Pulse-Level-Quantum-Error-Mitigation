@@ -57,6 +57,12 @@ Technologies:
 
 ```plaintext
 quantum_optimization/
+├── IEEE Quantum Week Conference Data for Review/ 
+│   ├── {algorithm}
+│       ├── Full Output Circuit Information
+│       ├── Logs
+│       ├── Summary of Results
+│   ├── instructions.md # Instructions for reviewing the data produced
 ├── circuits/                     # Quantum circuit definitions
 │   ├── __init__.py
 │   ├── deutsch_jozsa_circuit.py   # Deutsch-Jozsa circuit implementation
