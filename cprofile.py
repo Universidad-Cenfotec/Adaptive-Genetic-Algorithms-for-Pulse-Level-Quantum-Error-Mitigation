@@ -18,7 +18,7 @@ from src.visualizer import Visualizer
 
 warnings.filterwarnings("ignore")
 
-UNSUPPORTED_ALGORITHM_SPECIFIED = "Unsupported algorithm specified a."
+UNSUPPORTED_ALGORITHM_SPECIFIED = "Unsupported algorithm specified."
 
 
 def run_algorithm_without_optimization(
