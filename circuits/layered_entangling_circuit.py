@@ -18,7 +18,7 @@ class LayeredEntanglingCircuit(QuantumCircuitBase):
         circuit = QubitCircuit(self.num_qubits)
         rng = np.random.default_rng()
 
-        for layer in range(self.num_layers):
+        for _layer in range(self.num_layers):
             # SNOT layer
             for q in range(self.num_qubits):
                 circuit.add_gate("SNOT", targets=q)
