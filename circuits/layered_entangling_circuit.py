@@ -3,6 +3,7 @@ from qutip_qip.circuit import QubitCircuit
 
 from src.quantum_circuit import QuantumCircuitBase
 
+
 class LayeredEntanglingCircuit(QuantumCircuitBase):
     """
     Circuit with repeated layers of entangling gates to increase

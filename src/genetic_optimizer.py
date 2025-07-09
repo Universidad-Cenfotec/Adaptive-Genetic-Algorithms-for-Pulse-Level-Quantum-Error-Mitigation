@@ -232,7 +232,7 @@ class GeneticOptimizer:
             offspring = list(map(self.toolbox.clone, offspring))
 
             # Crossover
-            for child1, child2 in zip(offspring[::2], offspring[1::2]):
+            for child1, child2 in zip(offspring[::2], offspring[1::2], strict=False):
                 if secrets.randbelow(100) < int(self.crossover_probability * 100):
                     self.toolbox.mate(child1, child2)
                     del child1.fitness.values
@@ -248,7 +248,7 @@ class GeneticOptimizer:
             invalid_ind = [ind for ind in offspring if not ind.fitness.valid]
             if invalid_ind:
                 fitnesses = self.toolbox.map(self.toolbox.evaluate, invalid_ind)
-                for ind, fit in zip(invalid_ind, fitnesses):
+                for ind, fit in zip(invalid_ind, fitnesses, strict=False):
                     ind.fitness.values = fit
 
             # Replace population
@@ -321,6 +321,6 @@ class GeneticOptimizer:
         invalid_ind = [ind for ind in population if not ind.fitness.valid]
         if invalid_ind:
             fitnesses = self.toolbox.map(self.toolbox.evaluate, invalid_ind)
-            for ind, fit in zip(invalid_ind, fitnesses):
+            for ind, fit in zip(invalid_ind, fitnesses, strict=False):
                 ind.fitness.values = fit
         print("Re-evaluated fitness for affected individuals after diversity action.")

@@ -9,13 +9,12 @@ from pathlib import Path
 from qutip import Options, fidelity
 from qutip_qip.device import OptPulseProcessor, SpinChainModel
 
-from circuits.layered_entangling_circuit import LayeredEntanglingCircuit
-from circuits.random_universal_circuit import RandomUniversalCircuit
 from circuits.bernstein_vaizirani_circuit import BernsteinVaziraniCircuit
 from circuits.deutsch_jozsa_circuit import DeutschJozsaCircuit
 from circuits.grover_circuit import GroverCircuit
-from circuits.inverse_quantum_fourier_transformation import InverseQuantumFourierCircuit
+from circuits.layered_entangling_circuit import LayeredEntanglingCircuit
 from circuits.quantum_fourier_transformation import QuantumFourierCircuit
+from circuits.random_universal_circuit import RandomUniversalCircuit
 from src.csv_logger import CSVLogger
 from src.evaluator import Evaluator
 from src.gate_config import DEFAULT_SETTING_ARGS

@@ -3,6 +3,7 @@ from qutip_qip.circuit import QubitCircuit
 
 from src.quantum_circuit import QuantumCircuitBase
 
+
 class RandomUniversalCircuit(QuantumCircuitBase):
     """
     Random universal circuit with many gates of various types
