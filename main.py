@@ -9,6 +9,8 @@ from pathlib import Path
 from qutip import Options, fidelity
 from qutip_qip.device import OptPulseProcessor, SpinChainModel
 
+from circuits.layered_entangling_circuit import LayeredEntanglingCircuit
+from circuits.random_universal_circuit import RandomUniversalCircuit
 from circuits.bernstein_vaizirani_circuit import BernsteinVaziraniCircuit
 from circuits.deutsch_jozsa_circuit import DeutschJozsaCircuit
 from circuits.grover_circuit import GroverCircuit
@@ -153,8 +155,22 @@ def main():
         parser = argparse.ArgumentParser(
             description="Run quantum algorithms with or without GA optimization under noise."
         )
-        parser.add_argument("--algorithm", type=str, choices=["grover", "deutsch-jozsa", "bernstein-vazirani", "qft", "iqft"], required=True,
-                            help="Specify which algorithm to run: 'grover' or 'deutsch-jozsa'.")
+
+        parser.add_argument(
+            "--algorithm",
+            type=str,
+            choices=[
+                "grover",
+                "deutsch-jozsa",
+                "bernstein-vazirani",
+                "qft",
+                "iqft",
+                "random-universal",
+                "layered-entangling",
+            ],
+            required=True,
+            help="Specify which algorithm to run."
+        )
         parser.add_argument("--num_qubits", type=int, default=4, help="Number of qubits to use in the circuit.")
         parser.add_argument("--num_generations", type=int, default=100, help="Generations for GA.")
         parser.add_argument("--population_size", type=int, default=50, help="Population size for GA.")
@@ -179,7 +195,13 @@ def main():
             quantum_circuit = QuantumFourierCircuit(args.num_qubits)
         elif args.algorithm == "iqft":
             circuit_name = f"IQFT_{args.num_qubits}Q"
-            quantum_circuit = InverseQuantumFourierCircuit(args.num_qubits)
+        elif args.algorithm == "random-universal":
+            circuit_name = f"RandomUniversal_{args.num_qubits}Q"
+            quantum_circuit = RandomUniversalCircuit(args.num_qubits)
+        elif args.algorithm == "layered-entangling":
+            circuit_name = f"LayeredEntangling_{args.num_qubits}Q"
+            quantum_circuit = LayeredEntanglingCircuit(args.num_qubits, num_layers=5)
+
         else:
             raise ValueError(UNSUPPORTED_ALGORITHM_SPECIFIED)  # noqa: TRY301
 

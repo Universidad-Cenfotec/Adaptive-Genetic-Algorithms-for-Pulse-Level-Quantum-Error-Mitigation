@@ -17,6 +17,12 @@ SCENARIOS=(
     "qft 4 30 15 0.01 0.01"
     "qft 4 50 30 0.02 0.02"
     "qft 4 100 60 0.05 0.05"
+    "random-universal 4 30 15 0.01 0.01"
+    "random-universal 4 50 30 0.02 0.02"
+    "random-universal 4 100 60 0.05 0.05"
+    "layered-entangling 4 30 15 0.01 0.01"
+    "layered-entangling 4 50 30 0.02 0.02"
+    "layered-entangling 4 100 60 0.05 0.05"
 )
 
 # Experiment parameters
