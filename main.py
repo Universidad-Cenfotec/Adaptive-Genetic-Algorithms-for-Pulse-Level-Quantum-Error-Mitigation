@@ -9,12 +9,18 @@ from pathlib import Path
 from qutip import Options, fidelity
 from qutip_qip.device import OptPulseProcessor, SpinChainModel
 
+from circuits.bell_circuit import BellCircuit
 from circuits.bernstein_vaizirani_circuit import BernsteinVaziraniCircuit
 from circuits.deutsch_jozsa_circuit import DeutschJozsaCircuit
+from circuits.ghz_circuit import GHZCircuit
 from circuits.grover_circuit import GroverCircuit
 from circuits.layered_entangling_circuit import LayeredEntanglingCircuit
 from circuits.quantum_fourier_transformation import QuantumFourierCircuit
 from circuits.random_universal_circuit import RandomUniversalCircuit
+from circuits.single_qubit_pi_circuit import SingleQubitPiCircuit
+from circuits.teleportation_pre_measurement_circuit import (
+    TeleportationPreMeasurementCircuit,
+)
 from src.csv_logger import CSVLogger
 from src.evaluator import Evaluator
 from src.gate_config import DEFAULT_SETTING_ARGS
@@ -54,12 +60,32 @@ def run_algorithm_without_optimization(
 
     # Write CSV summary
     logger.write_summary_no_optimization(noise_model, fidelity_no_opt)
-    processor_no_opt.plot_pulses(title=f"Pulses without optimization {circuit_name}", dpi=600)[0].savefig(output_dir/"pulseswithoutoptimization")
+
+    noise_free = not getattr(noise_model, "enabled", True)
+    pulses_title = f"Pulses without optimization {circuit_name}"
+    pulses_path = output_dir / "pulseswithoutoptimization"
+    if noise_free:
+        pulses_title += " (noise-free)"
+        pulses_path = output_dir / "pulseswithoutoptimization_noise_free"
+        logger.write_pulses(
+            processor_no_opt,
+            filename_suffix="_pulses_no_optimization_noise_free.csv"
+        )
+
+    processor_no_opt.plot_pulses(title=pulses_title, dpi=600)[0].savefig(pulses_path)
     # Visualization
+    vis_filename = output_dir / f"{circuit_name}_non_optimized_pulses.jpg"
+    if noise_free:
+        vis_filename = output_dir / f"{circuit_name}_non_optimized_pulses_noise_free.jpg"
+
+    vis_title = f"Pulses without optimization {circuit_name}"
+    if noise_free:
+        vis_title += " (noise-free)"
+
     Visualizer.plot_pulses(
         processor_no_opt,
-        f"Optimized Pulses for {circuit_name}",
-        filename=output_dir / f"{circuit_name}_non_optimized_pulses.jpg"
+        vis_title,
+        filename=vis_filename
     )
     return fidelity_no_opt
 
@@ -166,6 +192,10 @@ def main():
                 "iqft",
                 "random-universal",
                 "layered-entangling",
+                "bell",
+                "teleportation-pre-meas",
+                "ghz",
+                "single-qubit-pi",
             ],
             required=True,
             help="Specify which algorithm to run."
@@ -177,7 +207,13 @@ def main():
         parser.add_argument("--t2", type=float, default=30.0, help="T2 dephasing time.")
         parser.add_argument("--bit_flip_prob", type=float, default=0.02, help="Bit-flip probability.")
         parser.add_argument("--phase_flip_prob", type=float, default=0.02, help="Phase-flip probability.")
+        parser.add_argument(
+            "--disable-noise",
+            action="store_true",
+            help="Disable all noise channels (noise-free simulation)."
+        )
         args = parser.parse_args()
+        default_num_qubits = parser.get_default("num_qubits")
 
         # Choose circuit
         if args.algorithm == "grover":
@@ -194,6 +230,42 @@ def main():
             quantum_circuit = QuantumFourierCircuit(args.num_qubits)
         elif args.algorithm == "iqft":
             circuit_name = f"IQFT_{args.num_qubits}Q"
+        elif args.algorithm == "bell":
+            required_qubits = 2
+            if args.num_qubits != required_qubits:
+                if args.num_qubits != default_num_qubits:
+                    msg = "Bell circuit requires exactly 2 qubits."
+                    raise ValueError(msg)
+                args.num_qubits = required_qubits
+            circuit_name = f"Bell_{args.num_qubits}Q"
+            quantum_circuit = BellCircuit(args.num_qubits)
+        elif args.algorithm == "teleportation-pre-meas":
+            required_qubits = 3
+            if args.num_qubits != required_qubits:
+                if args.num_qubits != default_num_qubits:
+                    msg = "Teleportation pre-measurement circuit requires exactly 3 qubits."
+                    raise ValueError(msg)
+                args.num_qubits = required_qubits
+            circuit_name = f"TeleportationPreMeas_{args.num_qubits}Q"
+            quantum_circuit = TeleportationPreMeasurementCircuit(args.num_qubits)
+        elif args.algorithm == "ghz":
+            required_qubits = 3
+            if args.num_qubits != required_qubits:
+                if args.num_qubits != default_num_qubits:
+                    msg = "GHZ circuit requires exactly 3 qubits."
+                    raise ValueError(msg)
+                args.num_qubits = required_qubits
+            circuit_name = f"GHZ_{args.num_qubits}Q"
+            quantum_circuit = GHZCircuit(args.num_qubits)
+        elif args.algorithm == "single-qubit-pi":
+            required_qubits = 1
+            if args.num_qubits != required_qubits:
+                if args.num_qubits != default_num_qubits:
+                    msg = "Single-qubit π circuit requires exactly 1 qubit."
+                    raise ValueError(msg)
+                args.num_qubits = required_qubits
+            circuit_name = f"SingleQubitPi_{args.num_qubits}Q"
+            quantum_circuit = SingleQubitPiCircuit(args.num_qubits)
         elif args.algorithm == "random-universal":
             circuit_name = f"RandomUniversal_{args.num_qubits}Q"
             quantum_circuit = RandomUniversalCircuit(args.num_qubits)
@@ -216,6 +288,7 @@ def main():
             t2=args.t2,
             bit_flip_prob=args.bit_flip_prob,
             phase_flip_prob=args.phase_flip_prob,
+            enabled=not args.disable_noise,
         )
 
         # Create CSV logger

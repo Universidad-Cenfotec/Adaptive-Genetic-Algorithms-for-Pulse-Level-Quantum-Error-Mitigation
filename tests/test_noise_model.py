@@ -237,5 +237,14 @@ class TestNoiseModel(unittest.TestCase):
             np.testing.assert_allclose(op.full(), expected_op.full(),
                                        err_msg=f"Collapse operator at index {i} is not correctly scaled.")
 
+    def test_noise_disabled(self):
+        """
+        Verifies that disabling noise yields an empty list of collapse operators.
+        """
+        noise_model = NoiseModel(num_qubits=3, enabled=False)
+        self.assertFalse(noise_model.enabled, "Noise model should report disabled state.")
+        self.assertEqual(len(noise_model.c_ops), 0, "c_ops should be empty when noise is disabled.")
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -10,7 +10,15 @@ class NoiseModel:
     Encapsulates the creation of noise channels.
     """
 
-    def __init__(self, num_qubits, t1=30.0, t2=15.0, bit_flip_prob=0.05, phase_flip_prob=0.05):
+    def __init__(
+        self,
+        num_qubits,
+        t1=30.0,
+        t2=15.0,
+        bit_flip_prob=0.05,
+        phase_flip_prob=0.05,
+        enabled=True,
+    ):
         if num_qubits < 0:
             raise ValueError(NON_NEGATIVE_QUBIT_ERROR)
         self.num_qubits = num_qubits
@@ -18,7 +26,8 @@ class NoiseModel:
         self.t2 = t2
         self.bit_flip_prob = bit_flip_prob
         self.phase_flip_prob = phase_flip_prob
-        self.c_ops = self._create_noise_channels()
+        self.enabled = enabled
+        self.c_ops = self._create_noise_channels() if self.enabled else []
 
     def _create_noise_channels(self):
         """
