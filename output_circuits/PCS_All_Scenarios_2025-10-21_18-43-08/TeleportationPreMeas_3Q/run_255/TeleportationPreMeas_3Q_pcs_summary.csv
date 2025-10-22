@@ -1,0 +1,10 @@
+scenario,channel,tdc,fdc,pcs
+Teleportation pre-meas (3q) (run 255),global,,,29.873680
+Teleportation pre-meas (3q) (run 255),pulse_channel_1,3.981484,68.630091,36.305787
+Teleportation pre-meas (3q) (run 255),pulse_channel_2,3.926755,58.319911,31.123333
+Teleportation pre-meas (3q) (run 255),pulse_channel_3,3.953709,52.887033,28.420371
+Teleportation pre-meas (3q) (run 255),pulse_channel_4,4.340533,50.379372,27.359952
+Teleportation pre-meas (3q) (run 255),pulse_channel_5,4.081740,53.010191,28.545965
+Teleportation pre-meas (3q) (run 255),pulse_channel_6,4.315630,55.931746,30.123688
+Teleportation pre-meas (3q) (run 255),pulse_channel_7,4.000674,58.324635,31.162654
+Teleportation pre-meas (3q) (run 255),pulse_channel_8,3.720483,50.161738,26.941111

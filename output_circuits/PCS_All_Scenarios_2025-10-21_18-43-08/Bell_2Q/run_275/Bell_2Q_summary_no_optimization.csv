@@ -1,0 +1,2 @@
+circuit_name,noise_enabled,t1,t2,bit_flip_prob,phase_flip_prob,fidelity
+Bell_2Q,False,30.0,15.0,0.05,0.05,0.9999999713192237

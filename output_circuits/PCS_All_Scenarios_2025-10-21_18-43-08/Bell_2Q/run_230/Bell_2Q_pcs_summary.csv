@@ -1,0 +1,7 @@
+scenario,channel,tdc,fdc,pcs
+Bell (2q) (run 230),global,,,36.843566
+Bell (2q) (run 230),pulse_channel_1,5.165214,74.396549,39.780881
+Bell (2q) (run 230),pulse_channel_2,3.743486,68.190548,35.967017
+Bell (2q) (run 230),pulse_channel_3,5.224876,66.992133,36.108505
+Bell (2q) (run 230),pulse_channel_4,4.365311,67.501824,35.933567
+Bell (2q) (run 230),pulse_channel_5,5.560545,67.578560,36.569553

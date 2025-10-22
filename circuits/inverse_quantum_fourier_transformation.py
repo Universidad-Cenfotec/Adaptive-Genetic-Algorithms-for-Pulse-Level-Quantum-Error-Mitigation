@@ -1,6 +1,7 @@
 import numpy as np
 from qutip import Qobj
 from qutip_qip.circuit import Gate, QubitCircuit
+from qutip_qip.decompose import decompose_one_qubit_gate
 
 from src.quantum_circuit import QuantumCircuitBase
 
@@ -100,8 +101,6 @@ class InverseQuantumFourierCircuit(QuantumCircuitBase):
         Decompose a controlled-phase gate into CNOT + single-qubit rotations,
         supporting negative angles. Mirrors the approach used in the QFT code.
         """
-        from qutip_qip.decompose import decompose_one_qubit_gate
-
         rotation = Qobj([[1.0, 0.0],
                          [0.0, np.exp(1.0j * arg_value)]])
         decomposed_gates = list(decompose_one_qubit_gate(rotation, method="ZYZ_PauliX"))

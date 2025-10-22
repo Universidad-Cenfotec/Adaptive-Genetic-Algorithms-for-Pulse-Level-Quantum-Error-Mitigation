@@ -1,0 +1,9 @@
+scope,name,metric,mean,std,min,max
+global,Single-qubit pi (1q),PCS,30.261798,37.646539,0.000000,307.394148
+global,Single-qubit pi (1q),Fidelity,1.000000,0.000000,1.000000,1.000000
+channel,pulse_channel_1,TDC,4.669783,8.438238,0.000000,65.179864
+channel,pulse_channel_1,FDC,46.832482,46.657409,0.000000,289.260975
+channel,pulse_channel_1,PCS,25.751132,26.809805,0.000000,177.220419
+channel,pulse_channel_2,TDC,4.604869,7.907184,0.000000,76.034721
+channel,pulse_channel_2,FDC,72.407116,111.250378,0.000000,990.334073
+channel,pulse_channel_2,PCS,38.505992,59.246951,0.000000,533.184397

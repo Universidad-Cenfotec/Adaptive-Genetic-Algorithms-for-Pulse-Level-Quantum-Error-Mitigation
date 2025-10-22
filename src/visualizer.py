@@ -71,7 +71,6 @@ class Visualizer:
 
     @staticmethod
     def plot_parameter_evolution(pop, parameters, filename_prefix="parameter_evolution"):
-        import seaborn as sns
         for gate in parameters:
             num_tslots = [ind[gate]["num_tslots"] for ind in pop]
             evo_time = [ind[gate]["evo_time"] for ind in pop]
@@ -148,7 +147,6 @@ class Visualizer:
 
     @staticmethod
     def plot_histogram_parameters(pop, parameters, filename_prefix="histogram_parameters"):
-        import seaborn as sns
 
         population_data = []
         for ind in pop:

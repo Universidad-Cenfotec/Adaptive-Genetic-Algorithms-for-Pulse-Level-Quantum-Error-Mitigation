@@ -17,7 +17,7 @@ class CSVLogger:
         """
         summary_file = self.output_dir / f"{self.circuit_name}_summary_no_optimization.csv"
         fieldnames = [
-            "circuit_name", "t1", "t2",
+            "circuit_name", "noise_enabled", "t1", "t2",
             "bit_flip_prob", "phase_flip_prob", "fidelity"
         ]
 
@@ -29,6 +29,7 @@ class CSVLogger:
 
             writer.writerow({
                 "circuit_name": self.circuit_name,
+                "noise_enabled": getattr(noise_model, "enabled", True),
                 "t1": noise_model.t1,
                 "t2": noise_model.t2,
                 "bit_flip_prob": noise_model.bit_flip_prob,
@@ -49,7 +50,7 @@ class CSVLogger:
         """
         summary_file = self.output_dir / f"{self.circuit_name}_summary_optimization.csv"
         fieldnames = [
-            "circuit_name", "population_size", "num_generations", "t1", "t2",
+            "circuit_name", "noise_enabled", "population_size", "num_generations", "t1", "t2",
             "bit_flip_prob", "phase_flip_prob", "best_individual", "best_fidelity"
         ]
 
@@ -61,6 +62,7 @@ class CSVLogger:
 
             writer.writerow({
                 "circuit_name": self.circuit_name,
+                "noise_enabled": getattr(noise_model, "enabled", True),
                 "population_size": population_size,
                 "num_generations": num_generations,
                 "t1": noise_model.t1,
