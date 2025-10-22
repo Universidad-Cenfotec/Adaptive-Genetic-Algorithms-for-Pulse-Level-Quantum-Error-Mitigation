@@ -22,7 +22,12 @@ UNSUPPORTED_ALGORITHM_SPECIFIED = "Unsupported algorithm specified."
 
 
 def run_algorithm_without_optimization(
-    quantum_circuit, num_qubits, circuit_name, noise_model, logger
+    quantum_circuit,
+    num_qubits,
+    circuit_name,
+    noise_model,
+    logger,
+    setting_args=None,
 ):
     """
     Runs the circuit under noise WITHOUT GA optimization, returns fidelity.
@@ -35,7 +40,9 @@ def run_algorithm_without_optimization(
         model=SpinChainModel(num_qubits, setup="linear"),
     )
     processor_no_opt.load_circuit(
-        quantum_circuit.circuit, setting_args=DEFAULT_SETTING_ARGS, merge_gates=False
+        quantum_circuit.circuit,
+        setting_args=setting_args or DEFAULT_SETTING_ARGS,
+        merge_gates=False
     )
 
     result_no_opt = processor_no_opt.run_state(

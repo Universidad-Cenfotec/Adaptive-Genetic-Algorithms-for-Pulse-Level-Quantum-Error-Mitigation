@@ -1,0 +1,4 @@
+scenario,channel,tdc,fdc,pcs
+Single-qubit pi (1q) (run 369),global,,,20.690744
+Single-qubit pi (1q) (run 369),pulse_channel_1,1.577296,32.693910,17.135603
+Single-qubit pi (1q) (run 369),pulse_channel_2,4.362626,45.604322,24.983474

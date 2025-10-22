@@ -1,0 +1,10 @@
+scenario,channel,tdc,fdc,pcs
+GHZ (3q) (run 37),global,,,7.908882
+GHZ (3q) (run 37),pulse_channel_1,1.802822,9.931695,5.867258
+GHZ (3q) (run 37),pulse_channel_2,1.618375,12.921021,7.269698
+GHZ (3q) (run 37),pulse_channel_3,0.203670,13.520326,6.861998
+GHZ (3q) (run 37),pulse_channel_4,1.509279,20.593291,11.051285
+GHZ (3q) (run 37),pulse_channel_5,1.272758,18.043957,9.658357
+GHZ (3q) (run 37),pulse_channel_6,0.820110,18.384937,9.602523
+GHZ (3q) (run 37),pulse_channel_7,0.622443,15.995880,8.309161
+GHZ (3q) (run 37),pulse_channel_8,0.224351,12.058233,6.141292
